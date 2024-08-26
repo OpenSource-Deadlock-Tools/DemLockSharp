@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using DemLock.Parser.Models;
 using DemLock.Utils;
+using Snappier;
 
 namespace DemLock.Parser;
 
@@ -44,12 +45,18 @@ internal class DemoFile: IDisposable
         var frame = new DemoFrame();
         uint rawCmd = _stream.ReadVarUInt32();
         frame.Command = (DemoFrameCommand)(rawCmd & ~64);
-        frame.IsCompressed = (rawCmd & 64) == 64;
         frame.Tick = _stream.ReadVarUInt32();
         if (frame.Tick == 4294967295) frame.Tick = 0;
+        // Read the size 
         frame.Size = _stream.ReadVarUInt32();
+        
+        // Read the raw data in
         frame.Data = new byte[frame.Size];
         var bytesRead = _stream.Read(frame.Data, 0, frame.Data.Length);
+        
+        // If the frame is compressed we will need to decompress it
+        if ((rawCmd & 64) == 64)
+            frame.Data = Snappy.DecompressToArray(frame.Data);
         
         return frame;
     }

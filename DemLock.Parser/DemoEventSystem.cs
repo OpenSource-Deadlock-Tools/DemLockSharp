@@ -18,5 +18,4 @@ public class DemoEventSystem
     public event EventHandler<OnFileHeaderEventArgs> OnFileHeader;
     internal void RaiseOnFileHeader(uint tick, CDemoFileHeader header) => OnFileHeader?.Invoke(this, new OnFileHeaderEventArgs(header, tick));
     internal DemoEventSystem(){}
-    
 }
