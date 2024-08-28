@@ -8,5 +8,8 @@
 /// </summary>
 public class DSerializer
 {
+    public string? Name { get; set; }
+    public int Version { get; set; }
+    public List<DField> Fields { get; set; }
     
 }

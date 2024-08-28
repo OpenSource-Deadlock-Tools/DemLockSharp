@@ -31,13 +31,15 @@ public class DemoParser
         _context.ClearContext();
         using DemoFile demo = new DemoFile(fileName);
         DemoFrame frame;
+        int i = 0;
         do
         {
             frame = demo.ReadFrame();
+            Console.WriteLine($"[{i}::{frame.Tick}] {frame.Command}({(int)frame.Command})");
             _frameHandler.HandleFrame(frame);
+            i++;
+            //if (i >= 50) break;
         } while (frame.Command != DemoFrameCommand.DEM_Stop);
-        
-        _context.PrintClasses();
     }
 
 }

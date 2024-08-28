@@ -13,6 +13,16 @@ public enum DemoFrameCommand
 	DEM_FileInfo = 2,
 	DEM_SyncTick = 3,
 	DEM_SendTables = 4,
+	/// <summary>
+	/// ID for the class info packet.
+	///
+	/// packet contains information about the classes that we will need to
+	/// deserialize as part of entity processing.
+	///
+	/// That is to say, we are given a bunch of type definitions so that we
+	/// do not need to reference changing versions of the game files
+	/// when we process the demo.
+	/// </summary>
 	DEM_ClassInfo = 5,
 	DEM_StringTables = 6,
 	DEM_Packet = 7,
