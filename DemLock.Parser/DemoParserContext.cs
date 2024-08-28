@@ -19,7 +19,7 @@ public class DemoParserContext
     /// to set it and hope it works for now.
     /// </summary>
     internal const int NumEHandleSerialNumberBits = 17;
-    public int ClassIDSize { get; set; }
+    public int ClassIdSize { get; set; }
     public int MaxPlayers { get; set; }
     private List<DClass> _classes;
     private List<DEntity> _entities;
@@ -27,9 +27,11 @@ public class DemoParserContext
     private List<DFieldType> _fieldTypes;
     private List<DField> _fields;
     private List<DSerializer> _serializers;
+    private List<StringTable> _stringTables;
 
     public DemoParserContext()
     {
+        _stringTables = new();
         _classes = new List<DClass>();
         _entities = new List<DEntity>();
         _fieldTypes = new List<DFieldType>();
@@ -42,6 +44,19 @@ public class DemoParserContext
     public void AddField(DField field)=> _fields.Add(field);
     public void AddSerializerRange(params DSerializer[] serializer) => _serializers.AddRange(serializer);
     public void AddSerializerRange(IEnumerable<DSerializer> serializer) => _serializers.AddRange(serializer);
+    public void AddStringTable(StringTable stringTable) => _stringTables.Add(stringTable);
+    
+    // TODO: Some sorta error handling would be nice here
+    public StringTable GetStringTableByIndex(int index) => _stringTables[index];
+    
+    /// <summary>
+    /// Given a string table index, and a set of raw data, pass in the raw data to the string table so
+    /// that it can get updated to the latest values
+    /// </summary>
+    /// <param name="index">The string table index we want to target</param>
+    /// <param name="rawData">The raw data containing the updates to be parsed</param>
+    /// <param name="numberOfUpdates">The number of changes that are in the raw data</param>
+    public void UpdateStringTableAtIndex(int index, byte[] rawData, int numberOfUpdates) => _stringTables[index].Update(rawData, numberOfUpdates);
 
     public void AddFieldType(DFieldType fieldType)
     {
@@ -102,5 +117,18 @@ public class DemoParserContext
             i++;
             if (i % 50 == 0) Console.ReadKey();
         }
+    }
+
+    public void PrintStringTables()
+    {
+        Console.WriteLine($"===String Tables===");
+        Console.WriteLine($"COUNT: {_stringTables.Count}");
+        int i = 0;
+        foreach (var st in _stringTables)
+        {
+            Console.WriteLine($"[{st.Name}::{i}] - {st.EntryCount}");
+            i++;
+        }
+        
     }
 }

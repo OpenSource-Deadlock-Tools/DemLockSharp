@@ -36,6 +36,48 @@ public class FrameHandler
             case DemoFrameCommand.DEM_Packet:
                 HandlePacket(frame);
                 break;
+            case DemoFrameCommand.DEM_SignonPacket:
+                HandleSignonPacket(frame);
+                break;
+            case DemoFrameCommand.DEM_FullPacket:
+                HandleFullPacket(frame);
+                break;
+        }
+    }
+
+    
+    /// <summary>
+    /// Handle a Full packet frame being received, this could likely be merged with handle packet,
+    /// but for clarity wanted to keep them explicit
+    /// </summary>
+    /// <param name="frame">The frame which contains the data to process</param>
+    private void HandleFullPacket(DemoFrame frame)
+    {
+        var packet = CDemoPacket.Parser.ParseFrom(frame.Data);
+        BitStream bs = new BitStream(packet.Data.ToByteArray());
+        while (bs.BitsRemaining > 8)
+        {
+            var msgtype = (MessageTypes)bs.ReadUBit();
+            var msgSize = bs.ReadVarUInt32();
+            byte[] msgData = bs.ReadBytes(msgSize);
+            _messageHandler.ProcessMessage(msgtype, msgData);
+        }
+    }
+    /// <summary>
+    /// Handle a signon packet frame ebing received, this could likely be merged with handle packet,
+    /// but for clarity wanted to keep them explicit
+    /// </summary>
+    /// <param name="frame">The frame which contains the data to process</param>
+    private void HandleSignonPacket(DemoFrame frame)
+    {
+        var packet = CDemoPacket.Parser.ParseFrom(frame.Data);
+        BitStream bs = new BitStream(packet.Data.ToByteArray());
+        while (bs.BitsRemaining > 8)
+        {
+            var msgtype = (MessageTypes)bs.ReadUBit();
+            var msgSize = bs.ReadVarUInt32();
+            byte[] msgData = bs.ReadBytes(msgSize);
+            _messageHandler.ProcessMessage(msgtype, msgData);
         }
     }
     
