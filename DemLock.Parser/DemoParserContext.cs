@@ -13,6 +13,14 @@ namespace DemLock.Parser;
 /// </summary>
 public class DemoParserContext
 {
+    /// <summary>
+    /// Absolutely zero idea why this is 17, but every parser I reference has this set.
+    /// For reference please check demofile-net, or Manta for the value... just going
+    /// to set it and hope it works for now.
+    /// </summary>
+    internal const int NumEHandleSerialNumberBits = 17;
+    public int ClassIDSize { get; set; }
+    public int MaxPlayers { get; set; }
     private List<DClass> _classes;
     private List<DEntity> _entities;
 
@@ -30,6 +38,7 @@ public class DemoParserContext
     }
 
     public void AddClass(DClass @class) => _classes.Add(@class);
+    public DClass? GetClassById(int classId) => _classes.FirstOrDefault(c => c.ClassId == classId);
     public void AddField(DField field)=> _fields.Add(field);
     public void AddSerializerRange(params DSerializer[] serializer) => _serializers.AddRange(serializer);
     public void AddSerializerRange(IEnumerable<DSerializer> serializer) => _serializers.AddRange(serializer);

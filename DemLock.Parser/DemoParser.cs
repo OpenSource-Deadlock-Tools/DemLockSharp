@@ -38,7 +38,7 @@ public class DemoParser
             //Console.WriteLine($"[{i}::{frame.Tick}] {frame.Command}({(int)frame.Command})");
             _frameHandler.HandleFrame(frame);
             i++;
-            //if (i >= 50) break;
+            if (i >= 50) break;
         } while (frame.Command != DemoFrameCommand.DEM_Stop);
         
         _context.PrintSerializers();

@@ -33,13 +33,29 @@ public class FrameHandler
             case DemoFrameCommand.DEM_SendTables:
                 HandleSendTables(frame);
                 break;
+            case DemoFrameCommand.DEM_Packet:
+                HandlePacket(frame);
+                break;
         }
     }
-
+    
     private void HandleFileHeader(DemoFrame frame)
     {
         var fileHeader = CDemoFileHeader.Parser.ParseFrom(frame.Data);
         _events.RaiseOnFileHeader(frame.Tick, fileHeader);
+    }
+
+    private void HandlePacket(DemoFrame frame)
+    {
+        var packet = CDemoPacket.Parser.ParseFrom(frame.Data);
+        BitStream bs = new BitStream(packet.Data.ToByteArray());
+        while (bs.BitsRemaining > 8)
+        {
+            var msgtype = (MessageTypes)bs.ReadUBit();
+            var msgSize = bs.ReadVarUInt32();
+            byte[] msgData = bs.ReadBytes(msgSize);
+            _messageHandler.ProcessMessage(msgtype, msgData);
+        }
     }
 
     /// <summary>
