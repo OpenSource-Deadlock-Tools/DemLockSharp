@@ -15,29 +15,24 @@ public class DemoParserContext
 {
     private List<DClass> _classes;
     private List<DEntity> _entities;
-    private Dictionary<string, DSerializer> _serializers;
 
     private List<DFieldType> _fieldTypes;
     private List<DField> _fields;
+    private List<DSerializer> _serializers;
 
     public DemoParserContext()
     {
         _classes = new List<DClass>();
         _entities = new List<DEntity>();
-        _serializers = new Dictionary<string, DSerializer>();
         _fieldTypes = new List<DFieldType>();
         _fields = new List<DField>();
+        _serializers = new();
     }
 
     public void AddClass(DClass @class) => _classes.Add(@class);
-
-    public DSerializer AddSerializer(DSerializer serializer)
-    {
-        _serializers[serializer.Name] = serializer;
-        return serializer;
-    }
-
     public void AddField(DField field)=> _fields.Add(field);
+    public void AddSerializerRange(params DSerializer[] serializer) => _serializers.AddRange(serializer);
+    public void AddSerializerRange(IEnumerable<DSerializer> serializer) => _serializers.AddRange(serializer);
 
     public void AddFieldType(DFieldType fieldType)
     {
@@ -82,6 +77,19 @@ public class DemoParserContext
         foreach (var fieldType in _fieldTypes)
         {
             Console.WriteLine($"[{i}] {fieldType.Name}::{fieldType.Count}::{fieldType.IsPointer}");
+            i++;
+            if (i % 50 == 0) Console.ReadKey();
+        }
+    }
+    
+    public void PrintSerializers()
+    {
+        Console.WriteLine($"Serializers --------[{_serializers.Count}]");
+        
+        int i = 0;
+        foreach (var sz in _serializers)
+        {
+            Console.WriteLine($"[{i}] {sz.Name}::{sz.Version}::{sz.Fields.Length}");
             i++;
             if (i % 50 == 0) Console.ReadKey();
         }

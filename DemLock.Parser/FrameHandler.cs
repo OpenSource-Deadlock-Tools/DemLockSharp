@@ -71,58 +71,41 @@ public class FrameHandler
 
         // Create the fields objects
         var symbols = msg.Symbols;
-        foreach (var field in msg.Fields)
+        //List<DField> fields = new List<DField>();
+        var fields = msg.Fields.Select(field =>
         {
             DField newField = new DField();
-            
+
             newField.Name = symbols[field.VarNameSym];
             var fieldType = DFieldType.Parse(symbols[field.VarTypeSym]);
             newField.FieldType = fieldType;
             _context.AddFieldType(fieldType);
             newField.SendNode = symbols[field.SendNodeSym];
-            
+
             var varEncoder = field.HasVarEncoderSym
                 ? symbols[field.VarEncoderSym]
                 : null;
             newField.SerializerName = symbols[field.FieldSerializerNameSym];
             newField.EncodingInfo = new DFieldEncodingInfo()
             {
-                VarEncoder= varEncoder,
-                BitCount= field.BitCount,
-                EncodeFlags= field.EncodeFlags,
-                LowValue= field.HasLowValue ? field.LowValue : default(float?),
-                HighValue= field.HasHighValue ? field.HighValue : default(float?)
+                VarEncoder = varEncoder,
+                BitCount = field.BitCount,
+                EncodeFlags = field.EncodeFlags,
+                LowValue = field.HasLowValue ? field.LowValue : default(float?),
+                HighValue = field.HasHighValue ? field.HighValue : default(float?)
             };
-
-            //var polymorphicTypes = field.PolymorphicTypes.Select(
-            //    polymorphicField => new SerializerKey(
-            //        symbols[polymorphicField.PolymorphicFieldSerializerNameSym],
-            //        polymorphicField.PolymorphicFieldSerializerVersion))
-            //    .ToArray();
-            var varSerializer = field.HasVarSerializerSym
-                ? symbols[field.VarSerializerSym]
-                : null;
-            
             _context.AddField(newField);
-        }
-        
+            return newField;
+        }).ToArray();
 
-        return;
-        
-        
-
-        foreach (var flatSerializer in msg.Serializers)
-        {
-            DSerializer serializer = _context.AddSerializer(new DSerializer()
-            {
-                Name = msg.Symbols[flatSerializer.SerializerNameSym],
-                Version = flatSerializer.SerializerVersion,
-                Fields = new List<DField>()
-            });
-
-            foreach (var i in flatSerializer.FieldsIndex)
-            {
-            }
-        }
+        List<DSerializer> serializers = msg.Serializers
+            .Select(sz => new DSerializer()
+                {
+                    Name = msg.Symbols[sz.SerializerNameSym],
+                    Version = sz.SerializerVersion,
+                    Fields = sz.FieldsIndex.Select(i => fields[i]).ToArray()
+                }
+            ).ToList();
+        _context.AddSerializerRange(serializers);
     }
 }
