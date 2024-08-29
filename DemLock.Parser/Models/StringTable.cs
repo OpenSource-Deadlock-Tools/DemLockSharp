@@ -49,7 +49,13 @@ public class StringTable
         if(data.Length > 0) 
             existingEntry.SetValue(data);
     }
-    
+
+    // TODO: update this to be a indexor override so it looks like I know what I'm doing
+    public IEnumerable<StringTableEntry> GetEntries()
+    {
+        foreach(var entry in _data)
+            yield return entry.Value;
+    }
     public void Update(byte[] rawData, int numberChanges)
     {
         ParseBuffer(rawData, numberChanges);

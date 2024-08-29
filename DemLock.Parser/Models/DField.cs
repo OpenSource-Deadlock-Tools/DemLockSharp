@@ -13,5 +13,9 @@ public class DField
     public string? SendNode { get; set; }
     public DFieldEncodingInfo EncodingInfo { get; set; }
     public string SerializerName { get; set; }
-    
+
+    public override string ToString()
+    {
+        return $"{Name}::{SerializerName}";
+    }
 }

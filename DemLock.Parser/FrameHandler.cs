@@ -143,7 +143,10 @@ public class FrameHandler
             var varEncoder = field.HasVarEncoderSym
                 ? symbols[field.VarEncoderSym]
                 : null;
-            newField.SerializerName = symbols[field.FieldSerializerNameSym];
+            if (field.HasFieldSerializerNameSym)
+                newField.SerializerName = symbols[field.FieldSerializerNameSym];
+            else newField.SerializerName = string.Empty;
+            
             newField.EncodingInfo = new DFieldEncodingInfo()
             {
                 VarEncoder = varEncoder,

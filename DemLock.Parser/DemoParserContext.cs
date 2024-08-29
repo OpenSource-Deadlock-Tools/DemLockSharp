@@ -29,6 +29,8 @@ public class DemoParserContext
     private List<DSerializer> _serializers;
     private List<StringTable> _stringTables;
 
+    private Dictionary<int, byte[]> _instanceBaselines;
+
     public DemoParserContext()
     {
         _stringTables = new();
@@ -37,6 +39,7 @@ public class DemoParserContext
         _fieldTypes = new List<DFieldType>();
         _fields = new List<DField>();
         _serializers = new();
+        _instanceBaselines = new();
     }
 
     public void AddClass(DClass @class) => _classes.Add(@class);
@@ -45,10 +48,20 @@ public class DemoParserContext
     public void AddSerializerRange(params DSerializer[] serializer) => _serializers.AddRange(serializer);
     public void AddSerializerRange(IEnumerable<DSerializer> serializer) => _serializers.AddRange(serializer);
     public void AddStringTable(StringTable stringTable) => _stringTables.Add(stringTable);
+
+    /// <summary>
+    /// Get back the instance baseline for the given classId if it exists, otherwise
+    /// it will return null to indicate we don't have an instance baseline for the class
+    /// </summary>
+    /// <param name="classId"></param>
+    /// <returns></returns>
+    public byte[]? GetInstanceBaseline(int classId) => _instanceBaselines.ContainsKey(classId) ? _instanceBaselines[classId] : null;
+
+    public DSerializer GetSerializerByClassName(string className) => _serializers.FirstOrDefault(x => x.Name == className);
     
     // TODO: Some sorta error handling would be nice here
     public StringTable GetStringTableByIndex(int index) => _stringTables[index];
-    
+
     /// <summary>
     /// Given a string table index, and a set of raw data, pass in the raw data to the string table so
     /// that it can get updated to the latest values
@@ -56,13 +69,43 @@ public class DemoParserContext
     /// <param name="index">The string table index we want to target</param>
     /// <param name="rawData">The raw data containing the updates to be parsed</param>
     /// <param name="numberOfUpdates">The number of changes that are in the raw data</param>
-    public void UpdateStringTableAtIndex(int index, byte[] rawData, int numberOfUpdates) => _stringTables[index].Update(rawData, numberOfUpdates);
+    public void UpdateStringTableAtIndex(int index, byte[] rawData, int numberOfUpdates)
+    {
+        _stringTables[index].Update(rawData, numberOfUpdates);
+
+        // If we just updated our instance baselines, lets refresh the instance baseline tables
+        if (_stringTables[index].Name == "instancebaseline")
+        {
+            RefreshInstanceBaselines(_stringTables[index]);
+        }
+    } 
 
     public void AddFieldType(DFieldType fieldType)
     {
         if(!_fieldTypes.Contains(fieldType))
             _fieldTypes.Add(fieldType);
-    } 
+    }
+
+    public void RefreshInstanceBaselines()
+    {
+        RefreshInstanceBaselines(_stringTables.FirstOrDefault(x=>x.Name == "instanceBaselines"));
+    }
+    public void RefreshInstanceBaselines(StringTable? table)
+    {
+        if (table == null)
+        {
+            Console.WriteLine("Instance baseline table does not exist yet");
+            return;
+        }
+        
+        foreach (var entry in table.GetEntries())
+        {
+            if (int.TryParse(entry.Key, out int classId))
+            {
+                _instanceBaselines[classId] = entry.Value;
+            }
+        }
+    }
 
     public void ClearContext()
     {
@@ -129,6 +172,15 @@ public class DemoParserContext
             Console.WriteLine($"[{st.Name}::{i}] - {st.EntryCount}");
             i++;
         }
-        
+    }
+
+    public void PrintInstanceBaselines()
+    {
+        Console.WriteLine("=====Instance Baselines=====");
+        Console.WriteLine($"COUNT: {_instanceBaselines.Count}");
+        foreach (var bl in _instanceBaselines)
+        {
+            Console.WriteLine($"{bl.Key}::{bl.Value}");
+        }
     }
 }

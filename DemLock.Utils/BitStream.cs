@@ -14,7 +14,66 @@ public class BitStream
             _bitPosition = 0;
             _bytePosition = 0;
         }
+    public float ReadAngle(int bits)
+    {
+        var max = (float)((1UL << bits) - 1);
+        return 360.0f * (ReadBitsToUint(bits) / max);
+    }
     
+    public float ReadCoordPrecise()
+    {
+        return ReadBitsToUint(20) * (360.0f / (1 << 20)) - 180.0f;
+    }
+    
+    public float ReadCoord()
+    {
+        const int FRACT_BITS = 5;
+
+        var hasInt = ReadBit();
+        var hasFract = ReadBit();
+
+        if (hasInt || hasFract)
+        {
+            var signBit = ReadBit();
+
+            var intval = hasInt ? ReadBitsToUint(14) + 1.0f : 0.0f;
+            var fractval = hasFract ? ReadBitsToUint(FRACT_BITS) : 0.0f;
+
+            var value = intval + fractval * (1.0f / (1 << FRACT_BITS));
+            return signBit ? -value : value;
+        }
+
+        return 0.0f;
+    }
+    public ulong ReadUVarInt64()
+        {
+            var c = 0;
+            var result = 0UL;
+            byte b;
+    
+            do
+            {
+                b = ReadByte(8);
+                if (c < 10)
+                    result |= (ulong)(b & 0x7f) << 7 * c;
+                c += 1;
+            } while ((b & 0x80) != 0);
+    
+            return result;
+        }
+    public int ReadUBitVarFieldPath()
+    {
+        if (ReadBit())
+            return (int)ReadBitsToUint(2);
+        if (ReadBit())
+            return (int)ReadBitsToUint(4);
+        if (ReadBit())
+            return (int)ReadBitsToUint(10);
+        if (ReadBit())
+            return (int)ReadBitsToUint(17);
+        
+        return (int)ReadBitsToUint(31);
+    }
         public int BitsRemaining
         {
             get

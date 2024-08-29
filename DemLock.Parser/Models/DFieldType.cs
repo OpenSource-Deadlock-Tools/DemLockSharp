@@ -53,4 +53,9 @@ public class DFieldType
             Count = count
         };
     }
+
+    public override string ToString()
+    {
+        return $"{Name}<{GenericType}>[{Count}]";
+    }
 }
