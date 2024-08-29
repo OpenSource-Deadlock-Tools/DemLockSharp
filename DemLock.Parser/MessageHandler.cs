@@ -1,8 +1,12 @@
-﻿using System.Diagnostics;
+﻿using System.Buffers.Binary;
+using System.Diagnostics;
+using System.Numerics;
 using System.Runtime.CompilerServices;
+using System.Text;
 using DemLock.Parser.Fields;
 using DemLock.Parser.Models;
 using DemLock.Utils;
+using Google.Protobuf.Reflection;
 using Snappier;
 
 namespace DemLock.Parser;
@@ -61,15 +65,9 @@ public class MessageHandler
         var newTable = new StringTable();
         newTable.Name = createStringTable.Name;
         newTable.UserDataFixedSize = createStringTable.UserDataFixedSize;
-        newTable.UserDataSize = createStringTable.UserDataSize;
+        newTable.UserDataSize = createStringTable.UserDataSizeBits;
         newTable.Flags = createStringTable.Flags;
         newTable.UsingVarintBitCounts = createStringTable.UsingVarintBitcounts;
-
-        // I genuinely have no idea why this is the case, but when processing the decalprecache table
-        // the message reports that it is a fixed size of 1, which causes bit alignment and overflow
-        // brute forced it with many fixed size amount, and with fixed size 2, produced the results I 
-        // expected to see... so manually overriding for now... this will require more research
-        if (newTable.Name == "decalprecache") newTable.UserDataSize = 2;
 
         // Get the string data, and decompress it if needed
         byte[] buffer;
@@ -119,58 +117,76 @@ public class MessageHandler
                 bool isDone = false;
 
                 var baseline = _context.GetInstanceBaseline((int)classId);
-                var v = new BitStream(baseline);
-
+                Console.WriteLine(string.Join("_",baseline[..64].Select(x => x.ToString())));
+                var v = new BitBuffer(baseline);
+                var v2 = new BitBuffer(baseline);
+                Console.WriteLine("Baseline Buffer dump");
+                Console.WriteLine("Discarded Bits");
+                Console.Write($"{v2.ReadUInt(32):B32}_");
+                Console.Write($"{v2.ReadUInt(32):B32}_");
+                Console.Write($"{v2.ReadUInt(32):B32}_");
+                Console.Write($"{v2.ReadUInt(32):B32}_");
+                Console.Write($"{v2.ReadUInt(12):B12}");
+                Console.WriteLine("\n=======================\n==================\n");
+                Console.WriteLine($"Bits Remaining: " + v2.BitsRemaining);
+                for (int j = 0; j < 32; ++j)
+                {
+                    Console.WriteLine($"{v2.ReadByte():B8}");
+                }Console.WriteLine($"===========================");
+                
                 var serializer = _context.GetSerializerByClassName(serverClass.ClassName);
 
                 ReadNewEntity(ref v,
                     new CEntityInstance(CreateDecoder(serializer),
                         serverClass, serialNum));
 
-                if (baseline != null)
-                {
-                }
+                Environment.Exit(0);
             }
         }
     }
 
     private SendNodeDecoder<object> CreateDecoder(DSerializer serializer)
     {
-        return (object instance, ReadOnlySpan<int> path, ref BitStream buffer) =>
+        return (object instance, ReadOnlySpan<int> path, ref BitBuffer buffer) =>
         {
-            Deserialize(serializer, path, buffer);
+            Deserialize(serializer, path, ref buffer);
+            pathStack.Clear();
         };
     }
 
-    private object Deserialize(DSerializer serializer, ReadOnlySpan<int> path, BitStream bs, int depth = 0)
+    // Temporary code used for outputting comparison data properly
+    List<int> pathStack = new List<int>();
+    private object Deserialize(DSerializer serializer, ReadOnlySpan<int> path, ref BitBuffer bs, int depth = 0)
     {
+        pathStack.Add(path[0]);
+        string value = "";
         if (path.Length == 0) return null;
-        for (int i = 0; i < depth; i++) Console.Write("\t");
+        // for (int i = 0; i < depth; i++) Console.Write("\t");
         var field = serializer.Fields[path[0]];
         if (!string.IsNullOrWhiteSpace(field.SerializerName))
             if (path.Length <= 1)
             {
-                Console.WriteLine(field.Name);
+                Console.WriteLine($"{field.Name} (IsSet: {bs.ReadBit()})");
                 return null;
             }
             else
-                return Deserialize(_context.GetSerializerByClassName(field.SerializerName), path[1..], bs, depth + 1);
+                return Deserialize(_context.GetSerializerByClassName(field.SerializerName), path[1..], ref bs, depth + 1);
 
         if (field.FieldType.Name == "CHandle")
-            Console.Write($"{field.Name}::{path[0]}({field.FieldType}): {bs.ReadUVarInt64()}");
+            value = $"{bs.ReadUVarInt64()}";
         else if (field.FieldType.Name == "CNetworkedQuantizedFloat")
         {
             var encoding = QuantizedFloatEncoding.Create(field.EncodingInfo);
             var v = encoding.Decode(ref bs);
-            Console.Write($"{field.Name}::{path[0]}({field.FieldType}): {bs.ReadUVarInt64()}");
+            value = $"{v}";
         }
         else if (field.FieldType.Name == "uint16")
         {
-            Console.Write($"{field.Name}::{path[0]}({field.FieldType}): {(ushort)bs.ReadVarUInt32()}");
+            value =$"{(ushort)bs.ReadVarUInt32()}";
         }
         else if (field.FieldType.Name == "CGameSceneNodeHandle")
         {
-            Console.Write($"{field.Name}::{path[0]}({field.FieldType}): {(ushort)bs.ReadVarUInt32()}");
+            value = $"{(ushort)bs.ReadVarUInt32()}";
         }
         else if (field.FieldType.Name == "QAngle")
         {
@@ -210,15 +226,190 @@ public class MessageHandler
                     hasYaw ? bs.ReadCoord() : 0.0f,
                     hasRoll ? bs.ReadCoord() : 0.0f);
             }
-            Console.Write($"{field.Name}::{path[0]}({field.FieldType}): {ang.Pitch}::{ang.Roll}::{ang.Yaw}");
+
+            value = $"{ang.Pitch}::{ang.Roll}::{ang.Yaw}";
+        }
+        else if (field.FieldType.Name == "float32")
+        {
+            float val = -1;
+
+            if (field.EncodingInfo.VarEncoder != null)
+            {
+                switch (field.EncodingInfo.VarEncoder)
+                {
+                    case "coord":
+                        val = bs.ReadCoord();
+                        break;
+                    case "simtime":
+                        val = DecodeSimulationTime(ref bs);
+                        break;
+                    case "runetime":
+                        val = DecodeRuneTime(ref bs);
+                        break;
+                    case null:
+                        break;
+                    default:
+                        throw new Exception($"Unknown float encoder: {field.EncodingInfo.VarEncoder}");
+                }
+            }
+            else
+            {
+                if (field.EncodingInfo.BitCount <= 0 || field.EncodingInfo.BitCount >= 32)
+                {
+                    Debug.Assert(field.EncodingInfo.BitCount <= 32);
+                    val = DecodeFloatNoscale(ref bs);
+                }
+                else
+                {
+                    var encoding = QuantizedFloatEncoding.Create(field.EncodingInfo);
+                    val = encoding.Decode(ref bs);
+                }
+            }
+
+            value = $"{val}";
+        }
+        else if (field.FieldType.Name == "CUtlStringToken")
+        {
+            var v = new CUtlStringToken(bs.ReadVarUInt32());
+            value = $"{v.Value}";
+        }
+        else if (field.FieldType.Name == "CStrongHandle")
+        {
+            var v = new CStrongHandle(bs.ReadUVarInt64());
+            value = $"{v.Value}";
+        }
+        else if (field.FieldType.Name == "bool")
+        {
+            value = $"{bs.ReadBit()}";
+        }
+        else if (field.FieldType.Name == "uint64")
+        {
+            UInt64 val = 0;
+            if (field.EncodingInfo.VarEncoder == "fixed64")
+            {
+                val = DecodeFixed64(ref bs);
+            }
+            else if (field.EncodingInfo.VarEncoder != null)
+            {
+                throw new Exception($"Unknown uint64 encoder: {field.EncodingInfo.VarEncoder}");
+            }
+            else
+            {
+                val = bs.ReadUVarInt64();
+            }
+
+            value = $"{val}";
+        }
+        else if (field.FieldType.Name == "int8")
+        {
+            value = $"{(byte)bs.ReadVarInt32()}";
+        }
+        else if (field.FieldType.Name == "uint8")
+        {
+            value = $"{(sbyte)bs.ReadVarUInt32()}";
+        }
+        else if (field.FieldType.Name == "uint32")
+        {
+            value = $"{bs.ReadVarUInt32()}";
+        }
+        else if (field.FieldType.Name == "uint16")
+        {
+            value = $"{bs.ReadVarUInt32()}";
+        }
+        else if (field.FieldType.Name == "int32")
+        {
+            value = $"{bs.ReadVarInt32()}";
+        }
+        else if (field.FieldType.Name == "Vector")
+        {
+            DVector vec = new DVector(-1, 1, -1);
+            if (field.EncodingInfo.VarEncoder == "normal")
+            {
+                vec = new DVector(bs.Read3BitNormal());
+            }
+            else
+            {
+                var x = ReadFloat(field, ref bs);
+                var y = ReadFloat(field, ref bs);
+                var z = ReadFloat(field, ref bs);
+                vec = new DVector(x, y, z);
+            }
+
+            value = $"{vec}";
+        }
+        // How the hell will I handle enums
+        else if (new string[] { "EntityPlatformTypes_t", "MoveCollide_t", "MoveType_t" }.Contains(field.FieldType.Name))
+        {
+            value = $"{bs.ReadUVarInt64()}";
         }
         else
         {
-            Console.Write($"{field.Name}::{path[0]}(UNKOWN): NO DECODER YET");
+            value = $"{field.FieldType}";
         }
 
-        Console.WriteLine();
+        Console.WriteLine($"[{string.Join("_", pathStack)}]{field.Name}::{field.FieldType}={value}");
         return null;
+    }
+
+    private float ReadFloat(DField field, ref BitBuffer bs)
+    {
+        float val = -1;
+
+        if (field.EncodingInfo.VarEncoder != null)
+        {
+            switch (field.EncodingInfo.VarEncoder)
+            {
+                case "coord":
+                    return bs.ReadCoord();
+                case "simtime":
+                    return DecodeSimulationTime(ref bs);
+                case "runetime":
+                    return DecodeRuneTime(ref bs);
+                case null:
+                    break;
+                default:
+                    throw new Exception($"Unknown float encoder: {field.EncodingInfo.VarEncoder}");
+            }
+        }
+        else
+        {
+            if (field.EncodingInfo.BitCount <= 0 || field.EncodingInfo.BitCount >= 32)
+            {
+                Debug.Assert(field.EncodingInfo.BitCount <= 32);
+                return DecodeFloatNoscale(ref bs);
+            }
+            else
+            {
+                var encoding = QuantizedFloatEncoding.Create(field.EncodingInfo);
+                return encoding.Decode(ref bs);
+            }
+        }
+
+        return -1;
+    }
+
+    private static ulong DecodeFixed64(ref BitBuffer buffer)
+    {
+        Span<byte> bytes = stackalloc byte[8];
+        buffer.ReadBytes(bytes);
+        return BinaryPrimitives.ReadUInt64LittleEndian(bytes);
+    }
+
+    private static float DecodeRuneTime(ref BitBuffer buffer)
+    {
+        var bits = buffer.ReadUInt(4);
+        unsafe
+        {
+            return *(float*)&bits;
+        }
+    }
+
+    internal static float DecodeFloatNoscale(ref BitBuffer buffer) => buffer.ReadFloat();
+
+    internal static float DecodeSimulationTime(ref BitBuffer buffer)
+    {
+        var ticks = new GameTick(buffer.ReadVarUInt32());
+        return ticks.ToGameTime().Value;
     }
 
     private int ExtractInt(DField field)
@@ -226,8 +417,9 @@ public class MessageHandler
         return 0;
     }
 
-    private static void ReadNewEntity(ref BitStream entityBitBuffer, CEntityInstance entity)
+    private static void ReadNewEntity(ref BitBuffer entityBitBuffer, CEntityInstance entity)
     {
+        Console.WriteLine($"Bits Remaining: {entityBitBuffer.BitsRemaining}");
         Span<FieldPath> fieldPaths = stackalloc FieldPath[512];
 
         var fp = FieldPath.Default;
@@ -250,6 +442,7 @@ public class MessageHandler
 
         fieldPaths = fieldPaths[..index];
 
+        Console.WriteLine($"Bits Remaining: {entityBitBuffer.BitsRemaining}");
         for (var idx = 0; idx < fieldPaths.Length; idx++)
         {
             var fieldPath = fieldPaths[idx];
@@ -271,7 +464,7 @@ public class MessageHandler
 internal delegate void SendNodeDecoder<in T>(
     T instance,
     ReadOnlySpan<int> fieldPath,
-    ref BitStream buffer);
+    ref BitBuffer buffer);
 
 public class CEntityInstance
 {
@@ -300,7 +493,7 @@ public class CEntityInstance
     public DClass ServerClass { get; }
     public uint SerialNumber { get; }
 
-    internal void ReadField(ReadOnlySpan<int> fieldPath, ref BitStream buffer)
+    internal void ReadField(ReadOnlySpan<int> fieldPath, ref BitBuffer buffer)
     {
         _decoder(this, fieldPath, ref buffer);
     }
@@ -356,3 +549,33 @@ public readonly record struct CHandle<T>(ulong Value)
 }
 
 public readonly record struct QAngle(float Pitch, float Yaw, float Roll);
+
+public readonly record struct CUtlStringToken(uint Value);
+
+public readonly record struct CStrongHandle(ulong Value);
+
+public readonly struct DVector
+{
+    public float X { get; }
+    public float Y { get; }
+    public float Z { get; }
+
+    public DVector(float _x, float _y, float _z)
+    {
+        X = _x;
+        Y = _y;
+        Z = _z;
+    }
+
+    public DVector((float x, float y, float z) tuple)
+    {
+        X = tuple.x;
+        Y = tuple.y;
+        Z = tuple.z;
+    }
+
+    public override string ToString()
+    {
+        return $"{{ X = {X}, Y = {Y}, Z = {Z} }}";
+    }
+}

@@ -197,7 +197,7 @@ internal readonly record struct QuantizedFloatEncoding(
         return highMul;
     }
 
-    public float Decode(ref BitStream buffer)
+    public float Decode(ref BitBuffer buffer)
     {
         if (Flags.HasFlag(QuantizedFloatFlags.RoundDown) && buffer.ReadBit())
             return Low;
@@ -208,6 +208,6 @@ internal readonly record struct QuantizedFloatEncoding(
         if (Flags.HasFlag(QuantizedFloatFlags.EncodeZero) && buffer.ReadBit())
             return 0.0f;
 
-        return Low + (High - Low) * buffer.ReadBitsToUint(BitCount) * DecMul;
+        return Low + (High - Low) * buffer.ReadUInt(BitCount) * DecMul;
     }
 }

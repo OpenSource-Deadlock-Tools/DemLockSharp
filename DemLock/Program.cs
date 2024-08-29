@@ -15,7 +15,8 @@ class Program
             Console.WriteLine(JsonSerializer.Serialize(eventArgs, new JsonSerializerOptions() { WriteIndented = true }));
         };
         
+        parser.ProcessDemo("C:\\tmp\\DeadlockDemos\\14011DEMLOCK.dem");
         
-        parser.ProcessDemo("C:/tmp/DeadlockDemos/534870CS.dem");
+        //parser.ProcessDemo("C:/tmp/DeadlockDemos/534870CS.dem");
     }
 }
