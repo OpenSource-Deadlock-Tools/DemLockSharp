@@ -24,10 +24,7 @@ public class CNetworkedQuantizedFloat: DObject
         IsSet = true;
     }
 
-    public override object GetValue()
-    {
-        throw new NotImplementedException();
-    }
+    public override object GetValue() => _value;
 
     public override string ToString()
     {

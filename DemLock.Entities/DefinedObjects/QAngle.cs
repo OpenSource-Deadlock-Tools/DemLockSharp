@@ -1,4 +1,5 @@
-﻿using DemLock.Utils;
+﻿using System.Text;
+using DemLock.Utils;
 
 namespace DemLock.Entities.DefinedObjects;
 
@@ -51,9 +52,24 @@ public class QAngle : DObject
         Roll = bs.ReadBit() ? bs.ReadCoord() : 0.0f;
     }
 
-    public override object GetValue()
+    /// <summary>
+    /// Bad implementation of get value here, tuple is not a great return type...
+    /// not sure how I want to handle more complex access like this, because most interaction
+    /// should be through the fields directly
+    /// </summary>
+    /// <returns></returns>
+    public override object GetValue() => (Pitch, Yaw, Roll);
+
+    public override string ToJson()
     {
-        throw new NotImplementedException();
+        StringBuilder sb = new();
+        sb.AppendLine("{");
+        sb.AppendLine($"\"Pitch\": \"{Pitch}\",");
+        sb.AppendLine($"\"Yaw\": \"{Yaw}\",");
+        sb.AppendLine($"\"Roll\": \"{Roll}\"");
+        sb.AppendLine("}");
+
+        return sb.ToString();
     }
 
     public override string ToString()

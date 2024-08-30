@@ -175,12 +175,7 @@ public class MessageHandler
         return -1;
     }
 
-    private static ulong DecodeFixed64(ref BitBuffer buffer)
-    {
-        Span<byte> bytes = stackalloc byte[8];
-        buffer.ReadBytes(bytes);
-        return BinaryPrimitives.ReadUInt64LittleEndian(bytes);
-    }
+
 
 
 

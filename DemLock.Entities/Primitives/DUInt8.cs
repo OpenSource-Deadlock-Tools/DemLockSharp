@@ -2,9 +2,9 @@
 
 namespace DemLock.Entities.Primitives;
 
-public class DUInt16: DPrimitive
+public class DUInt8: DPrimitive
 {
-    private UInt32 _value;
+    public byte Value { get; set; }
     public override void SetValue(object value)
     {
         throw new NotImplementedException();
@@ -12,14 +12,10 @@ public class DUInt16: DPrimitive
 
     public override void SetValue(ReadOnlySpan<int> path, ref BitBuffer bs)
     {
-         _value = bs.ReadVarUInt32();
+        IsSet = true;
+        Value = (byte)bs.ReadVarUInt32();
     }
 
-    public override object GetValue() => _value;
+    public override object GetValue() => Value;
 
-
-    public override string ToString()
-    {
-        return $"[UInt32 : {_value}]";
-    }
 }

@@ -1,10 +1,10 @@
 ﻿using DemLock.Utils;
 
-namespace DemLock.Entities.DefinedObjects;
+namespace DemLock.Entities.Primitives;
 
-public class CGameSceneNodeHandle: DObject
+public class DInt8: DPrimitive
 {
-    private UInt32 _value;
+    public sbyte Value { get; set; }
     public override void SetValue(object value)
     {
         throw new NotImplementedException();
@@ -12,12 +12,15 @@ public class CGameSceneNodeHandle: DObject
 
     public override void SetValue(ReadOnlySpan<int> path, ref BitBuffer bs)
     {
-        _value = bs.ReadVarUInt32();
+        IsSet = true;
+        Value = (sbyte)bs.ReadVarInt32();
     }
 
-    public override object GetValue() => _value;
+    public override object GetValue() => Value;
+
+
     public override string ToString()
     {
-        return $"[CGameSceneNodeHandle : {_value}]";
+        return $"[DInt8 : {Value}]";
     }
 }

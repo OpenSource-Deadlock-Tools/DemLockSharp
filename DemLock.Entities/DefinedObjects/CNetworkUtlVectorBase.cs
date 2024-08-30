@@ -2,9 +2,9 @@
 
 namespace DemLock.Entities.DefinedObjects;
 
-public class CUtlStringToken: DObject
+public class CNetworkUtlVectorBase: DObject
 {
-    public UInt32 Value { get; set; }
+    public int Value { get; set; }
     public override void SetValue(object value)
     {
         throw new NotImplementedException();
@@ -12,14 +12,18 @@ public class CUtlStringToken: DObject
 
     public override void SetValue(ReadOnlySpan<int> path, ref BitBuffer bs)
     {
-        Value = bs.ReadVarUInt32();
+        // I have almost no idea what this is or means
+        if (path.Length == 1)
+        {
+            var newSize = (int)bs.ReadVarUInt32();
+            Value = newSize;
+        }
     }
 
     public override object GetValue() => Value;
 
-
     public override string ToString()
     {
-        return $"[CUtlStringToken : {Value}]";
+        return $"[CNetworkUtlVectorBase : {Value}]";
     }
 }

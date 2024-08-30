@@ -19,6 +19,6 @@ public class DNull: DPrimitive
 
     public override object GetValue()
     {
-        throw new NotImplementedException();
+        return null;
     }
 }

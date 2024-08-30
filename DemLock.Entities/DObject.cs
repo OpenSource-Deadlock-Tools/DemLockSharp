@@ -1,5 +1,4 @@
 ﻿using DemLock.Entities.DefinedObjects;
-using DemLock.Entities.FieldDecoders;
 using DemLock.Entities.Primitives;
 using DemLock.Utils;
 
@@ -29,10 +28,20 @@ public abstract class DObject
 
     public abstract object GetValue();
 
+    /// <summary>
+    /// Get the object in a JSON encoded string.
+    /// This is the default implementation and assumes that we can just put the value into
+    /// a JSON string field
+    /// </summary>
+    /// <returns></returns>
+    public virtual string ToJson()
+    {
+        return $"\"{GetValue()}\"";
+    }
     public static DObject CreateObject(string typeName, FieldEncodingInfo fieldEncodingInfo)
     {
         if (typeName == "float32")
-            return new DFloat();
+            return new DFloat(fieldEncodingInfo);
         if(typeName == "uint16")
             return new DUInt16();
         if(typeName == "int16")
@@ -47,6 +56,44 @@ public abstract class DObject
             return new QAngle(fieldEncodingInfo);
         if (typeName == "CUtlStringToken")
             return new CUtlStringToken();
+        if(typeName == "CStrongHandle")
+            return new CStrongHandle();
+        if (typeName == "bool")
+            return new DBool();
+        if (typeName == "uint64")
+            return new DUInt64(fieldEncodingInfo);
+        if (typeName == "int8")
+            return new DInt8();
+        if(typeName == "uint8")
+            return new DUInt8();
+        if (typeName == "int32")
+            return new DInt32();
+        if (typeName == "uint32")
+            return new DUInt32();
+
+        if (typeName == "GameTime_t")
+            return new GameTime();
+        if (typeName == "Color")
+            return new DColor();
+        if (typeName == "Vector")
+            return new Vector(fieldEncodingInfo);
+        
+        if(typeName == "CNetworkUtlVectorBase")
+            return new CNetworkUtlVectorBase();
+
+        // Really don't know what the hell I'm supposed to do with enums...
+        var enumTypes = new [] { 
+            "EntityPlatformTypes_t",
+            "MoveCollide_t", 
+            "MoveType_t",
+            "BloodType",
+            "RenderMode_t",
+            "RenderFx_t",
+            "SolidType_t",
+            "SurroundingBoundsType_t"
+        };
+        if (enumTypes.Contains(typeName))
+            return new DGenericEnum();
 
         return new DNull();
     }

@@ -2,9 +2,9 @@
 
 namespace DemLock.Entities.DefinedObjects;
 
-public class CGameSceneNodeHandle: DObject
+public class CStrongHandle: DObject
 {
-    private UInt32 _value;
+    public UInt64 Value { get; set; }
     public override void SetValue(object value)
     {
         throw new NotImplementedException();
@@ -12,12 +12,15 @@ public class CGameSceneNodeHandle: DObject
 
     public override void SetValue(ReadOnlySpan<int> path, ref BitBuffer bs)
     {
-        _value = bs.ReadVarUInt32();
+        IsSet = true;
+        Value = bs.ReadUVarInt64();
     }
 
-    public override object GetValue() => _value;
+    public override object GetValue() => Value;
+
+
     public override string ToString()
     {
-        return $"[CGameSceneNodeHandle : {_value}]";
+        return $"[CStrongHandle : {Value}]";
     }
 }

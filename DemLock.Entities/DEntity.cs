@@ -1,4 +1,5 @@
-﻿using DemLock.Entities.Primitives;
+﻿using System.Text;
+using DemLock.Entities.Primitives;
 using DemLock.Utils;
 
 namespace DemLock.Entities;
@@ -17,14 +18,21 @@ public class DEntity: DObject
     /// <summary>
     /// The list of instantiated fields that are attached to this entity
     /// </summary>
-    private List<ActiveField> _fields { get; set; } = new ();
+    private List<DObject> _fields { get; set; } = new ();
+
+    /// <summary>
+    /// Dictionary that will contain a mapping of the field name to the field that it points to
+    /// </summary>
+    private List<string> _fieldNames = new();
     
-    public List<ActiveField>  Fields { get => _fields; set => _fields = value; }
+    public List<DObject>  Fields { get => _fields; set => _fields = value; }
     public DEntity()
     { }
     public void AddField(DObject value, string fieldName)
     {
-        _fields.Add(new ActiveField(fieldName, value));
+        // Getting the count before we add the value is akin to letting us get the index of the new value ahead of time
+        _fieldNames.Add(fieldName);
+        _fields.Add(value);
     }
     
     public override void SetValue(object value)
@@ -37,7 +45,7 @@ public class DEntity: DObject
         if (path.Length >= 1)
         {
             var targetField = _fields[path[0]];
-            targetField.Value.SetValue(path[1..], ref bs);
+            targetField.SetValue(path[1..], ref bs);
         }
         // If path length is 0, then the entity setter is to check if the object is set or not
         if (path.Length == 0)
@@ -46,6 +54,37 @@ public class DEntity: DObject
         }
     }
 
+    /// <summary>
+    /// Converts the entity to a JSON object for rendering in the console.
+    ///
+    /// Note, this will likely be really slow because I am doing it in a pretty lazy way as it should not
+    /// be needed often outside of debugging
+    /// </summary>
+    /// <returns></returns>
+    public override string ToJson()
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.AppendLine("{");
+        List<string> fieldPairs = new();
+        fieldPairs.Add($"\"@IsSet\":\"{IsSet}\"");
+        
+        for (int i = 0; i < _fields.Count; ++i)
+        {
+            var field = _fields[i];
+            var name = _fieldNames[i];
+            StringBuilder sbfp = new StringBuilder();
+            sbfp.Append('"').Append(name).Append('"');
+            sbfp.Append(':');
+            sbfp.Append(field.ToJson());
+            
+            fieldPairs.Add(sbfp.ToString());
+        }
+        sb.AppendLine(string.Join(",\n", fieldPairs));
+        sb.AppendLine("}");
+
+
+        return sb.ToString();
+    }
     public override object GetValue()
     {
         throw new NotImplementedException();

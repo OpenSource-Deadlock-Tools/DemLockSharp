@@ -1,6 +1,5 @@
 ﻿using System.Diagnostics;
 using DemLock.Entities;
-using DemLock.Entities.FieldDecoders;
 using DemLock.Parser.Models;
 using DemLock.Utils;
 
@@ -49,6 +48,15 @@ public class EntityManager
             var pathSpan = fieldPath.AsSpan();
             ent.SetValue(pathSpan, ref entityData);
         }
+        Console.WriteLine("Bits Remaining: " + entityData.BitsRemaining);
+        Console.WriteLine("Bytes Remaining: " + entityData.RemainingBytes);
+
+        if (ent is DEntity entEntity)
+        {
+            Console.WriteLine(entEntity.ToJson());
+        }
+        // Exit early until we confirm we read the object properly
+        Environment.Exit(0);
 
         return null;
     }
@@ -71,10 +79,9 @@ public class EntityManager
             else
                 return Deserialize(_context.GetSerializerByClassName(field.SerializerName), path[1..], ref bs, depth + 1);
 
-        FieldDecoder decoder = FieldDecoder.GetDecoder(field.FieldType.Name ?? "");
 
-        return decoder.DecodeField(field.EncodingInfo, ref bs);
-        
+
+        return null;
         if (field.FieldType.Name == "CHandle")
             value = $"{bs.ReadUVarInt64()}";
         else if (field.FieldType.Name == "CNetworkedQuantizedFloat")
@@ -111,33 +118,16 @@ public class EntityManager
         }
         else if (field.FieldType.Name == "uint64")
         {
-            UInt64 val = 0;
-            if (field.EncodingInfo.VarEncoder == "fixed64")
-            {
-                //val = DecodeFixed64(ref bs);
-            }
-            else if (field.EncodingInfo.VarEncoder != null)
-            {
-                throw new Exception($"Unknown uint64 encoder: {field.EncodingInfo.VarEncoder}");
-            }
-            else
-            {
-                val = bs.ReadUVarInt64();
-            }
-
-            value = $"{val}";
+           
         }
         else if (field.FieldType.Name == "int8")
         {
-            value = $"{(byte)bs.ReadVarInt32()}";
         }
         else if (field.FieldType.Name == "uint8")
         {
-            value = $"{(sbyte)bs.ReadVarUInt32()}";
         }
         else if (field.FieldType.Name == "uint32")
         {
-            value = $"{bs.ReadVarUInt32()}";
         }
         else if (field.FieldType.Name == "uint16")
         {
@@ -167,7 +157,6 @@ public class EntityManager
         // How the hell will I handle enums
         else if (new string[] { "EntityPlatformTypes_t", "MoveCollide_t", "MoveType_t" }.Contains(field.FieldType.Name))
         {
-            value = $"{bs.ReadUVarInt64()}";
         }
         else
         {
