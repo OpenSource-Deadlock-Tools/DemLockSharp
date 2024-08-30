@@ -2,11 +2,9 @@
 
 namespace DemLock.Entities.Primitives;
 
-/// <summary>
-/// Represents the null primitive
-/// </summary>
-public class DNull: DPrimitive
+public class DUInt16: DPrimitive
 {
+    private UInt32 _value;
     public override void SetValue(object value)
     {
         throw new NotImplementedException();
@@ -14,11 +12,16 @@ public class DNull: DPrimitive
 
     public override void SetValue(ReadOnlySpan<int> path, ref BitBuffer bs)
     {
-        throw new NotImplementedException();
+         _value = bs.ReadVarUInt32();
     }
 
     public override object GetValue()
     {
         throw new NotImplementedException();
+    }
+
+    public override string ToString()
+    {
+        return $"[UInt32 : {_value}]";
     }
 }

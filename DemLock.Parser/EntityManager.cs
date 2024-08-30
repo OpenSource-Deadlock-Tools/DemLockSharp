@@ -40,16 +40,14 @@ public class EntityManager
         }
 
         var s = _context.GetSerializerByClassName(className);
-        var dClass = _context.GetClassByName(className);
-        var dObj = dClass.Activate();
-        
+        var ent = s.Instantiate();
         
         fieldPaths = fieldPaths[..index];
         for (var idx = 0; idx < fieldPaths.Length; idx++)
         {
             var fieldPath = fieldPaths[idx];
             var pathSpan = fieldPath.AsSpan();
-            return Deserialize(s, pathSpan, ref entityData);
+            ent.SetValue(pathSpan, ref entityData);
         }
 
         return null;
@@ -92,47 +90,6 @@ public class EntityManager
         else if (field.FieldType.Name == "CGameSceneNodeHandle")
         {
             value = $"{(ushort)bs.ReadVarUInt32()}";
-        }
-        else if (field.FieldType.Name == "QAngle")
-        {
-            QAngle ang;
-            if (field.EncodingInfo.VarEncoder == "qangle_pitch_yaw")
-            {
-                ang = new QAngle(
-                    bs.ReadAngle(field.EncodingInfo.BitCount),
-                    bs.ReadAngle(field.EncodingInfo.BitCount),
-                    0.0f);
-            }
-            else if (field.EncodingInfo.VarEncoder == "qangle_precise")
-            {
-                var hasPitch = bs.ReadBit();
-                var hasYaw = bs.ReadBit();
-                var hasRoll = bs.ReadBit();
-                ang = new QAngle(
-                    hasPitch ? bs.ReadCoordPrecise() : 0.0f,
-                    hasYaw ? bs.ReadCoordPrecise() : 0.0f,
-                    hasRoll ? bs.ReadCoordPrecise() : 0.0f);
-            }
-            else
-            {
-                if (field.EncodingInfo.BitCount != 0)
-                {
-                    ang = new QAngle(
-                        bs.ReadAngle(field.EncodingInfo.BitCount),
-                        bs.ReadAngle(field.EncodingInfo.BitCount),
-                        bs.ReadAngle(field.EncodingInfo.BitCount));
-                }
-
-                var hasPitch = bs.ReadBit();
-                var hasYaw = bs.ReadBit();
-                var hasRoll = bs.ReadBit();
-                ang = new QAngle(
-                    hasPitch ? bs.ReadCoord() : 0.0f,
-                    hasYaw ? bs.ReadCoord() : 0.0f,
-                    hasRoll ? bs.ReadCoord() : 0.0f);
-            }
-
-            value = $"{ang.Pitch}::{ang.Roll}::{ang.Yaw}";
         }
         else if (field.FieldType.Name == "float32")
         {

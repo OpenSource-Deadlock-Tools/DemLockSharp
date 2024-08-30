@@ -128,27 +128,6 @@ public class DemoParserContext
     public void PrintClasses()
     {
         Console.WriteLine("-------Class Table--------");
-        Console.WriteLine("\n\n");
-
-        var dClass = _classes.FirstOrDefault();
-        if (dClass == null) return;
-        Console.WriteLine($"ClassName: {dClass.ClassName}");
-        Console.WriteLine($"ClassId: {dClass.ClassId}");
-        foreach (var field in dClass.Fields)
-        {
-            Console.WriteLine($"\tFieldName: {field.Name}");
-        }
-        Console.WriteLine("\n\nActivated Class");
-        DEntity act = (DEntity)dClass.Activate();
-        
-        Console.WriteLine($"ClassName: {act.ClassName}");
-        //Console.WriteLine($"ClassId: {act.ClassId}");
-        foreach (var field in act.Fields)
-        {
-            Console.WriteLine($"\tFieldName: {field.Key} - {field.Value}");
-        }
-        
-        Console.WriteLine("\n\n");
         //int i = 0;
         //foreach (DClass @class in _classes)
         //{

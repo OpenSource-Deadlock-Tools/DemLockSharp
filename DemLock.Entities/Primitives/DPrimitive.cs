@@ -1,6 +1,10 @@
-﻿namespace DemLock.Entities.Primitives;
+﻿using DemLock.Utils;
+
+namespace DemLock.Entities.Primitives;
 
 /// <summary>
 /// Represents a primitive piece of data
 /// </summary>
-public class DPrimitive: DObject {}
+public abstract class DPrimitive: DObject
+{
+}

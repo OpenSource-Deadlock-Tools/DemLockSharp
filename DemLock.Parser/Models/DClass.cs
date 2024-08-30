@@ -18,11 +18,7 @@ public class DClass
     {
         DEntity obj = new DEntity();
         foreach (var field in Fields)
-            obj.AddField(field.Name);
-        var v = (BitStream bs) =>
-        {
-
-        };
+            obj.AddField(field.Activate(),field.Name);
         return obj;
     }
 }

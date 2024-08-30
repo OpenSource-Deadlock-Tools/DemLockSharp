@@ -133,7 +133,7 @@ public class FrameHandler
         var symbols = msg.Symbols;
         var fields = msg.Fields.Select(field =>
         {
-            DField newField = new DField();
+            DField newField = new DField(_context);
 
             newField.Name = symbols[field.VarNameSym];
             var fieldType = DFieldType.Parse(symbols[field.VarTypeSym]);

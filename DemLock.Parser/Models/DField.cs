@@ -9,6 +9,11 @@ namespace DemLock.Parser.Models;
 /// </summary>
 public class DField
 {
+    private DemoParserContext _context;
+    public DField(DemoParserContext context)
+    {
+        _context = context;
+    }
     
     public string? Name { get; set; }
     public DFieldType FieldType { get; set; }
@@ -16,6 +21,16 @@ public class DField
     public FieldEncodingInfo EncodingInfo { get; set; }
     public string SerializerName { get; set; }
 
+    /// <summary>
+    /// Get the activated field for this field template
+    /// </summary>
+    /// <returns></returns>
+    public DObject Activate()
+    {
+        if(string.IsNullOrWhiteSpace(SerializerName))
+            return DObject.CreateObject(FieldType.Name, EncodingInfo);
+        return _context.GetSerializerByClassName(SerializerName).Instantiate();
+    }
     public override string ToString()
     {
         return $"{Name}::{SerializerName}";

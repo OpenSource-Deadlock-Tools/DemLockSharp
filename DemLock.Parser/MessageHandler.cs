@@ -40,7 +40,7 @@ public class MessageHandler
         switch (type)
         {
             case MessageTypes.svc_PacketEntities:
-                //ProcessPacketEntities(data);
+                ProcessPacketEntities(data);
                 break;
             case MessageTypes.svc_ServerInfo:
                 ProcessServerInfo(data);
@@ -311,8 +311,6 @@ public readonly record struct CHandle<T>(ulong Value)
 
     // public TEntity? Get<TEntity>(DemoParser demo) where TEntity : T => demo.GetEntityByHandle(this) as TEntity;
 }
-
-public readonly record struct QAngle(float Pitch, float Yaw, float Roll);
 
 public readonly record struct CUtlStringToken(uint Value);
 

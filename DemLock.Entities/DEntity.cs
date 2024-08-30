@@ -1,4 +1,5 @@
 ﻿using DemLock.Entities.Primitives;
+using DemLock.Utils;
 
 namespace DemLock.Entities;
 
@@ -16,15 +17,37 @@ public class DEntity: DObject
     /// <summary>
     /// The list of instantiated fields that are attached to this entity
     /// </summary>
-    private Dictionary<string, DObject> _fields { get; set; } = new Dictionary<string, DObject>();
-    public Dictionary<string, DObject>  Fields { get => _fields; }
+    private List<ActiveField> _fields { get; set; } = new ();
+    
+    public List<ActiveField>  Fields { get => _fields; set => _fields = value; }
     public DEntity()
     { }
-
-    public void AddField(string fieldName)
+    public void AddField(DObject value, string fieldName)
     {
-        if(!_fields.ContainsKey(fieldName))
-            _fields.Add(fieldName, new DNull());
+        _fields.Add(new ActiveField(fieldName, value));
+    }
+    
+    public override void SetValue(object value)
+    {
+        throw new NotImplementedException();
+    }
+    public override void SetValue(ReadOnlySpan<int> path, ref BitBuffer bs)
+    {
+        // If our path length is 1, we are setting a direct field
+        if (path.Length >= 1)
+        {
+            var targetField = _fields[path[0]];
+            targetField.Value.SetValue(path[1..], ref bs);
+        }
+        // If path length is 0, then the entity setter is to check if the object is set or not
+        if (path.Length == 0)
+        {
+            IsSet = bs.ReadBit();
+        }
     }
 
+    public override object GetValue()
+    {
+        throw new NotImplementedException();
+    }
 }
