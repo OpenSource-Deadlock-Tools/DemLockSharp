@@ -1,4 +1,6 @@
-﻿namespace DemLock.Parser.Models;
+﻿using DemLock.Entities;
+
+namespace DemLock.Parser.Models;
 
 /// <summary>
 /// Represents a field on a demo class, and is used in the
@@ -11,7 +13,7 @@ public class DField
     public string? Name { get; set; }
     public DFieldType FieldType { get; set; }
     public string? SendNode { get; set; }
-    public DFieldEncodingInfo EncodingInfo { get; set; }
+    public FieldEncodingInfo EncodingInfo { get; set; }
     public string SerializerName { get; set; }
 
     public override string ToString()

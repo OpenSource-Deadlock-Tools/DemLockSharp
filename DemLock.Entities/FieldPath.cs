@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Runtime.InteropServices;
 
-namespace DemLock.Parser.Fields;
+namespace DemLock.Entities;
 
 /// <summary>
 /// A list of ints representing a path through nested fields on server classes.

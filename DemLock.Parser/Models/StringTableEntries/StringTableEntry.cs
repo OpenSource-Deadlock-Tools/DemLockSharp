@@ -1,4 +1,4 @@
-﻿namespace DemLock.Parser.Models;
+﻿namespace DemLock.Parser.Models.StringTableEntries;
 
 public abstract class StringTableEntry
 {

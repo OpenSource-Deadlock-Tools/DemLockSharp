@@ -35,10 +35,10 @@ public class DemoParser
         do
         {
             frame = demo.ReadFrame();
-            //Console.WriteLine($"[{i}::{frame.Tick}] {frame.Command}({(int)frame.Command})");
+            Console.WriteLine($"[{i}::{frame.Tick}] {frame.Command}({(int)frame.Command})");
             _frameHandler.HandleFrame(frame);
             i++;
-            //if (i >= 50) break;
+            if (i >= 10) break;
         } while (frame.Command != DemoFrameCommand.DEM_Stop);
     }
 }

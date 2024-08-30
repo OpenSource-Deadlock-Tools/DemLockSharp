@@ -1,7 +1,6 @@
-﻿using DemLock.Entities;
-using DemLock.Utils;
+﻿using DemLock.Utils;
 
-namespace DemLock.Parser;
+namespace DemLock.Entities;
 
 public delegate void FieldPathReader(ref BitBuffer buffer, ref FieldPath fieldPath);
 public class FieldPathEncoding

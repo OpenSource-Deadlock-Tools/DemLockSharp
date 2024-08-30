@@ -1,8 +1,7 @@
 ﻿using System.Diagnostics;
-using DemLock.Parser.Models;
 using DemLock.Utils;
 
-namespace DemLock.Parser;
+namespace DemLock.Entities;
 
 [Flags]
 internal enum QuantizedFloatFlags
@@ -21,7 +20,7 @@ internal readonly record struct QuantizedFloatEncoding(
     int BitCount,
     QuantizedFloatFlags Flags)
 {
-    public static QuantizedFloatEncoding Create(DFieldEncodingInfo fieldEncodingInfo)
+    public static QuantizedFloatEncoding Create(FieldEncodingInfo fieldEncodingInfo)
     {
         // Set common properties
         if (fieldEncodingInfo.BitCount == 0 || fieldEncodingInfo.BitCount >= 32)

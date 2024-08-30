@@ -1,4 +1,5 @@
-﻿using DemLock.Parser.Models;
+﻿using DemLock.Entities;
+using DemLock.Parser.Models;
 using DemLock.Utils;
 
 namespace DemLock.Parser;
@@ -116,6 +117,7 @@ public class FrameHandler
                 ClassName = v.NetworkName
             });
         }
+        _context.PrintClasses();
     }
 
     private void HandleSendTables(DemoFrame frame)
@@ -129,7 +131,6 @@ public class FrameHandler
 
         // Create the fields objects
         var symbols = msg.Symbols;
-        //List<DField> fields = new List<DField>();
         var fields = msg.Fields.Select(field =>
         {
             DField newField = new DField();
@@ -147,7 +148,7 @@ public class FrameHandler
                 newField.SerializerName = symbols[field.FieldSerializerNameSym];
             else newField.SerializerName = string.Empty;
             
-            newField.EncodingInfo = new DFieldEncodingInfo()
+            newField.EncodingInfo = new FieldEncodingInfo()
             {
                 VarEncoder = varEncoder,
                 BitCount = field.BitCount,
@@ -168,5 +169,7 @@ public class FrameHandler
                 }
             ).ToList();
         _context.AddSerializerRange(serializers);
+        _context.PrintFields();
+        _context.PrintSerializers();
     }
 }

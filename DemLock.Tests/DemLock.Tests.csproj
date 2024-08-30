@@ -21,4 +21,8 @@
         <Using Include="NUnit.Framework"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\DemLock.Parser\DemLock.Parser.csproj" />
+    </ItemGroup>
+
 </Project>

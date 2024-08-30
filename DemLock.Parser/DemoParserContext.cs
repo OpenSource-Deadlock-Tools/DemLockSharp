@@ -1,4 +1,5 @@
-﻿using DemLock.Parser.Models;
+﻿using DemLock.Entities;
+using DemLock.Parser.Models;
 
 namespace DemLock.Parser;
 
@@ -22,12 +23,12 @@ public class DemoParserContext
     public int ClassIdSize { get; set; }
     public int MaxPlayers { get; set; }
     private List<DClass> _classes;
-    private List<DEntity> _entities;
-
     private List<DFieldType> _fieldTypes;
     private List<DField> _fields;
     private List<DSerializer> _serializers;
     private List<StringTable> _stringTables;
+    private List<DObject> _entities;
+    public EntityManager EntityManager { get; }
 
     private Dictionary<int, byte[]> _instanceBaselines;
 
@@ -35,15 +36,25 @@ public class DemoParserContext
     {
         _stringTables = new();
         _classes = new List<DClass>();
-        _entities = new List<DEntity>();
+        _entities = new();
         _fieldTypes = new List<DFieldType>();
         _fields = new List<DField>();
         _serializers = new();
         _instanceBaselines = new();
+        EntityManager = new EntityManager(this); 
     }
 
-    public void AddClass(DClass @class) => _classes.Add(@class);
+    public void AddClass(DClass dClass)
+    {
+        var serializer = _serializers.FirstOrDefault(x => x.Name == dClass.ClassName);
+        if (serializer != null)
+        {
+            dClass.Fields = serializer.Fields;
+        }
+        _classes.Add(dClass);  
+    } 
     public DClass? GetClassById(int classId) => _classes.FirstOrDefault(c => c.ClassId == classId);
+    public DClass? GetClassByName(string className) => _classes.FirstOrDefault(c => c.ClassName == className);
     public void AddField(DField field)=> _fields.Add(field);
     public void AddSerializerRange(params DSerializer[] serializer) => _serializers.AddRange(serializer);
     public void AddSerializerRange(IEnumerable<DSerializer> serializer) => _serializers.AddRange(serializer);
@@ -116,71 +127,92 @@ public class DemoParserContext
 
     public void PrintClasses()
     {
-        Console.WriteLine("Class Table--------");
-        int i = 0;
-        foreach (DClass @class in _classes)
+        Console.WriteLine("-------Class Table--------");
+        Console.WriteLine("\n\n");
+
+        var dClass = _classes.FirstOrDefault();
+        if (dClass == null) return;
+        Console.WriteLine($"ClassName: {dClass.ClassName}");
+        Console.WriteLine($"ClassId: {dClass.ClassId}");
+        foreach (var field in dClass.Fields)
         {
-            Console.WriteLine($"[{i}] {@class.ClassId}::{@class.ClassName}");
-            i++;
-            if (i % 50 == 0) Console.ReadKey();
+            Console.WriteLine($"\tFieldName: {field.Name}");
         }
+        Console.WriteLine("\n\nActivated Class");
+        DEntity act = (DEntity)dClass.Activate();
+        
+        Console.WriteLine($"ClassName: {act.ClassName}");
+        //Console.WriteLine($"ClassId: {act.ClassId}");
+        foreach (var field in act.Fields)
+        {
+            Console.WriteLine($"\tFieldName: {field.Key} - {field.Value}");
+        }
+        
+        Console.WriteLine("\n\n");
+        //int i = 0;
+        //foreach (DClass @class in _classes)
+        //{
+        //    Console.WriteLine($"[{i}] {@class.ClassId}::{@class.ClassName}");
+        //    i++;
+        //    if (i % 50 == 0) Console.ReadKey();
+        //}
     }
 
     public void PrintFields()
     {
-        Console.WriteLine($"Fields--------[{_fields.Count}]");
+        //Console.WriteLine($"Fields--------[{_fields.Count}]");
         int i = 0;
-        foreach (var field in _fields)
-        {
-            Console.WriteLine($"[{i}] {field.Name}::{field.SerializerName}::{field.SendNode}::{field.FieldType.Name}");
-            i++;
-            if (i % 50 == 0) Console.ReadKey();
-        }
+        //foreach (var field in _fields)
+        //{
+        //    Console.WriteLine($"[{i}] {field.Name}::{field.SerializerName}::{field.SendNode}::{field.FieldType.Name}");
+        //    i++;
+        //    if (i % 50 == 0) Console.ReadKey();
+        //}
     }
     public void PrintFieldTypes()
     {
         Console.WriteLine("Field Types--------");
         int i = 0;
-        foreach (var fieldType in _fieldTypes)
-        {
-            Console.WriteLine($"[{i}] {fieldType.Name}::{fieldType.Count}::{fieldType.IsPointer}");
-            i++;
-            if (i % 50 == 0) Console.ReadKey();
-        }
+        //foreach (var fieldType in _fieldTypes)
+        //{
+        //    Console.WriteLine($"[{i}] {fieldType.Name}::{fieldType.Count}::{fieldType.IsPointer}");
+        //    i++;
+        //    if (i % 50 == 0) Console.ReadKey();
+        //}
     }
     
     public void PrintSerializers()
     {
-        Console.WriteLine($"Serializers --------[{_serializers.Count}]");
+        //Console.WriteLine($"Serializers --------[{_serializers.Count}]");
         
         int i = 0;
-        foreach (var sz in _serializers)
-        {
-            Console.WriteLine($"[{i}] {sz.Name}::{sz.Version}::{sz.Fields.Length}");
-            i++;
-            if (i % 50 == 0) Console.ReadKey();
-        }
+        //foreach (var sz in _serializers)
+        //{
+        //    Console.WriteLine($"[{i}] {sz.Name}::{sz.Version}::{sz.Fields.Length}");
+        //    i++;
+        //    if (i % 50 == 0) Console.ReadKey();
+        //}
     }
 
     public void PrintStringTables()
     {
         Console.WriteLine($"===String Tables===");
         Console.WriteLine($"COUNT: {_stringTables.Count}");
-        int i = 0;
-        foreach (var st in _stringTables)
-        {
-            Console.WriteLine($"[{st.Name}::{i}] - {st.EntryCount}");
-            i++;
-        }
+        //int i = 0;
+        //foreach (var st in _stringTables)
+        //{
+        //    Console.WriteLine($"[{st.Name}::{i}] - {st.EntryCount}");
+        //    i++;
+        //}
     }
 
     public void PrintInstanceBaselines()
     {
         Console.WriteLine("=====Instance Baselines=====");
-        Console.WriteLine($"COUNT: {_instanceBaselines.Count}");
-        foreach (var bl in _instanceBaselines)
-        {
-            Console.WriteLine($"{bl.Key}::{bl.Value}");
-        }
+        //Console.WriteLine($"COUNT: {_instanceBaselines.Count}");
+        //foreach (var bl in _instanceBaselines)
+        //{
+        //    Console.WriteLine($"{bl.Key}::{bl.Value}");
+        //}
     }
 }

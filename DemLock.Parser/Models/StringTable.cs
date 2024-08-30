@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using DemLock.Parser.Models.StringTableEntries;
 using DemLock.Utils;
 using Snappier;
 

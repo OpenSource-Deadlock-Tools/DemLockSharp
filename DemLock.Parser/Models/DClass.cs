@@ -1,4 +1,7 @@
-﻿namespace DemLock.Parser.Models;
+﻿using DemLock.Entities;
+using DemLock.Utils;
+
+namespace DemLock.Parser.Models;
 
 /// <summary>
 /// Represents a class in the context of a demo file, it is given
@@ -7,7 +10,19 @@
 /// </summary>
 public class DClass
 {
+    public string? ClassName { get; set; }
     public int ClassId { get; set; }
-    public string ClassName { get; set; }
-    
+    public DField[] Fields { get; set; } = Array.Empty<DField>();
+
+    public DObject Activate()
+    {
+        DEntity obj = new DEntity();
+        foreach (var field in Fields)
+            obj.AddField(field.Name);
+        var v = (BitStream bs) =>
+        {
+
+        };
+        return obj;
+    }
 }

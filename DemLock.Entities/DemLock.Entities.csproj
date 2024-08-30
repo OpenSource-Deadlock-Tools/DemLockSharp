@@ -8,17 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\DemLock.Entities\DemLock.Entities.csproj" />
       <ProjectReference Include="..\DemLock.Utils\DemLock.Utils.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <PackageReference Include="Google.Protobuf" Version="3.27.3" />
-      <PackageReference Include="Snappier" Version="1.1.6" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Fields\" />
     </ItemGroup>
 
 </Project>

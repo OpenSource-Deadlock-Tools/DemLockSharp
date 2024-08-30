@@ -1,3 +1,5 @@
+using DemLock.Parser.Models;
+
 namespace DemLock.Tests;
 
 public class Tests
@@ -10,6 +12,6 @@ public class Tests
     [Test]
     public void Test1()
     {
-        Assert.Pass();
+        DClass dclass = new();
     }
 }
