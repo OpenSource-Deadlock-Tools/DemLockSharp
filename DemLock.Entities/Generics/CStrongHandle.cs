@@ -1,23 +1,26 @@
 ﻿using DemLock.Utils;
 
-namespace DemLock.Entities.DefinedObjects;
+namespace DemLock.Entities.Generics;
 
-public class CHandle: DObject
+public class CStrongHandle: DObject
 {
-    private UInt64 _value;
-    
+    public UInt64 Value { get; set; }
     public override void SetValue(object value)
     {
         throw new NotImplementedException();
     }
+
     public override void SetValue(ReadOnlySpan<int> path, ref BitBuffer bs)
     {
-        _value = bs.ReadUVarInt64();
         IsSet = true;
+        Value = bs.ReadUVarInt64();
     }
-    public override object GetValue() => _value;
+
+    public override object GetValue() => Value;
+
+
     public override string ToString()
     {
-        return $"[CBaseHandle {_value}]";
+        return $"[CStrongHandle : {Value}]";
     }
 }

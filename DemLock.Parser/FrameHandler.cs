@@ -22,6 +22,8 @@ public class FrameHandler
 
     public void HandleFrame(DemoFrame frame)
     {
+        if(_context.Config.IgnoredFrames.Contains(frame.Command)) return;
+        
         switch (frame.Command)
         {
             case DemoFrameCommand.DEM_Stop: return;

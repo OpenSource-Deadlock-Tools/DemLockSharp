@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Diagnostics;
+using System.Text;
 using DemLock.Entities.Primitives;
 using DemLock.Utils;
 
@@ -30,6 +31,10 @@ public class DEntity: DObject
     { }
     public void AddField(DObject value, string fieldName)
     {
+        if (value is DNull)
+        {
+            Console.WriteLine($"Adding field {fieldName} to object {ClassName} but was DNull");
+        }
         // Getting the count before we add the value is akin to letting us get the index of the new value ahead of time
         _fieldNames.Add(fieldName);
         _fields.Add(value);
@@ -42,6 +47,8 @@ public class DEntity: DObject
     public override void SetValue(ReadOnlySpan<int> path, ref BitBuffer bs)
     {
         // If our path length is 1, we are setting a direct field
+        if(path.Length > 0 && path[0] == 65) 
+            Console.WriteLine("BREAK HERE"); 
         if (path.Length >= 1)
         {
             var targetField = _fields[path[0]];
@@ -73,7 +80,7 @@ public class DEntity: DObject
             var field = _fields[i];
             var name = _fieldNames[i];
             StringBuilder sbfp = new StringBuilder();
-            sbfp.Append('"').Append(name).Append('"');
+            sbfp.Append('"').Append($"[{i}]").Append(name).Append('"');
             sbfp.Append(':');
             sbfp.Append(field.ToJson());
             

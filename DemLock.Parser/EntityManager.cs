@@ -48,17 +48,7 @@ public class EntityManager
             var pathSpan = fieldPath.AsSpan();
             ent.SetValue(pathSpan, ref entityData);
         }
-        Console.WriteLine("Bits Remaining: " + entityData.BitsRemaining);
-        Console.WriteLine("Bytes Remaining: " + entityData.RemainingBytes);
-
-        if (ent is DEntity entEntity)
-        {
-            Console.WriteLine(entEntity.ToJson());
-        }
-        // Exit early until we confirm we read the object properly
-        Environment.Exit(0);
-
-        return null;
+        return ent;
     }
     
     // Temporary code used for outputting comparison data properly

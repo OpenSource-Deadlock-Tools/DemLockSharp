@@ -32,10 +32,10 @@ public class MessageHandler
     /// <param name="bytes"></param>
     public void ProcessMessage(MessageTypes type, byte[] data)
     {
-        if (Enum.IsDefined(typeof(MessageTypes), type))
-        {
-            Console.WriteLine($"\t{type}({(int)type}) [{data.Length}]");
-        }
+        if(_context.Config.IgnoredMessages.Contains(type)) return;
+        if(_context.Config.LogMessageReads)
+             if (Enum.IsDefined(typeof(MessageTypes), type))
+                Console.WriteLine($"\t{type}({(int)type}) [{data.Length}]");
 
         switch (type)
         {
@@ -91,6 +91,13 @@ public class MessageHandler
 
     private void ProcessPacketEntities(byte[] data)
     {
+        
+        
+        // Dunno why i sued this method, but whatever this is just debug
+        _context.PrintSerializers();
+        // Exit early, the below is for processing the message but I want to just dump all of the baselines
+        Environment.Exit(0);
+        
         CSVCMsg_PacketEntities packetEntities = CSVCMsg_PacketEntities.Parser.ParseFrom(data);
 
         var eventData = new BitStream(packetEntities.EntityData.ToArray());
@@ -113,16 +120,12 @@ public class MessageHandler
                 // but it just doesn't really matter to us
                 var _discard = eventData.ReadVarUInt32();
                 var serverClass = _context.GetClassById((int)classId);
-
                 var baseline = _context.GetInstanceBaseline((int)classId);
-                
                 var entityBuffer = new BitBuffer(baseline);
                 
                 
                 var v = _context.EntityManager.CreateEntity(ref entityBuffer, serverClass.ClassName);
-                
 
-                Environment.Exit(0);
             }
         }
     }

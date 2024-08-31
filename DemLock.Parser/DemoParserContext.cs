@@ -1,5 +1,6 @@
 ﻿using DemLock.Entities;
 using DemLock.Parser.Models;
+using DemLock.Utils;
 
 namespace DemLock.Parser;
 
@@ -20,6 +21,7 @@ public class DemoParserContext
     /// to set it and hope it works for now.
     /// </summary>
     internal const int NumEHandleSerialNumberBits = 17;
+    public DemoParserConfig Config { get; set; }
     public int ClassIdSize { get; set; }
     public int MaxPlayers { get; set; }
     private List<DClass> _classes;
@@ -34,6 +36,20 @@ public class DemoParserContext
 
     public DemoParserContext()
     {
+        Config = new DemoParserConfig();
+        _stringTables = new();
+        _classes = new List<DClass>();
+        _entities = new();
+        _fieldTypes = new List<DFieldType>();
+        _fields = new List<DField>();
+        _serializers = new();
+        _instanceBaselines = new();
+        EntityManager = new EntityManager(this); 
+    }
+    
+    public DemoParserContext(DemoParserConfig config)
+    {
+        Config = config;
         _stringTables = new();
         _classes = new List<DClass>();
         _entities = new();
@@ -140,13 +156,33 @@ public class DemoParserContext
     public void PrintFields()
     {
         //Console.WriteLine($"Fields--------[{_fields.Count}]");
-        int i = 0;
         //foreach (var field in _fields)
         //{
         //    Console.WriteLine($"[{i}] {field.Name}::{field.SerializerName}::{field.SendNode}::{field.FieldType.Name}");
         //    i++;
         //    if (i % 50 == 0) Console.ReadKey();
         //}
+
+        //var e = _fieldTypes.Where(x => x.GenericType != null);
+        //Console.WriteLine($"====Generic Types [{e.Count()}]====");
+        //int i = 0;
+        //foreach (var v in e)
+        //{
+        //    Console.WriteLine($"[{++i,-3}] {v}");
+        //}
+
+        //var e2 = e.GroupBy(x => x.Name).ToDictionary(x => x.Key, x => x.Count());
+
+        //Console.WriteLine($"==== Base Generics [{e2.Count}] ====");
+        //Console.WriteLine("[Count]  type | usages");
+        //i = 0;
+        //foreach (var kv in e2)
+        //{
+        //    Console.WriteLine($"[{i++,-3}] {kv.Key} | {kv.Value,-4}");
+        //    
+        //}
+        
+
     }
     public void PrintFieldTypes()
     {
@@ -162,15 +198,30 @@ public class DemoParserContext
     
     public void PrintSerializers()
     {
-        //Console.WriteLine($"Serializers --------[{_serializers.Count}]");
+        foreach (var serverClass in _classes)
+        {
+            Console.WriteLine($"=========={serverClass.ClassName}");
+            try
+            {
+
+                var baseline = GetInstanceBaseline(serverClass.ClassId);
+                if (baseline == null) continue;
+                var entityBuffer = new BitBuffer(baseline);
+                var v = EntityManager.CreateEntity(ref entityBuffer, serverClass.ClassName);
+                Console.WriteLine(v.ToJson());
+            }
+            catch
+            {
+                Console.WriteLine($"\nERROR PARSING: {serverClass.ClassName} Probably something not supported yet!");
+            }
+            
+            Console.WriteLine("====================================");
+            Console.WriteLine($"Press any key to try to read another class...");
+            Console.ReadKey();
+        }
         
-        int i = 0;
-        //foreach (var sz in _serializers)
-        //{
-        //    Console.WriteLine($"[{i}] {sz.Name}::{sz.Version}::{sz.Fields.Length}");
-        //    i++;
-        //    if (i % 50 == 0) Console.ReadKey();
-        //}
+                
+                
     }
 
     public void PrintStringTables()

@@ -1,4 +1,5 @@
 ﻿using DemLock.Entities.DefinedObjects;
+using DemLock.Entities.Generics;
 using DemLock.Entities.Primitives;
 using DemLock.Utils;
 
@@ -38,6 +39,35 @@ public abstract class DObject
     {
         return $"\"{GetValue()}\"";
     }
+
+
+    public static DObject CreateFixedSizeArray(string typeName, int count, Func<DObject> objectFactory)
+    {
+        return new DFixedSizeArray(typeName, count, objectFactory);
+    }
+    /// <summary>
+    /// Create a new object that's a generic, this is segmented as there will need to be some special handling for generics
+    /// and it can easily be detected in the activator
+    /// </summary>
+    /// <param name="typeName"></param>
+    /// <param name="genericTypeName"></param>
+    /// <returns></returns>
+    public static DObject CreateGenericObject(string typeName, string genericTypeName)
+    {
+        if(typeName == "CNetworkUtlVectorBase")
+            return new CNetworkUtlVectorBase(genericTypeName);
+        if (typeName == "CHandle")
+            return new CHandle();
+        if(typeName == "CStrongHandle")
+            return new CStrongHandle();
+        if (typeName == "CUtlVector")
+            return new CUtlVector(genericTypeName);
+        if(typeName == "CUtlVectorEmbeddedNetworkVar")
+            return new CUtlVectorEmbeddedNetworkVar(genericTypeName);
+        
+        Console.WriteLine($"Unmapped Generic Object Type: {typeName}");
+        return new DNull();
+    }
     public static DObject CreateObject(string typeName, FieldEncodingInfo fieldEncodingInfo)
     {
         if (typeName == "float32")
@@ -46,8 +76,6 @@ public abstract class DObject
             return new DUInt16();
         if(typeName == "int16")
             return new DInt16();
-        if (typeName == "CHandle")
-            return new CHandle();
         if (typeName == "CNetworkedQuantizedFloat")
             return new CNetworkedQuantizedFloat(fieldEncodingInfo);
         if (typeName == "CGameSceneNodeHandle")
@@ -56,8 +84,6 @@ public abstract class DObject
             return new QAngle(fieldEncodingInfo);
         if (typeName == "CUtlStringToken")
             return new CUtlStringToken();
-        if(typeName == "CStrongHandle")
-            return new CStrongHandle();
         if (typeName == "bool")
             return new DBool();
         if (typeName == "uint64")
@@ -78,9 +104,7 @@ public abstract class DObject
         if (typeName == "Vector")
             return new Vector(fieldEncodingInfo);
         
-        if(typeName == "CNetworkUtlVectorBase")
-            return new CNetworkUtlVectorBase();
-
+        
         // Really don't know what the hell I'm supposed to do with enums...
         var enumTypes = new [] { 
             "EntityPlatformTypes_t",
@@ -90,11 +114,14 @@ public abstract class DObject
             "RenderMode_t",
             "RenderFx_t",
             "SolidType_t",
-            "SurroundingBoundsType_t"
+            "SurroundingBoundsType_t",
+            "AdnimLoopMode_t",
+            "attributeprovidertypes_t"
         };
         if (enumTypes.Contains(typeName))
             return new DGenericEnum();
 
+        Console.WriteLine($"{typeName} does not have a mapping and is a base type");
         return new DNull();
     }
 }

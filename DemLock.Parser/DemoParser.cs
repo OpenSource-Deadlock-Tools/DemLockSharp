@@ -12,11 +12,21 @@ public class DemoParser
     private FrameHandler _frameHandler; 
     private MessageHandler _messageHandler;
     private DemoParserContext _context;
+    private DemoParserConfig _config;
 
     public DemoParser()
     {
+        _config = new DemoParserConfig();
         Events = new DemoEventSystem();
-        _context = new DemoParserContext();
+        _context = new DemoParserContext(_config);
+        _messageHandler = new MessageHandler(Events, _context);
+        _frameHandler = new FrameHandler(Events, _messageHandler, _context);
+    }
+    public DemoParser(DemoParserConfig config)
+    {
+        _config = config;
+        Events = new DemoEventSystem();
+        _context = new DemoParserContext(_config);
         _messageHandler = new MessageHandler(Events, _context);
         _frameHandler = new FrameHandler(Events, _messageHandler, _context);
     }
@@ -35,10 +45,12 @@ public class DemoParser
         do
         {
             frame = demo.ReadFrame();
-            Console.WriteLine($"[{i}::{frame.Tick}] {frame.Command}({(int)frame.Command})");
+            if(_config.LogReadFrames) Console.WriteLine($"[{i}::{frame.Tick}] {frame.Command}({(int)frame.Command})");
             _frameHandler.HandleFrame(frame);
             i++;
             if (i >= 50) break;
         } while (frame.Command != DemoFrameCommand.DEM_Stop);
+        
+        _context.PrintFields();
     }
 }

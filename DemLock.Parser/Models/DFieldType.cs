@@ -1,4 +1,5 @@
 ﻿using System.Collections.Concurrent;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace DemLock.Parser.Models;
@@ -56,6 +57,12 @@ public class DFieldType
 
     public override string ToString()
     {
-        return $"{Name}<{GenericType}>[{Count}]";
+        StringBuilder sb = new StringBuilder();
+        sb.Append(Name);
+        if(GenericType != null)
+            sb.Append($"< {GenericType} >");
+        if (Count > 0)
+            sb.Append($"[{Count}]");
+        return sb.ToString();
     }
 }
