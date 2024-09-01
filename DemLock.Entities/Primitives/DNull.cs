@@ -14,7 +14,7 @@ public class DNull: DPrimitive
 
     public override void SetValue(ReadOnlySpan<int> path, ref BitBuffer bs)
     {
-        throw new NotImplementedException();
+        throw new Exception("Tried to update a null value field");
     }
 
     public override object GetValue()

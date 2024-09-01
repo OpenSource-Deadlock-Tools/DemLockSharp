@@ -1,4 +1,5 @@
-﻿using DemLock.Entities;
+﻿using System.Text;
+using DemLock.Entities;
 
 namespace DemLock.Parser.Models;
 
@@ -24,5 +25,20 @@ public class DSerializer
         }
         return newEntity;
     }
-    
+
+    public string DumpFields()
+    {
+        StringBuilder sb = new StringBuilder();
+        int i = 0;
+        foreach (var f in this.Fields)
+        {
+            sb.AppendLine($"[{i++,-3}] {f.Name}::{f.FieldType}");
+        }
+        return sb.ToString();
+    }
+
+    public override string ToString()
+    {
+        return $"{Name}:{Version}";
+    }
 }

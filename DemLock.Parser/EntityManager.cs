@@ -39,6 +39,7 @@ public class EntityManager
         }
 
         var s = _context.GetSerializerByClassName(className);
+        
         var ent = s.Instantiate();
         
         fieldPaths = fieldPaths[..index];
@@ -63,7 +64,6 @@ public class EntityManager
         if (!string.IsNullOrWhiteSpace(field.SerializerName))
             if (path.Length <= 1)
             {
-                Console.WriteLine($"{field.Name} (IsSet: {bs.ReadBit()})");
                 return null;
             }
             else

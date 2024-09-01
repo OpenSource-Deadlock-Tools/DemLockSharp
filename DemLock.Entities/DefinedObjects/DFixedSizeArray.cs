@@ -27,7 +27,6 @@ public class DFixedSizeArray:DObject
 
     public override void SetValue(ReadOnlySpan<int> path, ref BitBuffer bs)
     {
-        Console.WriteLine("Set fixed size array value");
         if(Data[path[0]] == null) Data[path[0]] = _objectFactory();
         Data[path[0]].SetValue(path[1..], ref bs);
     }

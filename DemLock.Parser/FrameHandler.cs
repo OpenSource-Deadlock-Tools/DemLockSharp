@@ -116,7 +116,7 @@ public class FrameHandler
             _context.AddClass(new DClass()
             {
                 ClassId = v.ClassId,
-                ClassName = v.NetworkName
+                ClassName = v.NetworkName,
             });
         }
         _context.PrintClasses();
@@ -137,6 +137,7 @@ public class FrameHandler
         {
             DField newField = new DField(_context);
 
+            newField.SerializerVersion = field.FieldSerializerVersion;
             newField.Name = symbols[field.VarNameSym];
             var fieldType = DFieldType.Parse(symbols[field.VarTypeSym]);
             newField.FieldType = fieldType;
@@ -163,15 +164,15 @@ public class FrameHandler
         }).ToArray();
 
         List<DSerializer> serializers = msg.Serializers
-            .Select(sz => new DSerializer()
+            .Select(sz =>
+            {
+                return new DSerializer()
                 {
                     Name = msg.Symbols[sz.SerializerNameSym],
                     Version = sz.SerializerVersion,
                     Fields = sz.FieldsIndex.Select(i => fields[i]).ToArray()
-                }
-            ).ToList();
+                };
+            }).ToList();
         _context.AddSerializerRange(serializers);
-        _context.PrintFields();
-        _context.PrintSerializers();
     }
 }

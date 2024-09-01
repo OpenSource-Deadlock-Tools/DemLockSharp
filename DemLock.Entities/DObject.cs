@@ -64,8 +64,8 @@ public abstract class DObject
             return new CUtlVector(genericTypeName);
         if(typeName == "CUtlVectorEmbeddedNetworkVar")
             return new CUtlVectorEmbeddedNetworkVar(genericTypeName);
-        
-        Console.WriteLine($"Unmapped Generic Object Type: {typeName}");
+
+        throw new Exception($"Unmapped generic type {typeName}");
         return new DNull();
     }
     public static DObject CreateObject(string typeName, FieldEncodingInfo fieldEncodingInfo)
@@ -116,12 +116,13 @@ public abstract class DObject
             "SolidType_t",
             "SurroundingBoundsType_t",
             "AdnimLoopMode_t",
-            "attributeprovidertypes_t"
+            "attributeprovidertypes_t",
+            "m_eAbilitySlot"
         };
         if (enumTypes.Contains(typeName))
             return new DGenericEnum();
-
-        Console.WriteLine($"{typeName} does not have a mapping and is a base type");
+        
+        throw new Exception($"Unmapped basic type {typeName}");
         return new DNull();
     }
 }

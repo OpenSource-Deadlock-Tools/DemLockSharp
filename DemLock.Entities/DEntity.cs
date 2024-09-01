@@ -33,7 +33,7 @@ public class DEntity: DObject
     {
         if (value is DNull)
         {
-            Console.WriteLine($"Adding field {fieldName} to object {ClassName} but was DNull");
+            throw new Exception($"Attempted to add DNull value to a field");
         }
         // Getting the count before we add the value is akin to letting us get the index of the new value ahead of time
         _fieldNames.Add(fieldName);
@@ -46,9 +46,6 @@ public class DEntity: DObject
     }
     public override void SetValue(ReadOnlySpan<int> path, ref BitBuffer bs)
     {
-        // If our path length is 1, we are setting a direct field
-        if(path.Length > 0 && path[0] == 65) 
-            Console.WriteLine("BREAK HERE"); 
         if (path.Length >= 1)
         {
             var targetField = _fields[path[0]];

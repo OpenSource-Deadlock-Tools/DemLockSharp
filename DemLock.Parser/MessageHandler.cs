@@ -91,12 +91,8 @@ public class MessageHandler
 
     private void ProcessPacketEntities(byte[] data)
     {
-        
-        
-        // Dunno why i sued this method, but whatever this is just debug
-        _context.PrintSerializers();
-        // Exit early, the below is for processing the message but I want to just dump all of the baselines
-        Environment.Exit(0);
+
+        return;
         
         CSVCMsg_PacketEntities packetEntities = CSVCMsg_PacketEntities.Parser.ParseFrom(data);
 
@@ -204,7 +200,6 @@ public class MessageHandler
 
         fieldPaths = fieldPaths[..index];
 
-        Console.WriteLine($"Bits Remaining: {entityBitBuffer.BitsRemaining}");
         for (var idx = 0; idx < fieldPaths.Length; idx++)
         {
             var fieldPath = fieldPaths[idx];

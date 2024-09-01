@@ -84,7 +84,12 @@ public class DemoParserContext
     /// <returns></returns>
     public byte[]? GetInstanceBaseline(int classId) => _instanceBaselines.ContainsKey(classId) ? _instanceBaselines[classId] : null;
 
-    public DSerializer GetSerializerByClassName(string className) => _serializers.FirstOrDefault(x => x.Name == className);
+    // TODO: Optimize this look up and figure out what these god damn versions are all about and if I should care about lower order versions (manta doesn't)
+    public DSerializer GetSerializerByClassName(string className, bool latestVersion = true) => 
+        _serializers.Where(x => x.Name == className ).OrderByDescending(x=>x.Version).FirstOrDefault();
+    
+    public DSerializer GetSerializerByClassName(string className, int version) => 
+        _serializers.FirstOrDefault(x => x.Name == className && x.Version == version);
     
     // TODO: Some sorta error handling would be nice here
     public StringTable GetStringTableByIndex(int index) => _stringTables[index];
@@ -198,32 +203,74 @@ public class DemoParserContext
     
     public void PrintSerializers()
     {
+        CalculateUnsupportedEntities();
+        return;
         foreach (var serverClass in _classes)
         {
             Console.WriteLine($"=========={serverClass.ClassName}");
             try
             {
-
                 var baseline = GetInstanceBaseline(serverClass.ClassId);
                 if (baseline == null) continue;
                 var entityBuffer = new BitBuffer(baseline);
                 var v = EntityManager.CreateEntity(ref entityBuffer, serverClass.ClassName);
                 Console.WriteLine(v.ToJson());
             }
-            catch
+            catch(Exception ex)
             {
-                Console.WriteLine($"\nERROR PARSING: {serverClass.ClassName} Probably something not supported yet!");
+                Console.WriteLine($"ERROR PARSING: {serverClass.ClassName} Probably something not supported yet!");
+                Console.WriteLine($"{ex.Message}");
             }
             
             Console.WriteLine("====================================");
             Console.WriteLine($"Press any key to try to read another class...");
             Console.ReadKey();
         }
-        
-                
-                
     }
 
+    /// <summary>
+    /// Debug function that will do every costly things to calculate exactly how many entities we are able to parse given
+    /// they have a baseline from the string table that applies to them
+    ///
+    /// This is run after the whole demo plays out, and so might be prone to errors and long run times, but is
+    /// useful for seeing how close the system support is to being able to actually get useful data
+    /// </summary>
+    private void CalculateUnsupportedEntities()
+    {
+        int entitiesChecked = 0;
+        int baselinesMissing = 0;
+        int successfullyParsed = 0;
+        int failedToParse = 0;
+        HashSet<string> errorTypes = new HashSet<string>();
+        foreach (var serverClass in _classes)
+        {
+            entitiesChecked++;
+            try
+            {
+                var baseline = GetInstanceBaseline(serverClass.ClassId);
+                if (baseline == null)
+                {
+                    baselinesMissing++;
+                    continue;
+                }
+                var entityBuffer = new BitBuffer(baseline);
+                var v = EntityManager.CreateEntity(ref entityBuffer, serverClass.ClassName);
+            }
+            catch(Exception ex)
+            {
+                errorTypes.Add(ex.Message);
+                failedToParse++;
+            }
+            successfullyParsed++;
+        }
+        
+        Console.WriteLine($"BASELINE PARSING TEST RESULTS");
+        Console.WriteLine($"CLASSES CHECKED   :\t{entitiesChecked,-4}");
+        Console.WriteLine($"MISSING BASELINE  :\t{baselinesMissing,-4}");
+        Console.WriteLine($"SUCCESSFUL        :\t{successfullyParsed,-4}");
+        Console.WriteLine($"FAILED            :\t{failedToParse,-4}");
+        Console.WriteLine($"UNIQUE EXCEPTIONS :\t{errorTypes.Count(),-4}");
+    }
     public void PrintStringTables()
     {
         Console.WriteLine($"===String Tables===");

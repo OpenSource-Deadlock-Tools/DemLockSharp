@@ -20,7 +20,9 @@ public class DField
     public string? SendNode { get; set; }
     public FieldEncodingInfo EncodingInfo { get; set; }
     public string SerializerName { get; set; }
+    public int SerializerVersion { get; set; }
 
+    private static int tmp = 0;
     /// <summary>
     /// Get the activated field for this field template
     /// </summary>
@@ -41,7 +43,7 @@ public class DField
         
         // If the serializer is named this is a nested entity we need to activate
         if (!string.IsNullOrWhiteSpace(SerializerName))
-            return _context.GetSerializerByClassName(SerializerName).Instantiate();
+            return _context.GetSerializerByClassName(SerializerName, SerializerVersion).Instantiate();
         
             
         return DObject.CreateObject(FieldType.Name, EncodingInfo);
