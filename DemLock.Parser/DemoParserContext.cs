@@ -203,9 +203,9 @@ public class DemoParserContext
     
     public void PrintSerializers()
     {
-        CalculateUnsupportedEntities();
-        return;
-        foreach (var serverClass in _classes)
+        //CalculateUnsupportedEntities();
+        //return;
+        foreach (var serverClass in _classes.Where(x=>x.ClassName == "CNPC_TrooperNeutral"))
         {
             Console.WriteLine($"=========={serverClass.ClassName}");
             try

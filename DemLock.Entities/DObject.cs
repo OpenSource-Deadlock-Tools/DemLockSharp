@@ -104,6 +104,9 @@ public abstract class DObject
         if (typeName == "Vector")
             return new Vector(fieldEncodingInfo);
         
+        if(typeName == "HSequence")
+            return new HSequence();
+        
         
         // Really don't know what the hell I'm supposed to do with enums...
         var enumTypes = new [] { 
@@ -117,7 +120,9 @@ public abstract class DObject
             "SurroundingBoundsType_t",
             "AdnimLoopMode_t",
             "attributeprovidertypes_t",
-            "m_eAbilitySlot"
+            "m_eAbilitySlot",
+            "AnimLoopMode_t",
+            "NPC_STATE"
         };
         if (enumTypes.Contains(typeName))
             return new DGenericEnum();
