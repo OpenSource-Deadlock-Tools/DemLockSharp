@@ -1,4 +1,6 @@
 ﻿using DemLock.Entities;
+using DemLock.Entities.DefinedObjects;
+using DemLock.Entities.Primitives;
 
 namespace DemLock.Parser.Models;
 
@@ -29,7 +31,13 @@ public class DField
     /// <returns></returns>
     public DObject Activate()
     {
+        if (FieldType.Count > 0 && FieldType.Name == "char")
+            return new DString(FieldType.Count);
 
+        // Manual override for simulation time data type, not sure why they don't have a type specified but this is how others do it
+        if (Name == "m_flSimulationTime" || Name == "m_flAnimTime")
+            return new SimulationTime(_context.TickInterval);
+        
         if (FieldType.Count > 0)
             return DObject.CreateFixedSizeArray(FieldType.Name, FieldType.Count, () => DObject.CreateObject(FieldType.Name, EncodingInfo));
             

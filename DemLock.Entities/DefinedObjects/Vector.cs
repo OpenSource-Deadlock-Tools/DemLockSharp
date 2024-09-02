@@ -3,40 +3,41 @@ using DemLock.Utils;
 
 namespace DemLock.Entities.DefinedObjects;
 
-public class Vector: DObject
+public class Vector : DObject
 {
     public float X { get; set; }
     public float Y { get; set; }
     public float Z { get; set; }
-    
+
     private FieldEncodingInfo _encodingInfo;
+
     public override void SetValue(object value)
     {
-        throw new NotImplementedException();
+        throw new NotImplementedException("Vector::SetValue(Object)");
     }
 
     public Vector(FieldEncodingInfo encodingInfo)
     {
         _encodingInfo = encodingInfo;
     }
+
     public override void SetValue(ReadOnlySpan<int> path, ref BitBuffer bs)
     {
         IsSet = true;
-            if (_encodingInfo.VarEncoder == "normal")
-            {
-                (X,Y,Z) = (bs.Read3BitNormal());
-                return;
-            }
-                X = ReadFloat( ref bs);
-                Y = ReadFloat( ref bs);
-                Z = ReadFloat( ref bs);
+        if (_encodingInfo.VarEncoder == "normal")
+        {
+            (X, Y, Z) = (bs.Read3BitNormal());
+            return;
+        }
 
+        X = ReadFloat(ref bs);
+        Y = ReadFloat(ref bs);
+        Z = ReadFloat(ref bs);
     }
 
     private float ReadFloat(ref BitBuffer bits)
     {
-        
-        if(_encodingInfo != null)
+        if (_encodingInfo != null)
         {
             switch (_encodingInfo.VarEncoder)
             {
@@ -55,7 +56,7 @@ public class Vector: DObject
 
         if (_encodingInfo.BitCount <= 0 || _encodingInfo.BitCount >= 32)
             return bits.ReadFloat();
-        
+
         var encoding = QuantizedFloatEncoding.Create(_encodingInfo);
         return encoding.Decode(ref bits);
     }
@@ -68,14 +69,16 @@ public class Vector: DObject
             return *(float*)&bits;
         }
     }
- internal static float DecodeSimulationTime(ref BitBuffer buffer)
+
+    internal static float DecodeSimulationTime(ref BitBuffer buffer)
     {
         // Assume a 64 tick server... this will need to be set somehow
         var ticks = buffer.ReadVarUInt32();
         return ticks / 64.0f;
     }
+
     public override object GetValue() => (X, Y, Z);
-    
+
 
     public override string ToJson()
     {
@@ -88,5 +91,4 @@ public class Vector: DObject
 
         return sb.ToString();
     }
-
 }

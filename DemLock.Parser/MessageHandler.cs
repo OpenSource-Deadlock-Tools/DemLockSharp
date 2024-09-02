@@ -91,123 +91,72 @@ public class MessageHandler
 
     private void ProcessPacketEntities(byte[] data)
     {
-
-        return;
-        
         CSVCMsg_PacketEntities packetEntities = CSVCMsg_PacketEntities.Parser.ParseFrom(data);
 
-        var eventData = new BitStream(packetEntities.EntityData.ToArray());
+        var eventData = new BitBuffer(packetEntities.EntityData.ToArray());
         var entityIndex = -1;
 
         for (int i = 0; i < packetEntities.UpdatedEntries; i++)
         {
-            entityIndex += 1 + (int)eventData.ReadUBit();
-            var updateType = eventData.ReadBitsToUint(2);
-            if ((updateType & 0b01) != 0)
+            entityIndex += 1 + (int)eventData.ReadUBitVar();
+            
+            var flags = DeltaHeaderFlags.FHDR_ZERO;
+            var updateType = PacketUpdateTypes.EnterPvs;
+            
+            if (eventData.ReadBit())
             {
+                flags |= DeltaHeaderFlags.FHDR_LEAVE_PVS;
+                if(eventData.ReadBit())
+                    flags |= DeltaHeaderFlags.FHDR_DELETE;
             }
-            else if (updateType == 0b10)
+            else if(eventData.ReadBit())
+                flags |= DeltaHeaderFlags.FHDR_ENTER_PVS;
+            
+            if((flags & DeltaHeaderFlags.FHDR_ENTER_PVS) != 0)
+                updateType = PacketUpdateTypes.EnterPvs;
+            else if ((flags & DeltaHeaderFlags.FHDR_LEAVE_PVS) != 0)
+                updateType = PacketUpdateTypes.LeavePvs;
+            else
+                updateType = PacketUpdateTypes.DeltaEnt;
+            
+            if (updateType == PacketUpdateTypes.EnterPvs)
             {
                 var classId = eventData.ReadBitsToUint(_context.ClassIdSize);
                 var serialNum = eventData.ReadBitsToUint(DemoParserContext.NumEHandleSerialNumberBits);
-
+                
                 // Don't know what this is... every parser does it
                 // Reference to demoinfo-net, they propose maybe it is spawngroup handles,
                 // but it just doesn't really matter to us
-                var _discard = eventData.ReadVarUInt32();
+                var unusedUnknownValue = eventData.ReadVarUInt32();
+                
                 var serverClass = _context.GetClassById((int)classId);
+                 _context.EntityManager.AddNewEntity(entityIndex, serverClass, serialNum);
+                 
                 var baseline = _context.GetInstanceBaseline((int)classId);
-                var entityBuffer = new BitBuffer(baseline);
+                if (baseline != null)
+                    _context.EntityManager.UpdateAtIndex(entityIndex, baseline);
                 
-                
-                var v = _context.EntityManager.CreateEntity(ref entityBuffer, serverClass.ClassName);
-
+                _context.EntityManager.UpdateAtIndex(entityIndex, ref eventData);
             }
-        }
-    }
-
-    private SendNodeDecoder<object> CreateDecoder(DSerializer serializer)
-    {
-        return (object instance, ReadOnlySpan<int> path, ref BitBuffer buffer) =>
-        {
-            //Deserialize(serializer, path, ref buffer);
-            //pathStack.Clear();
-        };
-    }
-
-
-
-    private float ReadFloat(DField field, ref BitBuffer bs)
-    {
-        float val = -1;
-
-        if (field.EncodingInfo.VarEncoder != null)
-        {
-            switch (field.EncodingInfo.VarEncoder)
+            if (updateType == PacketUpdateTypes.LeavePvs)
             {
-                case "coord":
-                    return bs.ReadCoord();
-                case "simtime":
-                    //return DecodeSimulationTime(ref bs);
-                case "runetime":
-                    //return DecodeRuneTime(ref bs);
-                case null:
-                    break;
-                default:
-                    throw new Exception($"Unknown float encoder: {field.EncodingInfo.VarEncoder}");
+                if ((flags & DeltaHeaderFlags.FHDR_DELETE) != 0)
+                {
+                    _context.EntityManager.DeleteEntity(entityIndex);
+                }
             }
-        }
-        else
-        {
-            if (field.EncodingInfo.BitCount <= 0 || field.EncodingInfo.BitCount >= 32)
+            if (updateType == PacketUpdateTypes.DeltaEnt)
             {
-                Debug.Assert(field.EncodingInfo.BitCount <= 32);
-                //return DecodeFloatNoscale(ref bs);
+                _context.EntityManager.UpdateAtIndex(entityIndex, ref eventData);
             }
-            else
-            {
-                //var encoding = QuantizedFloatEncoding.Create(field.EncodingInfo);
-                //return encoding.Decode(ref bs);
-            }
+            
+            Console.WriteLine("=====" + _context.EntityManager.GetEntityAtIndex(entityIndex).ClassName);
+            Console.WriteLine(_context.EntityManager.GetEntityAtIndex(entityIndex).ToJson());
+            Console.WriteLine("=====" + _context.EntityManager.GetEntityAtIndex(entityIndex).ClassName);
+            Console.ReadKey();   
         }
 
-        return -1;
     }
-
-
-
-
-
-    private static void ReadNewEntity(ref BitBuffer entityBitBuffer, CEntityInstance entity)
-    {
-        Span<FieldPath> fieldPaths = stackalloc FieldPath[512];
-        var fp = FieldPath.Default;
-        // Keep reading field paths until we reach an op with a null reader.
-        // The null reader signifies `FieldPathEncodeFinish`.
-        var index = 0;
-        while (FieldPathEncoding.ReadFieldPathOp(ref entityBitBuffer) is { Reader: { } reader })
-        {
-            if (index == fieldPaths.Length)
-            {
-                var newArray = new FieldPath[fieldPaths.Length * 2];
-                fieldPaths.CopyTo(newArray);
-                fieldPaths = newArray;
-            }
-
-            reader.Invoke(ref entityBitBuffer, ref fp);
-            fieldPaths[index++] = fp;
-        }
-
-        fieldPaths = fieldPaths[..index];
-
-        for (var idx = 0; idx < fieldPaths.Length; idx++)
-        {
-            var fieldPath = fieldPaths[idx];
-            var pathSpan = fieldPath.AsSpan();
-            entity.ReadField(pathSpan, ref entityBitBuffer);
-        }
-    }
-
 
     private void ProcessServerInfo(byte[] data)
     {
@@ -215,122 +164,24 @@ public class MessageHandler
 
         _context.ClassIdSize = (int)Math.Log2(serverInfo.MaxClasses) + 1;
         _context.MaxPlayers = serverInfo.MaxClients;
+        _context.TickInterval = serverInfo.TickInterval;
     }
 }
 
-internal delegate void SendNodeDecoder<in T>(
-    T instance,
-    ReadOnlySpan<int> fieldPath,
-    ref BitBuffer buffer);
-
-public class CEntityInstance
+public enum PacketUpdateTypes
 {
-    private readonly SendNodeDecoder<object> _decoder;
-    protected readonly DemoParser Demo;
-
-    internal CEntityInstance(SendNodeDecoder<object> decoder, DClass serverClass, uint serialNumber)
-    {
-        _decoder = decoder;
-        //Demo = context.Demo;
-        ServerClass = serverClass;
-        SerialNumber = serialNumber;
-    }
-
-    public CEntityIndex EntityIndex { get; }
-
-    public CHandle<CEntityInstance> EntityHandle =>
-        CHandle<CEntityInstance>.FromIndexSerialNum(EntityIndex, SerialNumber);
-
-    /// <summary>
-    /// Is this entity within the recording player's PVS?
-    /// For GOTV demos, this is always <c>true</c>
-    /// </summary>
-    public bool IsActive { get; internal set; }
-
-    public DClass ServerClass { get; }
-    public uint SerialNumber { get; }
-
-    internal void ReadField(ReadOnlySpan<int> fieldPath, ref BitBuffer buffer)
-    {
-        _decoder(this, fieldPath, ref buffer);
-    }
+    EnterPvs,
+    LeavePvs,
+    DeltaEnt
 }
 
-public readonly record struct CEntityIndex(uint Value)
+[Flags]
+public enum DeltaHeaderFlags
 {
-    public static readonly CEntityIndex Invalid = new(unchecked((uint)-1));
-    public bool IsValid => this != Invalid;
-
-    public override string ToString() => IsValid ? $"Entity #{Value}" : "<invalid>";
-}
-
-public readonly record struct CGameSceneNodeHandle(uint Value);
-
-public readonly record struct CHandle<T>(ulong Value)
-    where T : CEntityInstance
-{
-    internal const int MaxEdictBits = 14;
-    public override string ToString() => IsValid ? $"Index = {Index.Value}, Serial = {SerialNum}" : "<invalid>";
-
-    public bool IsValid => this != default && Index.Value != (MaxEdictBits - 1);
-
-    public CEntityIndex Index => new((uint)(Value & (MaxEdictBits - 1)));
-    public uint SerialNum => (uint)(Value >> MaxEdictBits);
-
-    public static CHandle<T> FromIndexSerialNum(CEntityIndex index, uint serialNum) =>
-        new(((ulong)index.Value) | (serialNum << MaxEdictBits));
-
-    public static CHandle<T> FromEventStrictEHandle(uint value)
-    {
-        // EHandles in events are serialised differently than networked handles.
-        //
-        // Empirically the bit structure appears to be:
-        //   1100100 0011110000 0 00001011101011
-        //   ^^^^^^^ ^^^^^^^^^^ ^ ^^^^^^^^^^^^^^
-        //   |       |          | \__ ent index
-        //   |       |          \__ always zero?
-        //   |       \__ serial number
-        //   \__ unknown, varies
-
-        Debug.Assert(value == uint.MaxValue || (value & (1 << 14)) == 0);
-
-        var index = value & (MaxEdictBits - 1);
-        var serialNum = (value >> 15) & ((1 << 10) - 1);
-
-        return FromIndexSerialNum(new CEntityIndex(index), serialNum);
-    }
-
-    // public T? Get(DemoParser demo) => demo.GetEntityByHandle(this);
-
-    // public TEntity? Get<TEntity>(DemoParser demo) where TEntity : T => demo.GetEntityByHandle(this) as TEntity;
-}
-
-public readonly record struct CUtlStringToken(uint Value);
-
-public readonly record struct CStrongHandle(ulong Value);
-
-public readonly struct DVector
-{
-    public float X { get; }
-    public float Y { get; }
-    public float Z { get; }
-
-    public DVector(float _x, float _y, float _z)
-    {
-        X = _x;
-        Y = _y;
-        Z = _z;
-    }
-
-    public DVector((float x, float y, float z) tuple)
-    {
-        X = tuple.x;
-        Y = tuple.y;
-        Z = tuple.z;
-    }
-
-    public override string ToString()
-    {
-        return $"{{ X = {X}, Y = {Y}, Z = {Z} }}";
-    }
+    // ReSharper disable InconsistentNaming
+    FHDR_ZERO = 0x0000,
+    FHDR_LEAVE_PVS = 0x0001,
+    FHDR_DELETE = 0x0002,
+    FHDR_ENTER_PVS = 0x0004
+    // ReSharper restore InconsistentNaming
 }

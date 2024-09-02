@@ -16,6 +16,8 @@ public class DEntity: DObject
     /// The class name that this entity is derived from
     /// </summary>
     public string ClassName { get; set; }
+    public uint Serial { get; set; }
+    
     /// <summary>
     /// The list of instantiated fields that are attached to this entity
     /// </summary>
@@ -91,6 +93,6 @@ public class DEntity: DObject
     }
     public override object GetValue()
     {
-        throw new NotImplementedException();
+        return _fields;
     }
 }

@@ -27,8 +27,13 @@ public class DFixedSizeArray:DObject
 
     public override void SetValue(ReadOnlySpan<int> path, ref BitBuffer bs)
     {
-        if(Data[path[0]] == null) Data[path[0]] = _objectFactory();
-        Data[path[0]].SetValue(path[1..], ref bs);
+        if (path.Length == 0) IsSet = bs.ReadBit();
+
+        if (path.Length >= 1)
+        {
+            if(Data[path[0]] == null) Data[path[0]] = _objectFactory();
+            Data[path[0]].SetValue(path[1..], ref bs);
+        }
     }
 
     public override string ToJson()
@@ -37,6 +42,18 @@ public class DFixedSizeArray:DObject
         sb.AppendLine("{");
         sb.AppendLine($"\"@TypeName\": \"{TypeName}\",");
         sb.AppendLine($"\"Length\": \"{Length}\"");
+        sb.AppendLine(",\"Values\": [");
+        for (int i = 0; i < Data.Length; i++)
+        {
+            if (Data[i] != null)
+            {
+                sb.AppendLine(Data[i].ToJson());
+                if(i < Data.Length - 1) sb.AppendLine(",");
+                else sb.AppendLine();
+            }
+        }
+
+        sb.Append("]");
         sb.AppendLine("}");
 
         return sb.ToString();

@@ -103,31 +103,17 @@ public abstract class DObject
             return new DColor();
         if (typeName == "Vector")
             return new Vector(fieldEncodingInfo);
+
+        // Need to handle
+        if (typeName == "Vector2D")
+            return new Vector2D(fieldEncodingInfo);
+        if (typeName == "Vector4D")
+            throw new Exception("Vector4D is not supported yet"); 
         
         if(typeName == "HSequence")
             return new HSequence();
         
-        
-        // Really don't know what the hell I'm supposed to do with enums...
-        var enumTypes = new [] { 
-            "EntityPlatformTypes_t",
-            "MoveCollide_t", 
-            "MoveType_t",
-            "BloodType",
-            "RenderMode_t",
-            "RenderFx_t",
-            "SolidType_t",
-            "SurroundingBoundsType_t",
-            "AdnimLoopMode_t",
-            "attributeprovidertypes_t",
-            "m_eAbilitySlot",
-            "AnimLoopMode_t",
-            "NPC_STATE"
-        };
-        if (enumTypes.Contains(typeName))
-            return new DGenericEnum();
-        
-        throw new Exception($"Unmapped basic type {typeName}");
-        return new DNull();
+        // Default to a UInt32 (basically just do what visit_ident is doing in haste)
+        return new DUInt32();
     }
 }

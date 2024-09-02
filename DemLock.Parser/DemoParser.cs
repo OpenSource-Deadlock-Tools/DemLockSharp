@@ -50,7 +50,5 @@ public class DemoParser
             i++;
             //if (i >= 50) break;
         } while (frame.Command != DemoFrameCommand.DEM_Stop);
-        
-        _context.PrintSerializers();
     }
 }

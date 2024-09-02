@@ -24,6 +24,8 @@ public class DemoParserContext
     public DemoParserConfig Config { get; set; }
     public int ClassIdSize { get; set; }
     public int MaxPlayers { get; set; }
+    public float TickInterval { get; set; }
+    
     private List<DClass> _classes;
     private List<DFieldType> _fieldTypes;
     private List<DField> _fields;
@@ -200,11 +202,14 @@ public class DemoParserContext
         //    if (i % 50 == 0) Console.ReadKey();
         //}
     }
-    
+
+    public void DebugFunction()
+    {
+        CalculateUnsupportedEntities();
+    }
     public void PrintSerializers()
     {
-        //CalculateUnsupportedEntities();
-        //return;
+        return;
         foreach (var serverClass in _classes.Where(x=>x.ClassName == "CNPC_TrooperNeutral"))
         {
             Console.WriteLine($"=========={serverClass.ClassName}");
@@ -213,8 +218,8 @@ public class DemoParserContext
                 var baseline = GetInstanceBaseline(serverClass.ClassId);
                 if (baseline == null) continue;
                 var entityBuffer = new BitBuffer(baseline);
-                var v = EntityManager.CreateEntity(ref entityBuffer, serverClass.ClassName);
-                Console.WriteLine(v.ToJson());
+                //var v = EntityManager.CreateEntity(ref entityBuffer, serverClass.ClassName);
+                //Console.WriteLine(v.ToJson());
             }
             catch(Exception ex)
             {
@@ -225,6 +230,16 @@ public class DemoParserContext
             Console.WriteLine("====================================");
             Console.WriteLine($"Press any key to try to read another class...");
             Console.ReadKey();
+        }
+    }
+
+    public void DumpObjectBaselines()
+    {
+        string dumpFolder = @"C:\tmp\DemoParserResults\BaselineDumps";
+        foreach (var v in _instanceBaselines)
+        {
+            var outputFile = Path.Combine(dumpFolder, $"{v.Key}.DAT");
+            File.WriteAllBytes(outputFile, v.Value);
         }
     }
 
@@ -242,7 +257,22 @@ public class DemoParserContext
         int successfullyParsed = 0;
         int failedToParse = 0;
         HashSet<string> errorTypes = new HashSet<string>();
-        foreach (var serverClass in _classes)
+        string[] targetClasses =
+        {
+            //"CCitadel_Ability_PrimaryWeapon_Bebop", // Parsing (unvalidated)
+            //"CCitadelPlayerController", // Parsing (unvalidated)
+            //"CCitadelTeam", // Parsing (unvalidated)
+            //"CParticleSystem", // Parsing (unvalidated)
+        };
+        
+        // Dynamic filter building to make it easier to back track on debugging
+        var filteredClasses = _classes.AsEnumerable();
+        
+        // If we have targets, only show the targets
+        if(targetClasses.Any())
+            filteredClasses = filteredClasses.Where(x => targetClasses.Contains(x.ClassName));
+        
+        foreach (var serverClass in filteredClasses)
         {
             entitiesChecked++;
             try
@@ -254,11 +284,10 @@ public class DemoParserContext
                     continue;
                 }
                 var entityBuffer = new BitBuffer(baseline);
-                var v = EntityManager.CreateEntity(ref entityBuffer, serverClass.ClassName);
             }
             catch(Exception ex)
             {
-                errorTypes.Add(ex.Message);
+                errorTypes.Add($"[{serverClass.ClassName}]{ex.Message}");
                 failedToParse++;
             }
             successfullyParsed++;
@@ -270,6 +299,13 @@ public class DemoParserContext
         Console.WriteLine($"SUCCESSFUL        :\t{successfullyParsed,-4}");
         Console.WriteLine($"FAILED            :\t{failedToParse,-4}");
         Console.WriteLine($"UNIQUE EXCEPTIONS :\t{errorTypes.Count(),-4}");
+        
+        Console.WriteLine("====Exceptions====");
+        foreach (var errorType in errorTypes)
+        {
+            Console.WriteLine(errorType);
+        }
+        
     }
     public void PrintStringTables()
     {

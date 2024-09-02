@@ -11,14 +11,26 @@ namespace DemLock.Parser.Models;
 /// </summary>
 public class DSerializer
 {
-    public string? Name { get; set; }
+    public string Name { get; set; }
     public int Version { get; set; }
     public DField[] Fields { get; set; }
 
-    public DObject Instantiate()
+    public DEntity Instantiate()
     {
         DEntity newEntity = new DEntity();
         newEntity.ClassName = this.Name;
+        foreach (var field in this.Fields)
+        {
+            newEntity.AddField(field.Activate(),field.Name);
+        }
+        return newEntity;
+    }
+    
+    public DEntity Instantiate(uint serial)
+    {
+        DEntity newEntity = new DEntity();
+        newEntity.ClassName = Name;
+        newEntity.Serial = serial;
         foreach (var field in this.Fields)
         {
             newEntity.AddField(field.Activate(),field.Name);

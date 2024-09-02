@@ -11,8 +11,4 @@
       <ProjectReference Include="..\DemLock.Utils\DemLock.Utils.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="FieldDecoders\" />
-    </ItemGroup>
-
 </Project>
