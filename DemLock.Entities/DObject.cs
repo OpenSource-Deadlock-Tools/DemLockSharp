@@ -115,6 +115,8 @@ public abstract class DObject
 
         if (typeName == "CUtlSymbolLarge")
             return new CUtlSymbolLarge();
+        if (typeName == "CUtlString")
+            return new CUtlString();
         
         // Default to a UInt32 (basically just do what visit_ident is doing in haste)
         return new DUInt32();

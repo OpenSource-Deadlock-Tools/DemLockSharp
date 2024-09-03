@@ -100,8 +100,6 @@ public class MessageHandler
         {
             entityIndex += 1 + (int)eventData.ReadUBitVar();
             
-            if(entityIndex > 0 )
-                Console.WriteLine($"[{_context.CurrentTick}]DEBUG::{entityIndex}");
             var flags = DeltaHeaderFlags.FHDR_ZERO;
             var updateType = PacketUpdateTypes.EnterPvs;
             
@@ -139,13 +137,6 @@ public class MessageHandler
                     _context.EntityManager.UpdateAtIndex(entityIndex, baseline);
                 
                 _context.EntityManager.UpdateAtIndex(entityIndex, ref eventData);
-                
-                if (entityIndex == 9984)
-                {
-                    Console.WriteLine($"============={_context.EntityManager.GetEntityAtIndex(entityIndex).ClassName}");
-                    Console.WriteLine(_context.EntityManager.GetEntityAtIndex(entityIndex).ToJson());
-                }
-
             }
             if (updateType == PacketUpdateTypes.LeavePvs)
             {
@@ -157,15 +148,7 @@ public class MessageHandler
             if (updateType == PacketUpdateTypes.DeltaEnt)
             {
                 _context.EntityManager.UpdateAtIndex(entityIndex, ref eventData);
-                
-                if (entityIndex == 9999)
-                {
-                    Console.WriteLine($"============={_context.EntityManager.GetEntityAtIndex(entityIndex).ClassName}");
-                    Console.WriteLine(_context.EntityManager.GetEntityAtIndex(entityIndex).ToJson());
-                }
             }
-            
-
         }
     }
 

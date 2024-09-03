@@ -74,6 +74,7 @@ public class DEntity: DObject
         sb.AppendLine("{");
         List<string> fieldPairs = new();
         fieldPairs.Add($"\"@IsSet\":\"{IsSet}\"");
+        fieldPairs.Add($"\"@ClassName\":\"{ClassName}\"");
         
         for (int i = 0; i < _fields.Count; ++i)
         {
