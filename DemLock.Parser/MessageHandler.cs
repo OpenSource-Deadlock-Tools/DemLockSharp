@@ -40,6 +40,12 @@ public class MessageHandler
 
         switch (type)
         {
+            case MessageTypes.net_Tick:
+                break;
+            case MessageTypes.net_SignonState:
+                break;
+            case MessageTypes.net_SetConVar:
+                break;
             case MessageTypes.svc_PacketEntities:
                 ProcessPacketEntities(data);
                 break;
@@ -51,6 +57,28 @@ public class MessageHandler
                 break;
             case MessageTypes.svc_UpdateStringTable:
                 ProcessUpdateStringTable(data);
+                break;
+            case MessageTypes.svc_ClearAllStringTables:
+                break;
+            case MessageTypes.UM_ParticleManager:
+                break;
+            case MessageTypes.GE_SosStartSoundEvent:
+                break;
+            case MessageTypes.GE_Source1LegacyGameEvent:
+                break;
+            case MessageTypes.GE_Source1LegacyGameEventList:
+                break;
+            case MessageTypes.svc_VoiceInit:
+                break;
+            case MessageTypes.svc_ClassInfo:
+                break;
+            case MessageTypes.k_EUserMsg_Damage:
+                break;
+            case MessageTypes.k_EUserMsg_TriggerDamageFlash:
+                break;
+            case MessageTypes.GE_FireBullets:
+                break;
+            case MessageTypes.GE_BulletImpact:
                 break;
             default:
                 //Console.WriteLine($"\tUnknown Message Type [{(int)type}::{data.Length}]");

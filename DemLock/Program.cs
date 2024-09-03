@@ -10,6 +10,7 @@ class Program
     static void Main(string[] args)
     {
         
+        Stopwatch sw = Stopwatch.StartNew();
         DemoParserConfig config = new DemoParserConfig();
         
         config.LogMessageReads = false;
@@ -37,6 +38,8 @@ class Program
 
         };
         parser.ProcessDemo("C:\\tmp\\DeadlockDemos\\534870CS.dem");
+        
+        Console.WriteLine($"Processed demo in {sw.Elapsed.TotalSeconds} seconds");
         // 14011DEMLOCK.dem
         
         //parser.ProcessDemo("C:/tmp/DeadlockDemos/534870CS.dem");
