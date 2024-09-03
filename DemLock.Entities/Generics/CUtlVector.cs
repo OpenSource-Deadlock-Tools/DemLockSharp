@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using System.Text.Json.Nodes;
 using DemLock.Utils;
 
 namespace DemLock.Entities.Generics;
@@ -36,6 +37,18 @@ public class CUtlVector: DGeneric
 
     }
 
+    public override JsonNode ToJsonNode()
+    {
+        JsonArray arr = new JsonArray();
+        if (Data.Count > 0)
+        {
+            foreach (var d in Data)
+            {
+                arr.Add(d.Value?.ToJsonNode());
+            }
+        }
+        return arr;
+    }
     public override string ToJson()
     {
         StringBuilder sb = new();

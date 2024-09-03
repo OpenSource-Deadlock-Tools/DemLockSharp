@@ -1,4 +1,5 @@
-﻿using DemLock.Parser.Events;
+﻿using System.Text.Json.Nodes;
+using DemLock.Parser.Events;
 
 namespace DemLock.Parser;
 
@@ -10,12 +11,30 @@ namespace DemLock.Parser;
 public class DemoEventSystem
 {
     public event EventHandler<OnChatMessageEventArgs> OnChatMessage;
+
     internal void RaiseOnChatMessage(object sender, OnChatMessageEventArgs e)
     {
         OnChatMessage?.Invoke(this, e);
     }
-    
+
     public event EventHandler<OnFileHeaderEventArgs> OnFileHeader;
-    internal void RaiseOnFileHeader(uint tick, CDemoFileHeader header) => OnFileHeader?.Invoke(this, new OnFileHeaderEventArgs(header, tick));
-    internal DemoEventSystem(){}
+
+    internal void RaiseOnFileHeader(uint tick, CDemoFileHeader header) =>
+        OnFileHeader?.Invoke(this, new OnFileHeaderEventArgs(header, tick));
+
+    public event EventHandler<OnEntityUpdatedEventArgs> OnEntityUpdated;
+
+    internal void Raise_OnEntityUpdated(uint tick, JsonNode original, JsonNode updated, string entityClass,
+        string updateType) => OnEntityUpdated?.Invoke(this, new OnEntityUpdatedEventArgs()
+    {
+        Tick = tick,
+        OriginalEntity = original,
+        UpdateType = updateType,
+        ResultEntity = updated,
+        EntityType = entityClass
+    });
+
+    internal DemoEventSystem()
+    {
+    }
 }

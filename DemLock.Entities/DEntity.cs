@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Text;
+using System.Text.Json.Nodes;
 using DemLock.Entities.Generics;
 using DemLock.Entities.Primitives;
 using DemLock.Utils;
@@ -93,6 +94,16 @@ public class DEntity: DObject
 
         return sb.ToString();
     }
+    public override JsonNode ToJsonNode()
+    {
+        JsonObject jObj = new JsonObject();
+        for (int i = 0; i < _fields.Count; i++)
+        {
+            jObj[_fieldNames[i]] = _fields[i].ToJsonNode();
+        }
+        return jObj;
+    }
+    
     public override object GetValue()
     {
         return _fields;

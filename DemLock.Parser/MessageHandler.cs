@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Numerics;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Text.Json.Nodes;
 using DemLock.Entities;
 using DemLock.Parser.Models;
 using DemLock.Utils;
@@ -137,17 +138,40 @@ public class MessageHandler
                     _context.EntityManager.UpdateAtIndex(entityIndex, baseline);
                 
                 _context.EntityManager.UpdateAtIndex(entityIndex, ref eventData);
+                
+                _events.Raise_OnEntityUpdated(
+                    _context.CurrentTick, 
+                    new JsonObject(), 
+                    _context.EntityManager.GetEntityAtIndex(entityIndex).ToJsonNode(),
+                    serverClass.ClassName, 
+                    "CREATED");
             }
             if (updateType == PacketUpdateTypes.LeavePvs)
             {
                 if ((flags & DeltaHeaderFlags.FHDR_DELETE) != 0)
                 {
+                    var preDelete = _context.EntityManager.GetEntityAtIndex(entityIndex).ToJsonNode();
+                    var className = _context.EntityManager.GetEntityAtIndex(entityIndex).ClassName;
+                    
                     _context.EntityManager.DeleteEntity(entityIndex);
+                    _events.Raise_OnEntityUpdated(
+                        _context.CurrentTick, 
+                        preDelete, 
+                        new JsonObject(),
+                        className, 
+                        "DELETE");
                 }
             }
             if (updateType == PacketUpdateTypes.DeltaEnt)
             {
+                var className = _context.EntityManager.GetEntityAtIndex(entityIndex).ClassName;
                 _context.EntityManager.UpdateAtIndex(entityIndex, ref eventData);
+                _events.Raise_OnEntityUpdated(
+                    _context.CurrentTick, 
+                    new JsonObject(), 
+                _context.EntityManager.GetEntityAtIndex(entityIndex).ToJsonNode(),
+                    className, 
+                    "UPDATED");
             }
         }
     }

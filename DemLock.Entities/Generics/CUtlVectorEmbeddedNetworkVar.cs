@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using System.Text.Json.Nodes;
 using DemLock.Entities.Primitives;
 using DemLock.Utils;
 
@@ -71,9 +72,21 @@ public class CUtlVectorEmbeddedNetworkVar : DGeneric
         return sb.ToString();
     }
 
+    public override JsonNode ToJsonNode()
+    {
+        JsonArray arr = new JsonArray();
+        if (Data.Count > 0)
+        {
+            foreach (var d in Data)
+            {
+                arr.Add(d.Value?.ToJsonNode());
+            }
+        }
+        return arr;
+    }
 
     public override object GetValue()
     {
-        throw new NotImplementedException();
+        return Data;
     }
 }

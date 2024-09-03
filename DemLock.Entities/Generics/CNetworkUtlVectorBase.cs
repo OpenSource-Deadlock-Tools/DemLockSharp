@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using System.Text.Json.Nodes;
 using DemLock.Utils;
 
 namespace DemLock.Entities.Generics;
@@ -35,6 +36,19 @@ public class CNetworkUtlVectorBase : DGeneric
             if (!Data.ContainsKey(i)) Data.Add(i, _typeFactory());
             Data[i].SetValue(path[1..], ref bs);
         }
+    }
+    
+    public override JsonNode ToJsonNode()
+    {
+        JsonArray arr = new JsonArray();
+        if (Data.Count > 0)
+        {
+            foreach (var d in Data)
+            {
+                arr.Add(d.Value?.ToJsonNode());
+            }
+        }
+        return arr;
     }
 
     public override string ToJson()

@@ -6,6 +6,19 @@ This is a demo parser the is being created in C# for the express purposes of tak
 
 Right now this project is at the very start, but is quickly being brought up with reference to parsers for other valve games.
 
+## First release build
+This commit marks the first build I can say is stable enough to be a release.
+
+It is still lacking a lot of features, however it is able to fully parse the sample demo (more integration testing to come) and seems stable enough.
+
+The interface to consume the results is not defined fully yet, but that is being worked on.
+
+This project comes with absolutely zero assurance of stability, and is to be used at your own risk.
+
+There has also been near zero optimization done to the running speed of the application, so please expect that it will be very slow, as there is still a lot of stuff left in that was only useful for debugging that will be removed as benchmarks are started.
+
+If you identify anything you think you might be able to fix or upgrade please feel free to reach out as any help would be appreciated! its been a long journey to get here.
+
 
 
 ### Resources

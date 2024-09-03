@@ -1,4 +1,5 @@
-﻿using DemLock.Entities.DefinedObjects;
+﻿using System.Text.Json.Nodes;
+using DemLock.Entities.DefinedObjects;
 using DemLock.Entities.Generics;
 using DemLock.Entities.Primitives;
 using DemLock.Utils;
@@ -38,6 +39,11 @@ public abstract class DObject
     public virtual string ToJson()
     {
         return $"\"{GetValue()}\"";
+    }
+    
+    public virtual JsonNode ToJsonNode()
+    {
+        return $"{GetValue()?.ToString()}";
     }
 
 

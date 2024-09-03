@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using System.Text.Json.Nodes;
 using DemLock.Utils;
 
 namespace DemLock.Entities.DefinedObjects;
@@ -58,6 +59,20 @@ public class DFixedSizeArray:DObject
 
         return sb.ToString();
     }
+
+    public override JsonNode ToJsonNode()
+    {
+        JsonArray arr = new JsonArray();
+        if (Data.Length > 0)
+        {
+            foreach (var d in Data)
+            {
+                arr.Add(d?.ToJsonNode());
+            }
+        }
+        return arr;
+    }
+
     public override object GetValue()
     {
         throw new NotImplementedException();
