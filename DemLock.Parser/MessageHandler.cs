@@ -58,11 +58,29 @@ public class MessageHandler
             case MessageTypes.svc_UpdateStringTable:
                 ProcessUpdateStringTable(data);
                 break;
+            case MessageTypes.net_Tick:
+                break;
+            case MessageTypes.net_SignonState:
+                break;
+            case MessageTypes.net_SetConVar:
+                break;
+            case MessageTypes.net_SpawnGroup_Load:
+                break;
+            case MessageTypes.net_SpawnGroup_SetCreationTick:
+                break;
+            case MessageTypes.k_EUserMsg_AbilityNotify:
+                break;
+            case MessageTypes.k_EUserMsg_ChatEvent:
+                break;
             case MessageTypes.svc_ClearAllStringTables:
                 break;
             case MessageTypes.UM_ParticleManager:
                 break;
             case MessageTypes.GE_SosStartSoundEvent:
+                break;
+            case MessageTypes.GE_SosStopSoundEvent:
+                break;
+            case MessageTypes.GE_SosSetSoundEventParams:
                 break;
             case MessageTypes.GE_Source1LegacyGameEvent:
                 break;
@@ -80,8 +98,26 @@ public class MessageHandler
                 break;
             case MessageTypes.GE_BulletImpact:
                 break;
+            case MessageTypes.GE_SosStopSoundEventHash:
+                break;
+            case MessageTypes.TE_EffectDispatchId:
+                break;
+            case MessageTypes.svc_HLTVStatus:
+                break;
+            case MessageTypes.UM_PlayResponseConditional:
+                break;
+            case MessageTypes.k_EUserMsg_PostMatchDetails:
+                break;
+            case MessageTypes.k_EEntityMsg_BreakablePropSpawnDebris:
+                break;
+            case MessageTypes.k_EUserMsg_HeroKilled:
+                break;
+            case MessageTypes.k_EUserMsg_PostProcessingAnim:
+                break;
+            case MessageTypes.k_EUserMsg_ChatMsg:
+                break;
             default:
-                //Console.WriteLine($"\tUnknown Message Type [{(int)type}::{data.Length}]");
+                Console.WriteLine($"\tUnhandled Message Type [{type}::{data.Length}]");
                 break;
         }
     }
