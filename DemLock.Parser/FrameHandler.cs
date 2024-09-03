@@ -174,5 +174,6 @@ public class FrameHandler
                 };
             }).ToList();
         _context.AddSerializerRange(serializers);
+        _context.DebugFunction();
     }
 }

@@ -25,6 +25,7 @@ public class DemoParserContext
     public int ClassIdSize { get; set; }
     public int MaxPlayers { get; set; }
     public float TickInterval { get; set; }
+    public uint CurrentTick { get; set; }
     
     private List<DClass> _classes;
     private List<DFieldType> _fieldTypes;
@@ -205,7 +206,7 @@ public class DemoParserContext
 
     public void DebugFunction()
     {
-        CalculateUnsupportedEntities();
+        //CalculateUnsupportedEntities();
     }
     public void PrintSerializers()
     {

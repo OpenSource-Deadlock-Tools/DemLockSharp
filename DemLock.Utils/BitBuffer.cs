@@ -221,7 +221,84 @@ public ref struct BitBuffer
             output[bytes] = (byte)ReadUInt(remainder);
         }
     }
+public uint ReadUBits(int numBits)
+    {
+        if (_bitsAvail >= numBits)
+        {
+            var ret = _buf & BitMask[numBits];
+            _bitsAvail -= numBits;
+            if (_bitsAvail != 0)
+            {
+                _buf >>= numBits;
+            }
+            else
+            {
+                FetchNext();
+            }
 
+            if (IsReadingFields)
+            {
+                Console.Write($"ReadUint({numBits}): ");
+                uint mask = 1;
+                for (int i = 0; i < numBits; i++)
+                {
+                    Console.Write((mask & ret) != 0 ? "1" : "0");
+                    mask <<= 1;
+                }
+
+                Console.WriteLine();
+            }
+
+            return ret;
+        }
+        else
+        {
+            var ret = _buf;
+            numBits -= _bitsAvail;
+
+            UpdateBuffer();
+
+            ret |= (_buf & BitMask[numBits]) << _bitsAvail;
+            _bitsAvail = 32 - numBits;
+            _buf >>= numBits;
+
+            if (IsReadingFields)
+            {
+                Console.Write($"ReadUint({numBits}): ");
+                uint mask = 1;
+                for (int i = 0; i < numBits; i++)
+                {
+                    Console.Write((mask & ret) != 0 ? "1" : "0");
+                    mask <<= 1;
+                }
+
+                Console.WriteLine();
+            }
+
+            return ret;
+        }
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public bool ReadOneBit()
+    {
+        var ret = _buf & 1;
+        if (--_bitsAvail == 0)
+        {
+            FetchNext();
+        }
+        else
+        {
+            _buf >>= 1;
+        }
+
+        if (IsReadingFields)
+        {
+            Console.WriteLine($"ReadOneBit: {ret}");
+        }
+
+        return ret != 0;
+    }
     public int ReadUBitVarFieldPath()
     {
         if (ReadBit())

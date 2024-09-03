@@ -23,6 +23,10 @@ public class QAngle : DObject
     public override void SetValue(ReadOnlySpan<int> path, ref BitBuffer bs)
     {
         IsSet = true;
+        bool hasPitch ;
+        bool hasYaw ;
+        bool hasRoll ;
+        
         if (_encodingInfo.VarEncoder == "qangle_pitch_yaw")
         {
             Pitch = bs.ReadAngle(_encodingInfo.BitCount);
@@ -33,9 +37,12 @@ public class QAngle : DObject
 
         if (_encodingInfo.VarEncoder == "qangle_precise")
         {
-            Pitch = bs.ReadBit() ? bs.ReadCoordPrecise() : 0.0f;
-            Yaw = bs.ReadBit() ? bs.ReadCoordPrecise() : 0.0f;
-            Roll = bs.ReadBit() ? bs.ReadCoordPrecise() : 0.0f;
+            hasPitch = bs.ReadOneBit();
+            hasYaw = bs.ReadOneBit();
+            hasRoll = bs.ReadOneBit();
+            Pitch = hasPitch ? bs.ReadCoordPrecise() : 0.0f;
+            Yaw = hasYaw ? bs.ReadCoordPrecise() : 0.0f;
+            Roll = hasRoll ? bs.ReadCoordPrecise() : 0.0f;
             return;
         }
 
@@ -47,9 +54,12 @@ public class QAngle : DObject
             return;
         }
 
-        Pitch = bs.ReadBit() ? bs.ReadCoord() : 0.0f;
-        Yaw = bs.ReadBit() ? bs.ReadCoord() : 0.0f;
-        Roll = bs.ReadBit() ? bs.ReadCoord() : 0.0f;
+        hasPitch = bs.ReadOneBit();
+        hasYaw = bs.ReadOneBit();
+        hasRoll = bs.ReadOneBit();
+        Pitch = hasPitch ? bs.ReadCoord() : 0.0f;
+        Yaw = hasYaw ? bs.ReadCoord() : 0.0f;
+        Roll = hasRoll ? bs.ReadCoord() : 0.0f;
     }
 
     /// <summary>
@@ -64,6 +74,9 @@ public class QAngle : DObject
     {
         StringBuilder sb = new();
         sb.AppendLine("{");
+        sb.AppendLine($"\"@FieldType\": \"QAngle\",");
+        sb.AppendLine($"\"@VarEncoder\": \"{_encodingInfo.VarEncoder}\",");
+        sb.AppendLine($"\"@BitCount\": \"{_encodingInfo.BitCount}\",");
         sb.AppendLine($"\"Pitch\": \"{Pitch}\",");
         sb.AppendLine($"\"Yaw\": \"{Yaw}\",");
         sb.AppendLine($"\"Roll\": \"{Roll}\"");

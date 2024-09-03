@@ -1,18 +1,18 @@
 ﻿using DemLock.Utils;
 
-namespace DemLock.Entities.Primitives;
+namespace DemLock.Entities.DefinedObjects;
 
-public class DInt16: DPrimitive
+public class CUtlSymbolLarge: DObject
 {
-    public short Value { get; set; }
+    public string Value { get; set; }
     public override void SetValue(object value)
     {
-        throw new NotImplementedException($"DInt16::SetValue(Object) is not implemented");
+        throw new NotImplementedException();
     }
 
     public override void SetValue(ReadOnlySpan<int> path, ref BitBuffer bs)
     {
-        Value = (short)bs.ReadVarInt32();
+        Value = bs.ReadStringUtf8();
     }
 
     public override object GetValue()

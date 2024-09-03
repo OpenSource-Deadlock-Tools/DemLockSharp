@@ -44,7 +44,15 @@ public class DField
         
         // If this has a generic, we will need to handle special cases
         if(FieldType.GenericType != null)
-            return DObject.CreateGenericObject(FieldType.Name, FieldType.GenericType.Name);
+            return DObject.CreateGenericObject(FieldType.Name, FieldType.GenericType.Name, () =>
+            {
+                var serializer = _context.GetSerializerByClassName(FieldType.GenericType.Name, SerializerVersion);
+                if (serializer == null)
+                {
+                    return DObject.CreateObject(FieldType.GenericType.Name, EncodingInfo);
+                }
+                return serializer.Instantiate();
+            });
         // Generics will come with the serializer set to the serializer for their generic type
         // This will need to be packed and sen to the generic at some point to get generics working fully
         // For now we will just check that it's a generic to get through initial processing and come back to it later

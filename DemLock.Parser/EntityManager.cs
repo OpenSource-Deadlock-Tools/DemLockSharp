@@ -62,7 +62,12 @@ public class EntityManager
              reader.Invoke(ref entityData, ref fp);
              fieldPaths[fpi++] = fp;
          }
- 
+
+         if(index == 984 && _context.CurrentTick == 11360)
+             Console.WriteLine("Debug Point");
+         if(index == 985 && _context.CurrentTick == 11360)
+             Console.WriteLine("Debug Point");
+
          fieldPaths = fieldPaths[..fpi];
          for (var idx = 0; idx < fieldPaths.Length; idx++)
          {

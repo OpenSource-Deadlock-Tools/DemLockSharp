@@ -48,6 +48,7 @@ public class DemoParser
             if(_config.LogReadFrames) Console.WriteLine($"[{i}::{frame.Tick}] {frame.Command}({(int)frame.Command})");
             _frameHandler.HandleFrame(frame);
             i++;
+            _context.CurrentTick = frame.Tick;
             //if (i >= 50) break;
         } while (frame.Command != DemoFrameCommand.DEM_Stop);
     }

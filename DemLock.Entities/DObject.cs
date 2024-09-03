@@ -52,18 +52,18 @@ public abstract class DObject
     /// <param name="typeName"></param>
     /// <param name="genericTypeName"></param>
     /// <returns></returns>
-    public static DObject CreateGenericObject(string typeName, string genericTypeName)
+    public static DObject CreateGenericObject(string typeName, string genericTypeName, Func<DObject> typeFactory)
     {
         if(typeName == "CNetworkUtlVectorBase")
-            return new CNetworkUtlVectorBase(genericTypeName);
+            return new CNetworkUtlVectorBase(genericTypeName, typeFactory);
         if (typeName == "CHandle")
             return new CHandle();
         if(typeName == "CStrongHandle")
             return new CStrongHandle();
         if (typeName == "CUtlVector")
-            return new CUtlVector(genericTypeName);
+            return new CUtlVector(genericTypeName, typeFactory);
         if(typeName == "CUtlVectorEmbeddedNetworkVar")
-            return new CUtlVectorEmbeddedNetworkVar(genericTypeName);
+            return new CUtlVectorEmbeddedNetworkVar(genericTypeName, typeFactory);
 
         throw new Exception($"Unmapped generic type {typeName}");
         return new DNull();
@@ -112,6 +112,9 @@ public abstract class DObject
         
         if(typeName == "HSequence")
             return new HSequence();
+
+        if (typeName == "CUtlSymbolLarge")
+            return new CUtlSymbolLarge();
         
         // Default to a UInt32 (basically just do what visit_ident is doing in haste)
         return new DUInt32();

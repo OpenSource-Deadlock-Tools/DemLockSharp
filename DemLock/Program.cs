@@ -16,7 +16,8 @@ class Program
         config.LogReadFrames = false;
         
         DemoParser parser = new DemoParser(config);
-        parser.ProcessDemo("C:\\tmp\\DeadlockDemos\\534870.dem");
+        parser.ProcessDemo("C:\\tmp\\DeadlockDemos\\534870CS.dem");
+        // 14011DEMLOCK.dem
         
         //parser.ProcessDemo("C:/tmp/DeadlockDemos/534870CS.dem");
     }

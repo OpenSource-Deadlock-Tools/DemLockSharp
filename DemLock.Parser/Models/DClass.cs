@@ -21,4 +21,9 @@ public class DClass
             obj.AddField(field.Activate(),field.Name);
         return obj;
     }
+
+    public override string ToString()
+    {
+        return $"{ClassName}::{ClassId}[{Fields.Length}]";
+    }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Text;
+using DemLock.Entities.Generics;
 using DemLock.Entities.Primitives;
 using DemLock.Utils;
 

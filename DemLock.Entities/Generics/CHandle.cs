@@ -12,7 +12,7 @@ public class CHandle: DObject
     }
     public override void SetValue(ReadOnlySpan<int> path, ref BitBuffer bs)
     {
-        _value = bs.ReadUVarInt64();
+        _value = bs.ReadVarUInt32();
         IsSet = true;
     }
     public override object GetValue() => _value;
