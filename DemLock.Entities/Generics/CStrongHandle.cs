@@ -14,10 +14,10 @@ public class CStrongHandle: DGeneric
         throw new NotImplementedException();
     }
 
-    public override void SetValue(ReadOnlySpan<int> path, ref BitBuffer bs)
+    public override object SetValue(ReadOnlySpan<int> path, ref BitBuffer bs)
     {
         IsSet = true;
-        Value = bs.ReadUVarInt64();
+        return bs.ReadUVarInt64();
     }
 
     public override object GetValue() => Value;

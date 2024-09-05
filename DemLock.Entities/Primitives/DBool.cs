@@ -10,10 +10,9 @@ public class DBool: DPrimitive
         throw new NotImplementedException();
     }
 
-    public override void SetValue(ReadOnlySpan<int> path, ref BitBuffer bs)
+    public override object SetValue(ReadOnlySpan<int> path, ref BitBuffer bs)
     {
-        IsSet = true;
-        Value = bs.ReadBit();
+        return bs.ReadBit();
     }
 
     public override object GetValue() => Value;

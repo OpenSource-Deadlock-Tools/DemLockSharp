@@ -2,7 +2,7 @@
 
 namespace DemLock.Entities.DefinedObjects;
 
-public class CNetworkedQuantizedFloat: DObject
+public class CNetworkedQuantizedFloat: FieldDecoder
 {
     private FieldEncodingInfo _encodingInfo;
     private float _value;
@@ -17,11 +17,10 @@ public class CNetworkedQuantizedFloat: DObject
         throw new NotImplementedException();
     }
 
-    public override void SetValue(ReadOnlySpan<int> path, ref BitBuffer bs)
+    public override object SetValue(ReadOnlySpan<int> path, ref BitBuffer bs)
     {
         var encoding = QuantizedFloatEncoding.Create(_encodingInfo);
-        _value = encoding.Decode(ref bs);
-        IsSet = true;
+        return encoding.Decode(ref bs);
     }
 
     public override object GetValue() => _value;

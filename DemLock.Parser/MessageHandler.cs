@@ -193,9 +193,12 @@ public class MessageHandler
 
                 var baseline = _context.GetInstanceBaseline((int)classId);
                 if (baseline != null)
+                {
                     _context.EntityManager.UpdateAtIndex(entityIndex, baseline);
-
-                _context.EntityManager.UpdateAtIndex(entityIndex, ref eventData);
+                }
+                var entity = _context.EntityManager.UpdateAtIndex(entityIndex, ref eventData);
+                
+                _events.Raise_OnEntityUpdated(_context.CurrentTick,entity, "TEST", "CREATE");
             }
 
             if (updateType == PacketUpdateTypes.LeavePvs)
@@ -205,13 +208,13 @@ public class MessageHandler
                     _context.EntityManager.DeleteEntity(entityIndex);
                 }
             }
-
             if (updateType == PacketUpdateTypes.DeltaEnt)
             {
-                var updates = _context.EntityManager.UpdateAtIndex(entityIndex, ref eventData);
-                _events.Raise_OnEntityUpdated(_context.CurrentTick, updates, _context.EntityManager.GetEntityAtIndex(entityIndex).ClassName, "UPDATE");
+                var entity = _context.EntityManager.UpdateAtIndex(entityIndex, ref eventData);
+                _events.Raise_OnEntityUpdated(_context.CurrentTick,entity, "TEST", "UPDATE");
             }
         }
+        Environment.Exit(0);
     }
 
     private void ProcessServerInfo(byte[] data)

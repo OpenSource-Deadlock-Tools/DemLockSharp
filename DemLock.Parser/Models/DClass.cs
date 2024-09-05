@@ -12,18 +12,4 @@ public class DClass
 {
     public string? ClassName { get; set; }
     public int ClassId { get; set; }
-    public DField[] Fields { get; set; } = Array.Empty<DField>();
-
-    public DObject Activate()
-    {
-        DEntity obj = new DEntity();
-        foreach (var field in Fields)
-            obj.AddField(field.Activate(),field.Name);
-        return obj;
-    }
-
-    public override string ToString()
-    {
-        return $"{ClassName}::{ClassId}[{Fields.Length}]";
-    }
 }

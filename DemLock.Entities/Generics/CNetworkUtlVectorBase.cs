@@ -6,10 +6,10 @@ namespace DemLock.Entities.Generics;
 
 public class CNetworkUtlVectorBase : DGeneric
 {
-    public Dictionary<int, DObject?> Data { get; set; }
-    private Func<DObject> _typeFactory;
+    public Dictionary<int, FieldDecoder?> Data { get; set; }
+    private Func<FieldDecoder> _typeFactory;
 
-    public CNetworkUtlVectorBase(string genericTypeName, Func<DObject> typeFactory) : base(genericTypeName)
+    public CNetworkUtlVectorBase(string genericTypeName, Func<FieldDecoder> typeFactory) : base(genericTypeName)
     {
         _typeFactory = typeFactory;
         
@@ -23,19 +23,21 @@ public class CNetworkUtlVectorBase : DGeneric
         throw new NotImplementedException();
     }
 
-    public override void SetValue(ReadOnlySpan<int> path, ref BitBuffer bs)
+    public override object SetValue(ReadOnlySpan<int> path, ref BitBuffer bs)
     {
         if (path.Length == 0)
         {
-            Size = (int)bs.ReadVarUInt32();
+            return (int)bs.ReadVarUInt32();
         }
 
         if (path.Length >= 1)
         {
             var i = path[0];
             if (!Data.ContainsKey(i)) Data.Add(i, _typeFactory());
-            Data[i].SetValue(path[1..], ref bs);
+            return Data[i].SetValue(path[1..], ref bs);
         }
+
+        return null;
     }
     
     public override JsonNode ToJsonNode()

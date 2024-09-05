@@ -12,7 +12,7 @@ public class DNull: DPrimitive
         throw new NotImplementedException();
     }
 
-    public override void SetValue(ReadOnlySpan<int> path, ref BitBuffer bs)
+    public override object SetValue(ReadOnlySpan<int> path, ref BitBuffer bs)
     {
         throw new Exception("Tried to update a null value field");
     }

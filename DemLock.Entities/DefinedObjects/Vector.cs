@@ -3,7 +3,7 @@ using DemLock.Utils;
 
 namespace DemLock.Entities.DefinedObjects;
 
-public class Vector : DObject
+public class Vector : FieldDecoder
 {
     public float X { get; set; }
     public float Y { get; set; }
@@ -21,18 +21,18 @@ public class Vector : DObject
         _encodingInfo = encodingInfo;
     }
 
-    public override void SetValue(ReadOnlySpan<int> path, ref BitBuffer bs)
+    public override object SetValue(ReadOnlySpan<int> path, ref BitBuffer bs)
     {
         IsSet = true;
         if (_encodingInfo.VarEncoder == "normal")
         {
-            (X, Y, Z) = (bs.Read3BitNormal());
-            return;
+            return (bs.Read3BitNormal());
         }
 
         X = ReadFloat(ref bs);
         Y = ReadFloat(ref bs);
         Z = ReadFloat(ref bs);
+        return (X, Y, Z);
     }
 
     private float ReadFloat(ref BitBuffer bits)

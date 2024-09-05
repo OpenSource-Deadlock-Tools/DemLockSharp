@@ -29,7 +29,7 @@ public class DField
     /// Get the activated field for this field template
     /// </summary>
     /// <returns></returns>
-    public DObject Activate()
+    public FieldDecoder Activate()
     {
         if (FieldType.Count > 0 && FieldType.Name == "char")
             return new DString(FieldType.Count);
@@ -39,17 +39,17 @@ public class DField
             return new SimulationTime(_context.TickInterval);
         
         if (FieldType.Count > 0)
-            return DObject.CreateFixedSizeArray(FieldType.Name, FieldType.Count, () => DObject.CreateObject(FieldType.Name, EncodingInfo));
+            return FieldDecoder.CreateFixedSizeArray(FieldType.Name, FieldType.Count, () => FieldDecoder.CreateObject(FieldType.Name, EncodingInfo));
             
         
         // If this has a generic, we will need to handle special cases
         if(FieldType.GenericType != null)
-            return DObject.CreateGenericObject(FieldType.Name, FieldType.GenericType.Name, () =>
+            return FieldDecoder.CreateGenericObject(FieldType.Name, FieldType.GenericType.Name, () =>
             {
                 var serializer = _context.GetSerializerByClassName(FieldType.GenericType.Name, SerializerVersion);
                 if (serializer == null)
                 {
-                    return DObject.CreateObject(FieldType.GenericType.Name, EncodingInfo);
+                    return FieldDecoder.CreateObject(FieldType.GenericType.Name, EncodingInfo);
                 }
                 return serializer.Instantiate();
             });
@@ -62,7 +62,7 @@ public class DField
             return _context.GetSerializerByClassName(SerializerName, SerializerVersion).Instantiate();
         
             
-        return DObject.CreateObject(FieldType.Name, EncodingInfo);
+        return FieldDecoder.CreateObject(FieldType.Name, EncodingInfo);
     }
     public override string ToString()
     {

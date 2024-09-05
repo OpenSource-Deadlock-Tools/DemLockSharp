@@ -10,9 +10,9 @@ public class DInt16: DPrimitive
         throw new NotImplementedException($"DInt16::SetValue(Object) is not implemented");
     }
 
-    public override void SetValue(ReadOnlySpan<int> path, ref BitBuffer bs)
+    public override object SetValue(ReadOnlySpan<int> path, ref BitBuffer bs)
     {
-        Value = (short)bs.ReadVarInt32();
+        return (short)bs.ReadVarInt32();
     }
 
     public override object GetValue()

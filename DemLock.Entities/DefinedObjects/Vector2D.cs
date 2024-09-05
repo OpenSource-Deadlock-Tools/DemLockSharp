@@ -4,7 +4,7 @@ using DemLock.Utils;
 
 namespace DemLock.Entities.DefinedObjects;
 
-public class Vector2D : DObject
+public class Vector2D : FieldDecoder
 {
     public float X { get; set; }
     public float Y { get; set; }
@@ -21,10 +21,11 @@ public class Vector2D : DObject
         throw new NotImplementedException();
     }
 
-    public override void SetValue(ReadOnlySpan<int> path, ref BitBuffer bs)
+    public override object SetValue(ReadOnlySpan<int> path, ref BitBuffer bs)
     {
         X = FloatDecoder.ReadFloat(ref bs, _encodingInfo);
         Y = FloatDecoder.ReadFloat(ref bs, _encodingInfo);
+        return (X, Y);
     }
 
     public override string ToJson()

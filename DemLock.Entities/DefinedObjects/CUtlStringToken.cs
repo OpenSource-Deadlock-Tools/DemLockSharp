@@ -2,7 +2,7 @@
 
 namespace DemLock.Entities.DefinedObjects;
 
-public class CUtlStringToken: DObject
+public class CUtlStringToken: FieldDecoder
 {
     public UInt32 Value { get; set; }
     public override void SetValue(object value)
@@ -10,9 +10,9 @@ public class CUtlStringToken: DObject
         throw new NotImplementedException();
     }
 
-    public override void SetValue(ReadOnlySpan<int> path, ref BitBuffer bs)
+    public override object SetValue(ReadOnlySpan<int> path, ref BitBuffer bs)
     {
-        Value = bs.ReadVarUInt32();
+        return bs.ReadVarUInt32();
     }
 
     public override object GetValue() => Value;

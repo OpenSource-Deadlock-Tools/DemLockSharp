@@ -8,5 +8,5 @@ public class OnEntityUpdatedEventArgs : EventArgs
     public uint Tick { get; set; }
     public string EntityType { get; set; }
     public string UpdateType { get; set; }
-    public List<UpdateDelta> Updates { get; set; }
+    public object Updates { get; set; }
 }

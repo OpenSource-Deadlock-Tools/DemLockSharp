@@ -25,7 +25,7 @@ public class DemoEventSystem
 
     public event EventHandler<OnEntityUpdatedEventArgs> OnEntityUpdated;
 
-    internal void Raise_OnEntityUpdated(uint tick, List<UpdateDelta> updates, string entityClass, string updateType) => OnEntityUpdated?.Invoke(this, new OnEntityUpdatedEventArgs()
+    internal void Raise_OnEntityUpdated(uint tick, object updates, string entityClass, string updateType) => OnEntityUpdated?.Invoke(this, new OnEntityUpdatedEventArgs()
     {
         Tick = tick,
         Updates = updates,

@@ -10,7 +10,7 @@ namespace DemLock.Entities;
 /// Demo object that is the most atomic object that can be instantiated
 /// as this can represent an entity or a base data type.
 /// </summary>
-public abstract class DObject
+public abstract class FieldDecoder
 {
     public bool IsSet { get; set; } = false;
     /// <summary>
@@ -18,6 +18,7 @@ public abstract class DObject
     /// </summary>
     /// <param name="value"></param>
     public abstract void SetValue(object value);
+
     /// <summary>
     /// This will be used to decode the value from a bit stream if needed.
     /// There will be a callback function that is placed in the object at activation
@@ -26,13 +27,21 @@ public abstract class DObject
     /// </summary>
     /// <param name="path"></param>
     /// <param name="bs"></param>
-    public abstract void SetValue(ReadOnlySpan<int> path, ref BitBuffer bs);
+    public abstract object SetValue(ReadOnlySpan<int> path, ref BitBuffer bs);
 
     public virtual void SetValue(ReadOnlySpan<int> path, ref BitBuffer bs, ref UpdateDelta returnDelta)
     {
         SetValue(path, ref bs);
         returnDelta.Value = GetValue();
     }
+
+
+    public virtual void ReadFieldName(ReadOnlySpan<int> path, ref string fieldName)
+    {
+        if (string.IsNullOrEmpty(fieldName))
+            fieldName = string.Empty;
+    }
+    
 
     public abstract object GetValue();
 
@@ -57,7 +66,7 @@ public abstract class DObject
     }
 
 
-    public static DObject CreateFixedSizeArray(string typeName, int count, Func<DObject> objectFactory)
+    public static FieldDecoder CreateFixedSizeArray(string typeName, int count, Func<FieldDecoder> objectFactory)
     {
         return new DFixedSizeArray(typeName, count, objectFactory);
     }
@@ -68,7 +77,7 @@ public abstract class DObject
     /// <param name="typeName"></param>
     /// <param name="genericTypeName"></param>
     /// <returns></returns>
-    public static DObject CreateGenericObject(string typeName, string genericTypeName, Func<DObject> typeFactory)
+    public static FieldDecoder CreateGenericObject(string typeName, string genericTypeName, Func<FieldDecoder> typeFactory)
     {
         if(typeName == "CNetworkUtlVectorBase")
             return new CNetworkUtlVectorBase(genericTypeName, typeFactory);
@@ -84,7 +93,7 @@ public abstract class DObject
         throw new Exception($"Unmapped generic type {typeName}");
         return new DNull();
     }
-    public static DObject CreateObject(string typeName, FieldEncodingInfo fieldEncodingInfo)
+    public static FieldDecoder CreateObject(string typeName, FieldEncodingInfo fieldEncodingInfo)
     {
         if (typeName == "float32")
             return new DFloat(fieldEncodingInfo);

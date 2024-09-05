@@ -5,12 +5,13 @@ namespace DemLock.Entities.Primitives;
 /// <summary>
 /// Represents a float32 in the entity space
 /// </summary>
-public class DFloat: DPrimitive
+public class DFloat : DPrimitive
 {
     /// <summary>
     /// The network name for the field type for checking what serializer to use
     /// </summary>
     public const string NetworkName = "float32";
+
     public float Value { get; set; }
     private FieldEncodingInfo _encodingInfo;
 
@@ -24,21 +25,18 @@ public class DFloat: DPrimitive
         throw new NotImplementedException();
     }
 
-    public override void SetValue(ReadOnlySpan<int> path, ref BitBuffer bs)
+    public override object SetValue(ReadOnlySpan<int> path, ref BitBuffer bs)
     {
-        if(_encodingInfo != null)
+        if (_encodingInfo != null)
         {
             switch (_encodingInfo.VarEncoder)
             {
                 case "coord":
-                    Value = bs.ReadCoord();
-                    return;
+                    return bs.ReadCoord();
                 case "simtime":
-                    Value = (DecodeSimulationTime(ref bs));
-                    return;
+                    return (DecodeSimulationTime(ref bs));
                 case "runetime":
-                    Value = DecodeRuneTime(ref bs);
-                    return;
+                    return DecodeRuneTime(ref bs);
                 case null:
                     break;
                 default:
@@ -48,14 +46,14 @@ public class DFloat: DPrimitive
 
         if (_encodingInfo.BitCount <= 0 || _encodingInfo.BitCount >= 32)
         {
-            Value =  bs.ReadFloat();
-            return;
+            return bs.ReadFloat();
         }
-        
+
         var encoding = QuantizedFloatEncoding.Create(_encodingInfo);
-        Value = encoding.Decode(ref bs);
+        return encoding.Decode(ref bs);
     }
- internal static float DecodeSimulationTime(ref BitBuffer buffer)
+
+    internal static float DecodeSimulationTime(ref BitBuffer buffer)
     {
         // Assume a 64 tick server... this will need to be set somehow
         var ticks = buffer.ReadVarUInt32();
@@ -70,6 +68,6 @@ public class DFloat: DPrimitive
             return *(float*)&bits;
         }
     }
-    public override object GetValue() => Value;
 
+    public override object GetValue() => Value;
 }

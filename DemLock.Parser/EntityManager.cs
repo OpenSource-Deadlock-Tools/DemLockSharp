@@ -5,6 +5,19 @@ using DemLock.Utils;
 
 namespace DemLock.Parser;
 
+public class EntityFieldData
+{
+    public EntityFieldData(string fieldName, object fieldValue, FieldDecoder fieldDecoder)
+    {
+        FieldName = fieldName;
+        FieldValue = fieldValue;
+        FieldDecoder = fieldDecoder;
+    }
+    public string FieldName { get; set; }
+    public object FieldValue { get; set; }
+    public FieldDecoder FieldDecoder { get; set; }
+}
+
 /// <summary>
 /// Manager for entities to consolidate all of the logic needed to instantiating, and updating
 /// the objects
@@ -18,23 +31,27 @@ public class EntityManager
     /// cases where there might end up being gaps, which again could be handled but this is easier
     /// just to get things running
     /// </summary>
-    private Dictionary<int, DEntity> _entities;
+    private Dictionary<int, Dictionary<ulong, EntityFieldData>> _entities;
+    private Dictionary<int, EntityDecoder> _deserializerMap;
 
     public EntityManager(DemoParserContext context)
     {
         _context = context;
-        _entities = new Dictionary<int, DEntity>();
+        _deserializerMap = new Dictionary<int, EntityDecoder>();
+        _entities = new();
     }
 
     public void AddNewEntity(int index, DClass serverClass, uint serial)
     {
         var entity = _context.GetSerializerByClassName(serverClass.ClassName)?.Instantiate(serial);
-        _entities[index] = entity;
+        _deserializerMap[index] = entity;
+        _entities[index] = new Dictionary<ulong, EntityFieldData>();
     }
 
     public void DeleteEntity(int index)
     {
         _entities[index] = null!;
+        _deserializerMap[index] = null!;
     }
 
     public void UpdateAtIndex(int index, byte[] entityData)
@@ -42,8 +59,9 @@ public class EntityManager
         var bb = new BitBuffer(entityData);
         UpdateAtIndex(index, ref bb);
     }
-    public List<UpdateDelta> UpdateAtIndex(int index, ref BitBuffer entityData)
+    public List<EntityFieldData> UpdateAtIndex(int index, ref BitBuffer entityData)
     {
+        List<EntityFieldData> entityDataList = new();
         
          Span<FieldPath> fieldPaths = stackalloc FieldPath[512];
          var fp = FieldPath.Default;
@@ -63,26 +81,35 @@ public class EntityManager
          }
          fieldPaths = fieldPaths[..fpi];
 
-         List<UpdateDelta> updates = new();
          for (var idx = 0; idx < fieldPaths.Length; idx++)
          {
              var fieldPath = fieldPaths[idx];
              var pathSpan = fieldPath.AsSpan();
-             UpdateDelta delta = new UpdateDelta();
-             _entities[index].SetValue(pathSpan, ref entityData, ref delta);
-             updates.Add(delta);
+             var deserializer = _deserializerMap[index];
+             var value = deserializer.SetValue(pathSpan, ref entityData);
+             var hash = fieldPath.GetHash();
+             string fieldName = null;
+             EntityFieldData fieldData;
+             if (_entities[index].TryGetValue(hash, out fieldData))
+             {
+                 if (string.IsNullOrEmpty(fieldData.FieldName))
+                      deserializer.ReadFieldName(pathSpan, ref fieldName);
+                 fieldData.FieldValue = value;
+             }
+             else
+             {
+                  deserializer.ReadFieldName(pathSpan, ref fieldName);
+                  fieldData = new EntityFieldData(fieldName, value, null);
+                  _entities[index][hash] = fieldData;
+                  entityDataList.Add(fieldData);
+             }
+             
          }
-
-         return updates;
+         return entityDataList;
     }
 
-    public DEntity GetEntityAtIndex(int index)
+    public object GetEntityAtIndex(int index)
     {
         return _entities[index];
-    }
-
-    public List<DEntity> GetEntityByName(string className)
-    {
-        return _entities.Values.Where(x => x.ClassName == className).ToList();
     }
 }

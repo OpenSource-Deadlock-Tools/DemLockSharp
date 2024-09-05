@@ -12,7 +12,7 @@ namespace DemLock.Entities;
 /// through the deserialization process, and can have specific versions derived
 /// from it to describe more common functionality
 /// </summary>
-public class DEntity: DObject
+public class EntityDecoder: FieldDecoder
 {
     /// <summary>
     /// The class name that this entity is derived from
@@ -23,17 +23,17 @@ public class DEntity: DObject
     /// <summary>
     /// The list of instantiated fields that are attached to this entity
     /// </summary>
-    private List<DObject> _fields { get; set; } = new ();
+    private List<FieldDecoder> _fields { get; set; } = new ();
 
     /// <summary>
     /// Dictionary that will contain a mapping of the field name to the field that it points to
     /// </summary>
     private List<string> _fieldNames = new();
     
-    public List<DObject>  Fields { get => _fields; set => _fields = value; }
-    public DEntity()
+    public List<FieldDecoder>  Fields { get => _fields; set => _fields = value; }
+    public EntityDecoder()
     { }
-    public void AddField(DObject value, string fieldName)
+    public void AddField(FieldDecoder value, string fieldName)
     {
         if (value is DNull)
         {
@@ -48,18 +48,33 @@ public class DEntity: DObject
     {
         throw new NotImplementedException();
     }
-    public override void SetValue(ReadOnlySpan<int> path, ref BitBuffer bs)
+    public override object SetValue(ReadOnlySpan<int> path, ref BitBuffer bs)
     {
         if (path.Length >= 1)
         {
             var targetField = _fields[path[0]];
-            targetField.SetValue(path[1..], ref bs);
+            return targetField.SetValue(path[1..], ref bs);
         }
         // If path length is 0, then the entity setter is to check if the object is set or not
         if (path.Length == 0)
         {
-            IsSet = bs.ReadBit();
+            return bs.ReadBit();
         }
+
+        return null;
+    }
+
+    public override void ReadFieldName(ReadOnlySpan<int> path, ref string fieldName)
+    {
+        if(string.IsNullOrEmpty(fieldName)) fieldName = string.Empty;
+        
+        if (path.Length >= 1)
+        {
+            fieldName += "." + (_fieldNames[path[0]]);
+            _fields[path[0]].ReadFieldName(path[1..], ref fieldName);
+             return;
+        }
+        base.ReadFieldName(path, ref fieldName);
     }
 
     public override void SetValue(ReadOnlySpan<int> path, ref BitBuffer bs, ref UpdateDelta returnDelta)

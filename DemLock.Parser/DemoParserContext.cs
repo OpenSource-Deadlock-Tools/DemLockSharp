@@ -32,7 +32,7 @@ public class DemoParserContext
     private List<DField> _fields;
     private List<DSerializer> _serializers;
     private List<StringTable> _stringTables;
-    private List<DObject> _entities;
+    private List<FieldDecoder> _entities;
     public EntityManager EntityManager { get; }
 
     private Dictionary<int, byte[]> _instanceBaselines;
@@ -65,11 +65,6 @@ public class DemoParserContext
 
     public void AddClass(DClass dClass)
     {
-        var serializer = _serializers.FirstOrDefault(x => x.Name == dClass.ClassName);
-        if (serializer != null)
-        {
-            dClass.Fields = serializer.Fields;
-        }
         _classes.Add(dClass);  
     } 
     public DClass? GetClassById(int classId) => _classes.FirstOrDefault(c => c.ClassId == classId);

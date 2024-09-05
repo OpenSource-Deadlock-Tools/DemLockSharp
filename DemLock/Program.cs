@@ -21,15 +21,8 @@ class Program
 
         parser.Events.OnEntityUpdated += (sender, eventArgs) =>
         {
-            if (eventArgs.UpdateType == "UPDATE" && eventArgs.EntityType == "CCitadelPlayerPawn")
-            { }
-            
-            if (eventArgs?.UpdateType == "UPDATE" && 
-                eventArgs.EntityType == "CCitadelPlayerPawn" )
-            {
-                Console.WriteLine(eventArgs?.Updates.FirstOrDefault(x=>x.Field == "m_angClientCamera")?.ToString());
-            }
-
+            Console.WriteLine(eventArgs.Updates);
+            Environment.Exit(0);
         };
         parser.ProcessDemo("C:\\tmp\\DeadlockDemos\\534870CS.dem");
         

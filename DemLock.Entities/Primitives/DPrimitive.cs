@@ -5,7 +5,7 @@ namespace DemLock.Entities.Primitives;
 /// <summary>
 /// Represents a primitive piece of data
 /// </summary>
-public abstract class DPrimitive: DObject
+public abstract class DPrimitive: FieldDecoder
 {
     public override void SetValue(ReadOnlySpan<int> path, ref BitBuffer bs, ref UpdateDelta returnDelta)
     {
