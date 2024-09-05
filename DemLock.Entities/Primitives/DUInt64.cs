@@ -35,6 +35,7 @@ public class DUInt64 : DPrimitive
         }
     }
 
+
     private static ulong DecodeFixed64(ref BitBuffer buffer)
     {
         Span<byte> bytes = stackalloc byte[8];

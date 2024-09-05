@@ -33,19 +33,13 @@ public class MessageHandler
     /// <param name="bytes"></param>
     public void ProcessMessage(MessageTypes type, byte[] data)
     {
-        if(_context.Config.IgnoredMessages.Contains(type)) return;
-        if(_context.Config.LogMessageReads)
-             if (Enum.IsDefined(typeof(MessageTypes), type))
+        if (_context.Config.IgnoredMessages.Contains(type)) return;
+        if (_context.Config.LogMessageReads)
+            if (Enum.IsDefined(typeof(MessageTypes), type))
                 Console.WriteLine($"\t{type}({(int)type}) [{data.Length}]");
 
         switch (type)
         {
-            case MessageTypes.net_Tick:
-                break;
-            case MessageTypes.net_SignonState:
-                break;
-            case MessageTypes.net_SetConVar:
-                break;
             case MessageTypes.svc_PacketEntities:
                 ProcessPacketEntities(data);
                 break;
@@ -164,78 +158,58 @@ public class MessageHandler
         for (int i = 0; i < packetEntities.UpdatedEntries; i++)
         {
             entityIndex += 1 + (int)eventData.ReadUBitVar();
-            
+
             var flags = DeltaHeaderFlags.FHDR_ZERO;
             var updateType = PacketUpdateTypes.EnterPvs;
-            
+
             if (eventData.ReadBit())
             {
                 flags |= DeltaHeaderFlags.FHDR_LEAVE_PVS;
-                if(eventData.ReadBit())
+                if (eventData.ReadBit())
                     flags |= DeltaHeaderFlags.FHDR_DELETE;
             }
-            else if(eventData.ReadBit())
+            else if (eventData.ReadBit())
                 flags |= DeltaHeaderFlags.FHDR_ENTER_PVS;
-            
-            if((flags & DeltaHeaderFlags.FHDR_ENTER_PVS) != 0)
+
+            if ((flags & DeltaHeaderFlags.FHDR_ENTER_PVS) != 0)
                 updateType = PacketUpdateTypes.EnterPvs;
             else if ((flags & DeltaHeaderFlags.FHDR_LEAVE_PVS) != 0)
                 updateType = PacketUpdateTypes.LeavePvs;
             else
                 updateType = PacketUpdateTypes.DeltaEnt;
-            
+
             if (updateType == PacketUpdateTypes.EnterPvs)
             {
                 var classId = eventData.ReadBitsToUint(_context.ClassIdSize);
                 var serialNum = eventData.ReadBitsToUint(DemoParserContext.NumEHandleSerialNumberBits);
-                
+
                 // Don't know what this is... every parser does it
                 // Reference to demoinfo-net, they propose maybe it is spawngroup handles,
                 // but it just doesn't really matter to us
                 var unusedUnknownValue = eventData.ReadVarUInt32();
-                
+
                 var serverClass = _context.GetClassById((int)classId);
-                 _context.EntityManager.AddNewEntity(entityIndex, serverClass, serialNum);
-                 
+                _context.EntityManager.AddNewEntity(entityIndex, serverClass, serialNum);
+
                 var baseline = _context.GetInstanceBaseline((int)classId);
                 if (baseline != null)
                     _context.EntityManager.UpdateAtIndex(entityIndex, baseline);
-                
+
                 _context.EntityManager.UpdateAtIndex(entityIndex, ref eventData);
-                
-                _events.Raise_OnEntityUpdated(
-                    _context.CurrentTick, 
-                    new JsonObject(), 
-                    _context.EntityManager.GetEntityAtIndex(entityIndex).ToJsonNode(),
-                    serverClass.ClassName, 
-                    "CREATED");
             }
+
             if (updateType == PacketUpdateTypes.LeavePvs)
             {
                 if ((flags & DeltaHeaderFlags.FHDR_DELETE) != 0)
                 {
-                    var preDelete = _context.EntityManager.GetEntityAtIndex(entityIndex).ToJsonNode();
-                    var className = _context.EntityManager.GetEntityAtIndex(entityIndex).ClassName;
-                    
                     _context.EntityManager.DeleteEntity(entityIndex);
-                    _events.Raise_OnEntityUpdated(
-                        _context.CurrentTick, 
-                        preDelete, 
-                        new JsonObject(),
-                        className, 
-                        "DELETE");
                 }
             }
+
             if (updateType == PacketUpdateTypes.DeltaEnt)
             {
-                var className = _context.EntityManager.GetEntityAtIndex(entityIndex).ClassName;
-                _context.EntityManager.UpdateAtIndex(entityIndex, ref eventData);
-                _events.Raise_OnEntityUpdated(
-                    _context.CurrentTick, 
-                    new JsonObject(), 
-                _context.EntityManager.GetEntityAtIndex(entityIndex).ToJsonNode(),
-                    className, 
-                    "UPDATED");
+                var updates = _context.EntityManager.UpdateAtIndex(entityIndex, ref eventData);
+                _events.Raise_OnEntityUpdated(_context.CurrentTick, updates, _context.EntityManager.GetEntityAtIndex(entityIndex).ClassName, "UPDATE");
             }
         }
     }
@@ -264,6 +238,7 @@ public enum DeltaHeaderFlags
     FHDR_ZERO = 0x0000,
     FHDR_LEAVE_PVS = 0x0001,
     FHDR_DELETE = 0x0002,
+
     FHDR_ENTER_PVS = 0x0004
     // ReSharper restore InconsistentNaming
 }

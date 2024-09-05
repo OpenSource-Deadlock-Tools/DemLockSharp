@@ -2,7 +2,7 @@
 
 namespace DemLock.Entities.Primitives;
 
-public class DBool: DObject
+public class DBool: DPrimitive
 {
     public bool Value { get; set; }
     public override void SetValue(object value)

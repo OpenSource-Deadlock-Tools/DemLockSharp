@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using System.Diagnostics;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 using DemLock.Parser;
 using DemLock.Parser.Models;
@@ -20,20 +21,13 @@ class Program
 
         parser.Events.OnEntityUpdated += (sender, eventArgs) =>
         {
-            if (eventArgs.UpdateType == "CREATED" && eventArgs.EntityType == "CCitadelPlayerPawn")
-            {
-                Console.WriteLine("Created player pawn!");
-                if (eventArgs?.ResultEntity["m_hOwnerEntity"]?.ToString() == "1015813")
-                {
-                    Console.WriteLine(eventArgs?.ResultEntity);
-                }
-            }
+            if (eventArgs.UpdateType == "UPDATE" && eventArgs.EntityType == "CCitadelPlayerPawn")
+            { }
             
-            if (eventArgs?.UpdateType == "UPDATED" && 
-                eventArgs.EntityType == "CCitadelPlayerPawn" &&
-                eventArgs?.ResultEntity["m_hOwnerEntity"]?.ToString() == "1015813")
+            if (eventArgs?.UpdateType == "UPDATE" && 
+                eventArgs.EntityType == "CCitadelPlayerPawn" )
             {
-                Console.WriteLine(eventArgs?.ResultEntity["m_angClientCamera"]);
+                Console.WriteLine(eventArgs?.Updates.FirstOrDefault(x=>x.Field == "m_angClientCamera")?.ToString());
             }
 
         };

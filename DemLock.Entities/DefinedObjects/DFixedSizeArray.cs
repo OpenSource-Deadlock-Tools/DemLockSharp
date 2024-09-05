@@ -75,6 +75,6 @@ public class DFixedSizeArray:DObject
 
     public override object GetValue()
     {
-        throw new NotImplementedException();
+        return Data;
     }
 }

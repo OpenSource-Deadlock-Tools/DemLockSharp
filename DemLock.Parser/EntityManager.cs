@@ -42,7 +42,7 @@ public class EntityManager
         var bb = new BitBuffer(entityData);
         UpdateAtIndex(index, ref bb);
     }
-    public void UpdateAtIndex(int index, ref BitBuffer entityData)
+    public List<UpdateDelta> UpdateAtIndex(int index, ref BitBuffer entityData)
     {
         
          Span<FieldPath> fieldPaths = stackalloc FieldPath[512];
@@ -50,8 +50,7 @@ public class EntityManager
          // Keep reading field paths until we reach an op with a null reader.
          // The null reader signifies `FieldPathEncodeFinish`.
          var fpi = 0;
-         while (FieldPathEncoding.ReadFieldPathOp(ref entityData) is { Reader: { } reader })
-         {
+         while (FieldPathEncoding.ReadFieldPathOp(ref entityData) is { Reader: { } reader }) {
              if (fpi == fieldPaths.Length)
              {
                  var newArray = new FieldPath[fieldPaths.Length * 2];
@@ -63,12 +62,18 @@ public class EntityManager
              fieldPaths[fpi++] = fp;
          }
          fieldPaths = fieldPaths[..fpi];
+
+         List<UpdateDelta> updates = new();
          for (var idx = 0; idx < fieldPaths.Length; idx++)
          {
              var fieldPath = fieldPaths[idx];
              var pathSpan = fieldPath.AsSpan();
-             _entities[index].SetValue(pathSpan, ref entityData);
+             UpdateDelta delta = new UpdateDelta();
+             _entities[index].SetValue(pathSpan, ref entityData, ref delta);
+             updates.Add(delta);
          }
+
+         return updates;
     }
 
     public DEntity GetEntityAtIndex(int index)

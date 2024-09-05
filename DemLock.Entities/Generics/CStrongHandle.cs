@@ -2,9 +2,13 @@
 
 namespace DemLock.Entities.Generics;
 
-public class CStrongHandle: DObject
+public class CStrongHandle: DGeneric
 {
+
     public UInt64 Value { get; set; }
+    
+    public CStrongHandle(string genericTypeName) : base(genericTypeName)
+    { }
     public override void SetValue(object value)
     {
         throw new NotImplementedException();

@@ -45,6 +45,8 @@ public class CUtlVectorEmbeddedNetworkVar : DGeneric
         }
     }
 
+
+
     public override string ToJson()
     {
         StringBuilder sb = new();

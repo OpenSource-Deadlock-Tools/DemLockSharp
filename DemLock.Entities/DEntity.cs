@@ -62,6 +62,26 @@ public class DEntity: DObject
         }
     }
 
+    public override void SetValue(ReadOnlySpan<int> path, ref BitBuffer bs, ref UpdateDelta returnDelta)
+    {
+        if(returnDelta == null) returnDelta = new UpdateDelta();
+        
+        if (path.Length >= 1)
+        {
+            if (string.IsNullOrEmpty(returnDelta.Field)) returnDelta.Field = _fieldNames[0];
+            else returnDelta.Field += $".{_fieldNames[0]}";
+            var targetField = _fields[path[0]];
+            targetField.SetValue(path[1..], ref bs, ref returnDelta);
+        }
+        
+        // If path length is 0, then the entity setter is to check if the object is set or not
+        if (path.Length == 0)
+        {
+            IsSet = bs.ReadBit();
+            returnDelta.Field += "@IsSet";
+            returnDelta.Value = IsSet;
+        }
+    }
     /// <summary>
     /// Converts the entity to a JSON object for rendering in the console.
     ///

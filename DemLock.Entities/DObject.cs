@@ -28,8 +28,18 @@ public abstract class DObject
     /// <param name="bs"></param>
     public abstract void SetValue(ReadOnlySpan<int> path, ref BitBuffer bs);
 
+    public virtual void SetValue(ReadOnlySpan<int> path, ref BitBuffer bs, ref UpdateDelta returnDelta)
+    {
+        SetValue(path, ref bs);
+        returnDelta.Value = GetValue();
+    }
+
     public abstract object GetValue();
 
+    public virtual (string, object) GetValueAsPath(string path)
+    {
+        return (path, GetValue());
+    }
     /// <summary>
     /// Get the object in a JSON encoded string.
     /// This is the default implementation and assumes that we can just put the value into
@@ -63,9 +73,9 @@ public abstract class DObject
         if(typeName == "CNetworkUtlVectorBase")
             return new CNetworkUtlVectorBase(genericTypeName, typeFactory);
         if (typeName == "CHandle")
-            return new CHandle();
+            return new CHandle(genericTypeName);
         if(typeName == "CStrongHandle")
-            return new CStrongHandle();
+            return new CStrongHandle(genericTypeName);
         if (typeName == "CUtlVector")
             return new CUtlVector(genericTypeName, typeFactory);
         if(typeName == "CUtlVectorEmbeddedNetworkVar")
