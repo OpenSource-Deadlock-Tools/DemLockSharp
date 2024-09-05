@@ -19,11 +19,24 @@ class Program
         
         DemoParser parser = new DemoParser(config);
 
-        parser.Events.OnEntityUpdated += (sender, eventArgs) =>
+        //parser.Events.OnEntityUpdated += (sender, eventArgs) =>
+        //{
+        //    if (eventArgs.EntityType == "CCitadelPlayerPawn")
+        //    {
+        //        var v = eventArgs.Updates.Where(x => x.FieldName == "m_iHealth").FirstOrDefault();
+        //        Console.WriteLine($"[{eventArgs.Tick}] {v}");
+        //    }
+        //};
+        
+        parser.BindEntity("CCitadelPlayerPawn", fields =>
         {
-            Console.WriteLine(eventArgs.Updates);
-            Environment.Exit(0);
-        };
+            foreach (var v in fields.Where(x=>x.FieldName == "m_flSimulationTime"))
+            {
+                Console.WriteLine(v);
+            }
+        });
+        
+
         parser.ProcessDemo("C:\\tmp\\DeadlockDemos\\534870CS.dem");
         
         Console.WriteLine($"Processed demo in {sw.Elapsed.TotalSeconds} seconds");

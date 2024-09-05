@@ -19,6 +19,7 @@ public class DemoParser
         _config = new DemoParserConfig();
         Events = new DemoEventSystem();
         _context = new DemoParserContext(_config);
+        _context.Events = Events;
         _messageHandler = new MessageHandler(Events, _context);
         _frameHandler = new FrameHandler(Events, _messageHandler, _context);
     }
@@ -27,6 +28,7 @@ public class DemoParser
         _config = config;
         Events = new DemoEventSystem();
         _context = new DemoParserContext(_config);
+        _context.Events = Events;
         _messageHandler = new MessageHandler(Events, _context);
         _frameHandler = new FrameHandler(Events, _messageHandler, _context);
     }
@@ -50,5 +52,19 @@ public class DemoParser
             _frameHandler.HandleFrame(frame);
             i++;
         } while (frame.Command != DemoFrameCommand.DEM_Stop);
+    }
+
+    public void BindEntity(string entityName, Action<List<EntityFieldData>> callback)
+    {
+        if (_context.EntityBinders.ContainsKey(entityName))
+        {
+            _context.EntityBinders[entityName].OnEntityChanged += (o,i)=>callback(i);
+        }
+        else
+        {
+            var binder = new EntityBinder() { EntityName = entityName };
+            binder.OnEntityChanged += (o,i)=>callback(i);
+            _context.EntityBinders.Add(entityName, binder);
+        }
     }
 }

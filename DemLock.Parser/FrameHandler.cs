@@ -56,8 +56,8 @@ public class FrameHandler
     /// <param name="frame">The frame which contains the data to process</param>
     private void HandleFullPacket(DemoFrame frame)
     {
-        var packet = CDemoPacket.Parser.ParseFrom(frame.Data);
-        BitStream bs = new BitStream(packet.Data.ToByteArray());
+        var packet = CDemoFullPacket.Parser.ParseFrom(frame.Data);
+        BitStream bs = new BitStream(packet.Packet.Data.ToByteArray());
         while (bs.BitsRemaining > 8)
         {
             var msgtype = (MessageTypes)bs.ReadUBit();

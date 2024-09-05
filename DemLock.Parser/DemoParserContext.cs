@@ -26,6 +26,7 @@ public class DemoParserContext
     public int MaxPlayers { get; set; }
     public float TickInterval { get; set; }
     public uint CurrentTick { get; set; }
+    public DemoEventSystem Events { get; set; }
     
     private List<DClass> _classes;
     private List<DFieldType> _fieldTypes;
@@ -33,6 +34,9 @@ public class DemoParserContext
     private List<DSerializer> _serializers;
     private List<StringTable> _stringTables;
     private List<FieldDecoder> _entities;
+
+    public Dictionary<string, EntityBinder> EntityBinders { get; set; } = new();
+    
     public EntityManager EntityManager { get; }
 
     private Dictionary<int, byte[]> _instanceBaselines;

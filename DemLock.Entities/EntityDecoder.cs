@@ -66,11 +66,12 @@ public class EntityDecoder: FieldDecoder
 
     public override void ReadFieldName(ReadOnlySpan<int> path, ref string fieldName)
     {
-        if(string.IsNullOrEmpty(fieldName)) fieldName = string.Empty;
         
         if (path.Length >= 1)
         {
-            fieldName += "." + (_fieldNames[path[0]]);
+            if(string.IsNullOrEmpty(fieldName)) fieldName = _fieldNames[path[0]];
+            else fieldName += "." + _fieldNames[path[0]];
+            
             _fields[path[0]].ReadFieldName(path[1..], ref fieldName);
              return;
         }
