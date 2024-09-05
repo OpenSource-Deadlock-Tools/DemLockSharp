@@ -1,3 +1,4 @@
+
 enum ECitadelGameMessages {
 	k_EMsgGameServerToClientConnectionStatus = 10;
 	k_EMsgGameServerToClientInitialGameState = 12;

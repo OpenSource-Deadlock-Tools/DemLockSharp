@@ -1,5 +1,6 @@
 import "networkbasetypes.proto";
 import "citadel_gcmessages_common.proto";
+import "gameevents.proto";
 
 enum CitadelUserMessageIds {
 	k_EUserMsg_Damage = 300;
@@ -36,6 +37,14 @@ enum CitadelUserMessageIds {
 	k_EUserMsg_StaminaDrained = 337;
 	k_EUserMsg_AbilityNotify = 338;
 	k_EUserMsg_GetDamageStatsResponse = 339;
+	k_EUserMsg_ParticipantStartSoundEvent = 340;
+	k_EUserMsg_ParticipantStopSoundEvent = 341;
+	k_EUserMsg_ParticipantStopSoundEventHash = 342;
+	k_EUserMsg_ParticipantSetSoundEventParams = 343;
+	k_EUserMsg_ParticipantSetLibraryStackFields = 344;
+	k_EUserMsg_CurrencyChanged = 345;
+	k_EUserMsg_GameOver = 346;
+	k_EUserMsg_BossKilled = 347;
 }
 
 enum CitadelEntityMessageIds {
@@ -86,6 +95,7 @@ enum ECitadelChatMessage {
 	CITADEL_CHAT_MESSAGE_NOPAUSESLEFT = 9;
 	CITADEL_CHAT_MESSAGE_CANTPAUSEYET = 10;
 	CITADEL_CHAT_MESSAGE_PREGAME_COUNTDOWN = 11;
+	CITADEL_CHAT_MESSAGE_NOTEAMPAUSESLEFT = 12;
 }
 
 enum PostProcessingGameStates {
@@ -446,6 +456,23 @@ message CCitadelUserMessage_AbilityNotify {
 	optional uint32 ability_id = 3;
 }
 
+message CCitadelUserMessage_CurrencyChanged {
+	optional int32 entindex_hero_pawn = 1 [default = -1];
+	optional int32 currency_type = 2;
+	optional int32 currency_source = 3;
+	optional int32 delta = 4;
+	optional bool notification = 5;
+	optional int32 entindex_victim = 6 [default = -1];
+	optional .CMsgVector victim_pos = 7;
+	optional int32 playsound = 8;
+	optional uint32 ability_id = 9;
+}
+
+message CCitadelUserMessage_GameOver {
+	optional int32 winning_team = 1;
+	optional bool just_a_test = 2;
+}
+
 message CCitadelUserMsg_GetDamageStatsResponse {
 	message StatType {
 		repeated uint32 target_player_slot = 1 [packed = true];
@@ -456,4 +483,38 @@ message CCitadelUserMsg_GetDamageStatsResponse {
 	optional string ability_name = 2;
 	optional .CCitadelUserMsg_GetDamageStatsResponse.StatType damage = 3;
 	optional .CCitadelUserMsg_GetDamageStatsResponse.StatType healing = 4;
+}
+
+message CCitadelUserMsg_ParticipantStartSoundEvent {
+	required .CMsgSosStartSoundEvent event = 1;
+	repeated int32 player_slots = 2;
+}
+
+message CCitadelUserMsg_ParticipantStopSoundEvent {
+	required .CMsgSosStopSoundEvent event = 1;
+	repeated int32 player_slots = 2;
+}
+
+message CCitadelUserMsg_ParticipantStopSoundEventHash {
+	required .CMsgSosStopSoundEventHash event = 1;
+	repeated int32 player_slots = 2;
+}
+
+message CCitadelUserMsg_ParticipantSetSoundEventParams {
+	required .CMsgSosSetSoundEventParams event = 1;
+	repeated int32 player_slots = 2;
+}
+
+message CCitadelUserMsg_ParticipantSetLibraryStackFields {
+	required .CMsgSosSetLibraryStackFields event = 1;
+	repeated int32 player_slots = 2;
+}
+
+message CCitadelUserMsg_BossKilled {
+	optional int32 objective_team = 1;
+	optional int32 objective_mask_change = 2;
+	required uint32 entity_killed = 3 [default = 16777215];
+	required int32 entity_killed_class = 4;
+	required uint32 entity_killer = 5 [default = 16777215];
+	required float gametime = 6;
 }

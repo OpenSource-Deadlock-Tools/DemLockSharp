@@ -1154,7 +1154,11 @@ public sealed partial class CSOCitadelLobby : pb::IMessage<CSOCitadelLobby>
   #else
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
           break;
@@ -1221,7 +1225,11 @@ public sealed partial class CSOCitadelLobby : pb::IMessage<CSOCitadelLobby>
   void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
           break;
@@ -1429,7 +1437,11 @@ public sealed partial class CLobbyData_PostMatchSurvey : pb::IMessage<CLobbyData
   #else
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
           break;
@@ -1448,7 +1460,11 @@ public sealed partial class CLobbyData_PostMatchSurvey : pb::IMessage<CLobbyData
   void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
           break;
@@ -1683,7 +1699,11 @@ public sealed partial class CLobbyData_PostMatchSurvey : pb::IMessage<CLobbyData
       #else
         uint tag;
         while ((tag = input.ReadTag()) != 0) {
-          switch(tag) {
+        if ((tag & 7) == 4) {
+          // Abort on any end group tag.
+          return;
+        }
+        switch(tag) {
             default:
               _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
               break;
@@ -1706,7 +1726,11 @@ public sealed partial class CLobbyData_PostMatchSurvey : pb::IMessage<CLobbyData
       void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
         uint tag;
         while ((tag = input.ReadTag()) != 0) {
-          switch(tag) {
+        if ((tag & 7) == 4) {
+          // Abort on any end group tag.
+          return;
+        }
+        switch(tag) {
             default:
               _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
               break;
@@ -1875,7 +1899,11 @@ public sealed partial class CMsgHeroSelectionMatchInfo : pb::IMessage<CMsgHeroSe
   #else
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
           break;
@@ -1894,7 +1922,11 @@ public sealed partial class CMsgHeroSelectionMatchInfo : pb::IMessage<CMsgHeroSe
   void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
           break;
@@ -2129,7 +2161,11 @@ public sealed partial class CMsgHeroSelectionMatchInfo : pb::IMessage<CMsgHeroSe
       #else
         uint tag;
         while ((tag = input.ReadTag()) != 0) {
-          switch(tag) {
+        if ((tag & 7) == 4) {
+          // Abort on any end group tag.
+          return;
+        }
+        switch(tag) {
             default:
               _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
               break;
@@ -2152,7 +2188,11 @@ public sealed partial class CMsgHeroSelectionMatchInfo : pb::IMessage<CMsgHeroSe
       void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
         uint tag;
         while ((tag = input.ReadTag()) != 0) {
-          switch(tag) {
+        if ((tag & 7) == 4) {
+          // Abort on any end group tag.
+          return;
+        }
+        switch(tag) {
             default:
               _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
               break;
@@ -2611,7 +2651,11 @@ public sealed partial class CMsgStartFindingMatchInfo : pb::IMessage<CMsgStartFi
   #else
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
           break;
@@ -2654,7 +2698,11 @@ public sealed partial class CMsgStartFindingMatchInfo : pb::IMessage<CMsgStartFi
   void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
           break;
@@ -2884,7 +2932,11 @@ public sealed partial class CMsgAnyToGCReportAsserts : pb::IMessage<CMsgAnyToGCR
   #else
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
           break;
@@ -2907,7 +2959,11 @@ public sealed partial class CMsgAnyToGCReportAsserts : pb::IMessage<CMsgAnyToGCR
   void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
           break;
@@ -3405,7 +3461,11 @@ public sealed partial class CMsgAnyToGCReportAsserts : pb::IMessage<CMsgAnyToGCR
       #else
         uint tag;
         while ((tag = input.ReadTag()) != 0) {
-          switch(tag) {
+        if ((tag & 7) == 4) {
+          // Abort on any end group tag.
+          return;
+        }
+        switch(tag) {
             default:
               _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
               break;
@@ -3452,7 +3512,11 @@ public sealed partial class CMsgAnyToGCReportAsserts : pb::IMessage<CMsgAnyToGCR
       void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
         uint tag;
         while ((tag = input.ReadTag()) != 0) {
-          switch(tag) {
+        if ((tag & 7) == 4) {
+          // Abort on any end group tag.
+          return;
+        }
+        switch(tag) {
             default:
               _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
               break;
@@ -3673,7 +3737,11 @@ public sealed partial class CMsgAnyToGCReportAssertsResponse : pb::IMessage<CMsg
   #else
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
           break;
@@ -3692,7 +3760,11 @@ public sealed partial class CMsgAnyToGCReportAssertsResponse : pb::IMessage<CMsg
   void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
           break;
@@ -3870,7 +3942,11 @@ public sealed partial class CMsgRegionPingTimesClient : pb::IMessage<CMsgRegionP
   #else
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
           break;
@@ -3895,7 +3971,11 @@ public sealed partial class CMsgRegionPingTimesClient : pb::IMessage<CMsgRegionP
   void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
           break;
@@ -4581,7 +4661,11 @@ public sealed partial class CSOCitadelParty : pb::IMessage<CSOCitadelParty>
   #else
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
           break;
@@ -4652,7 +4736,11 @@ public sealed partial class CSOCitadelParty : pb::IMessage<CSOCitadelParty>
   void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
           break;
@@ -5356,7 +5444,11 @@ public sealed partial class CSOCitadelParty : pb::IMessage<CSOCitadelParty>
       #else
         uint tag;
         while ((tag = input.ReadTag()) != 0) {
-          switch(tag) {
+        if ((tag & 7) == 4) {
+          // Abort on any end group tag.
+          return;
+        }
+        switch(tag) {
             default:
               _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
               break;
@@ -5423,7 +5515,11 @@ public sealed partial class CSOCitadelParty : pb::IMessage<CSOCitadelParty>
       void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
         uint tag;
         while ((tag = input.ReadTag()) != 0) {
-          switch(tag) {
+        if ((tag & 7) == 4) {
+          // Abort on any end group tag.
+          return;
+        }
+        switch(tag) {
             default:
               _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
               break;
@@ -5747,7 +5843,11 @@ public sealed partial class CSOCitadelParty : pb::IMessage<CSOCitadelParty>
       #else
         uint tag;
         while ((tag = input.ReadTag()) != 0) {
-          switch(tag) {
+        if ((tag & 7) == 4) {
+          // Abort on any end group tag.
+          return;
+        }
+        switch(tag) {
             default:
               _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
               break;
@@ -5774,7 +5874,11 @@ public sealed partial class CSOCitadelParty : pb::IMessage<CSOCitadelParty>
       void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
         uint tag;
         while ((tag = input.ReadTag()) != 0) {
-          switch(tag) {
+        if ((tag & 7) == 4) {
+          // Abort on any end group tag.
+          return;
+        }
+        switch(tag) {
             default:
               _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
               break;
@@ -6057,7 +6161,11 @@ public sealed partial class CSOCitadelParty : pb::IMessage<CSOCitadelParty>
       #else
         uint tag;
         while ((tag = input.ReadTag()) != 0) {
-          switch(tag) {
+        if ((tag & 7) == 4) {
+          // Abort on any end group tag.
+          return;
+        }
+        switch(tag) {
             default:
               _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
               break;
@@ -6084,7 +6192,11 @@ public sealed partial class CSOCitadelParty : pb::IMessage<CSOCitadelParty>
       void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
         uint tag;
         while ((tag = input.ReadTag()) != 0) {
-          switch(tag) {
+        if ((tag & 7) == 4) {
+          // Abort on any end group tag.
+          return;
+        }
+        switch(tag) {
             default:
               _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
               break;
@@ -6435,7 +6547,11 @@ public sealed partial class CMsgMatchPlayerPathsData : pb::IMessage<CMsgMatchPla
   #else
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
           break;
@@ -6470,7 +6586,11 @@ public sealed partial class CMsgMatchPlayerPathsData : pb::IMessage<CMsgMatchPla
   void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
           break;
@@ -6925,7 +7045,11 @@ public sealed partial class CMsgMatchPlayerPathsData : pb::IMessage<CMsgMatchPla
       #else
         uint tag;
         while ((tag = input.ReadTag()) != 0) {
-          switch(tag) {
+        if ((tag & 7) == 4) {
+          // Abort on any end group tag.
+          return;
+        }
+        switch(tag) {
             default:
               _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
               break;
@@ -6980,7 +7104,11 @@ public sealed partial class CMsgMatchPlayerPathsData : pb::IMessage<CMsgMatchPla
       void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
         uint tag;
         while ((tag = input.ReadTag()) != 0) {
-          switch(tag) {
+        if ((tag & 7) == 4) {
+          // Abort on any end group tag.
+          return;
+        }
+        switch(tag) {
             default:
               _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
               break;
@@ -7231,7 +7359,11 @@ public sealed partial class CMsgMatchPlayerDamageMatrix : pb::IMessage<CMsgMatch
   #else
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
           break;
@@ -7262,7 +7394,11 @@ public sealed partial class CMsgMatchPlayerDamageMatrix : pb::IMessage<CMsgMatch
   void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
           break;
@@ -7491,7 +7627,11 @@ public sealed partial class CMsgMatchPlayerDamageMatrix : pb::IMessage<CMsgMatch
       #else
         uint tag;
         while ((tag = input.ReadTag()) != 0) {
-          switch(tag) {
+        if ((tag & 7) == 4) {
+          // Abort on any end group tag.
+          return;
+        }
+        switch(tag) {
             default:
               _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
               break;
@@ -7515,7 +7655,11 @@ public sealed partial class CMsgMatchPlayerDamageMatrix : pb::IMessage<CMsgMatch
       void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
         uint tag;
         while ((tag = input.ReadTag()) != 0) {
-          switch(tag) {
+        if ((tag & 7) == 4) {
+          // Abort on any end group tag.
+          return;
+        }
+        switch(tag) {
             default:
               _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
               break;
@@ -7726,7 +7870,11 @@ public sealed partial class CMsgMatchPlayerDamageMatrix : pb::IMessage<CMsgMatch
       #else
         uint tag;
         while ((tag = input.ReadTag()) != 0) {
-          switch(tag) {
+        if ((tag & 7) == 4) {
+          // Abort on any end group tag.
+          return;
+        }
+        switch(tag) {
             default:
               _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
               break;
@@ -7749,7 +7897,11 @@ public sealed partial class CMsgMatchPlayerDamageMatrix : pb::IMessage<CMsgMatch
       void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
         uint tag;
         while ((tag = input.ReadTag()) != 0) {
-          switch(tag) {
+        if ((tag & 7) == 4) {
+          // Abort on any end group tag.
+          return;
+        }
+        switch(tag) {
             default:
               _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
               break;
@@ -7959,7 +8111,11 @@ public sealed partial class CMsgMatchPlayerDamageMatrix : pb::IMessage<CMsgMatch
       #else
         uint tag;
         while ((tag = input.ReadTag()) != 0) {
-          switch(tag) {
+        if ((tag & 7) == 4) {
+          // Abort on any end group tag.
+          return;
+        }
+        switch(tag) {
             default:
               _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
               break;
@@ -7982,7 +8138,11 @@ public sealed partial class CMsgMatchPlayerDamageMatrix : pb::IMessage<CMsgMatch
       void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
         uint tag;
         while ((tag = input.ReadTag()) != 0) {
-          switch(tag) {
+        if ((tag & 7) == 4) {
+          // Abort on any end group tag.
+          return;
+        }
+        switch(tag) {
             default:
               _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
               break;
@@ -8164,7 +8324,11 @@ public sealed partial class CMsgMatchPlayerDamageMatrix : pb::IMessage<CMsgMatch
       #else
         uint tag;
         while ((tag = input.ReadTag()) != 0) {
-          switch(tag) {
+        if ((tag & 7) == 4) {
+          // Abort on any end group tag.
+          return;
+        }
+        switch(tag) {
             default:
               _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
               break;
@@ -8188,7 +8352,11 @@ public sealed partial class CMsgMatchPlayerDamageMatrix : pb::IMessage<CMsgMatch
       void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
         uint tag;
         while ((tag = input.ReadTag()) != 0) {
-          switch(tag) {
+        if ((tag & 7) == 4) {
+          // Abort on any end group tag.
+          return;
+        }
+        switch(tag) {
             default:
               _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
               break;
@@ -8372,7 +8540,11 @@ public sealed partial class CMsgMatchMetaDataContents : pb::IMessage<CMsgMatchMe
   #else
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
           break;
@@ -8394,7 +8566,11 @@ public sealed partial class CMsgMatchMetaDataContents : pb::IMessage<CMsgMatchMe
   void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
           break;
@@ -8691,7 +8867,11 @@ public sealed partial class CMsgMatchMetaDataContents : pb::IMessage<CMsgMatchMe
       #else
         uint tag;
         while ((tag = input.ReadTag()) != 0) {
-          switch(tag) {
+        if ((tag & 7) == 4) {
+          // Abort on any end group tag.
+          return;
+        }
+        switch(tag) {
             default:
               _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
               break;
@@ -8718,7 +8898,11 @@ public sealed partial class CMsgMatchMetaDataContents : pb::IMessage<CMsgMatchMe
       void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
         uint tag;
         while ((tag = input.ReadTag()) != 0) {
-          switch(tag) {
+        if ((tag & 7) == 4) {
+          // Abort on any end group tag.
+          return;
+        }
+        switch(tag) {
             default:
               _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
               break;
@@ -9066,7 +9250,11 @@ public sealed partial class CMsgMatchMetaDataContents : pb::IMessage<CMsgMatchMe
       #else
         uint tag;
         while ((tag = input.ReadTag()) != 0) {
-          switch(tag) {
+        if ((tag & 7) == 4) {
+          // Abort on any end group tag.
+          return;
+        }
+        switch(tag) {
             default:
               _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
               break;
@@ -9107,7 +9295,11 @@ public sealed partial class CMsgMatchMetaDataContents : pb::IMessage<CMsgMatchMe
       void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
         uint tag;
         while ((tag = input.ReadTag()) != 0) {
-          switch(tag) {
+        if ((tag & 7) == 4) {
+          // Abort on any end group tag.
+          return;
+        }
+        switch(tag) {
             default:
               _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
               break;
@@ -9537,7 +9729,11 @@ public sealed partial class CMsgMatchMetaDataContents : pb::IMessage<CMsgMatchMe
       #else
         uint tag;
         while ((tag = input.ReadTag()) != 0) {
-          switch(tag) {
+        if ((tag & 7) == 4) {
+          // Abort on any end group tag.
+          return;
+        }
+        switch(tag) {
             default:
               _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
               break;
@@ -9576,7 +9772,11 @@ public sealed partial class CMsgMatchMetaDataContents : pb::IMessage<CMsgMatchMe
       void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
         uint tag;
         while ((tag = input.ReadTag()) != 0) {
-          switch(tag) {
+        if ((tag & 7) == 4) {
+          // Abort on any end group tag.
+          return;
+        }
+        switch(tag) {
             default:
               _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
               break;
@@ -9872,7 +10072,11 @@ public sealed partial class CMsgMatchMetaDataContents : pb::IMessage<CMsgMatchMe
       #else
         uint tag;
         while ((tag = input.ReadTag()) != 0) {
-          switch(tag) {
+        if ((tag & 7) == 4) {
+          // Abort on any end group tag.
+          return;
+        }
+        switch(tag) {
             default:
               _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
               break;
@@ -9899,7 +10103,11 @@ public sealed partial class CMsgMatchMetaDataContents : pb::IMessage<CMsgMatchMe
       void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
         uint tag;
         while ((tag = input.ReadTag()) != 0) {
-          switch(tag) {
+        if ((tag & 7) == 4) {
+          // Abort on any end group tag.
+          return;
+        }
+        switch(tag) {
             default:
               _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
               break;
@@ -10271,7 +10479,11 @@ public sealed partial class CMsgMatchMetaDataContents : pb::IMessage<CMsgMatchMe
       #else
         uint tag;
         while ((tag = input.ReadTag()) != 0) {
-          switch(tag) {
+        if ((tag & 7) == 4) {
+          // Abort on any end group tag.
+          return;
+        }
+        switch(tag) {
             default:
               _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
               break;
@@ -10306,7 +10518,11 @@ public sealed partial class CMsgMatchMetaDataContents : pb::IMessage<CMsgMatchMe
       void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
         uint tag;
         while ((tag = input.ReadTag()) != 0) {
-          switch(tag) {
+        if ((tag & 7) == 4) {
+          // Abort on any end group tag.
+          return;
+        }
+        switch(tag) {
             default:
               _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
               break;
@@ -10553,7 +10769,11 @@ public sealed partial class CMsgMatchMetaDataContents : pb::IMessage<CMsgMatchMe
       #else
         uint tag;
         while ((tag = input.ReadTag()) != 0) {
-          switch(tag) {
+        if ((tag & 7) == 4) {
+          // Abort on any end group tag.
+          return;
+        }
+        switch(tag) {
             default:
               _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
               break;
@@ -10576,7 +10796,11 @@ public sealed partial class CMsgMatchMetaDataContents : pb::IMessage<CMsgMatchMe
       void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
         uint tag;
         while ((tag = input.ReadTag()) != 0) {
-          switch(tag) {
+        if ((tag & 7) == 4) {
+          // Abort on any end group tag.
+          return;
+        }
+        switch(tag) {
             default:
               _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
               break;
@@ -10812,7 +11036,11 @@ public sealed partial class CMsgMatchMetaDataContents : pb::IMessage<CMsgMatchMe
       #else
         uint tag;
         while ((tag = input.ReadTag()) != 0) {
-          switch(tag) {
+        if ((tag & 7) == 4) {
+          // Abort on any end group tag.
+          return;
+        }
+        switch(tag) {
             default:
               _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
               break;
@@ -10835,7 +11063,11 @@ public sealed partial class CMsgMatchMetaDataContents : pb::IMessage<CMsgMatchMe
       void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
         uint tag;
         while ((tag = input.ReadTag()) != 0) {
-          switch(tag) {
+        if ((tag & 7) == 4) {
+          // Abort on any end group tag.
+          return;
+        }
+        switch(tag) {
             default:
               _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
               break;
@@ -12825,7 +13057,11 @@ public sealed partial class CMsgMatchMetaDataContents : pb::IMessage<CMsgMatchMe
       #else
         uint tag;
         while ((tag = input.ReadTag()) != 0) {
-          switch(tag) {
+        if ((tag & 7) == 4) {
+          // Abort on any end group tag.
+          return;
+        }
+        switch(tag) {
             default:
               _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
               break;
@@ -13012,7 +13248,11 @@ public sealed partial class CMsgMatchMetaDataContents : pb::IMessage<CMsgMatchMe
       void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
         uint tag;
         while ((tag = input.ReadTag()) != 0) {
-          switch(tag) {
+        if ((tag & 7) == 4) {
+          // Abort on any end group tag.
+          return;
+        }
+        switch(tag) {
             default:
               _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
               break;
@@ -13412,7 +13652,11 @@ public sealed partial class CMsgMatchMetaDataContents : pb::IMessage<CMsgMatchMe
       #else
         uint tag;
         while ((tag = input.ReadTag()) != 0) {
-          switch(tag) {
+        if ((tag & 7) == 4) {
+          // Abort on any end group tag.
+          return;
+        }
+        switch(tag) {
             default:
               _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
               break;
@@ -13435,7 +13679,11 @@ public sealed partial class CMsgMatchMetaDataContents : pb::IMessage<CMsgMatchMe
       void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
         uint tag;
         while ((tag = input.ReadTag()) != 0) {
-          switch(tag) {
+        if ((tag & 7) == 4) {
+          // Abort on any end group tag.
+          return;
+        }
+        switch(tag) {
             default:
               _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
               break;
@@ -13715,7 +13963,11 @@ public sealed partial class CMsgMatchMetaDataContents : pb::IMessage<CMsgMatchMe
       #else
         uint tag;
         while ((tag = input.ReadTag()) != 0) {
-          switch(tag) {
+        if ((tag & 7) == 4) {
+          // Abort on any end group tag.
+          return;
+        }
+        switch(tag) {
             default:
               _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
               break;
@@ -13742,7 +13994,11 @@ public sealed partial class CMsgMatchMetaDataContents : pb::IMessage<CMsgMatchMe
       void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
         uint tag;
         while ((tag = input.ReadTag()) != 0) {
-          switch(tag) {
+        if ((tag & 7) == 4) {
+          // Abort on any end group tag.
+          return;
+        }
+        switch(tag) {
             default:
               _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
               break;
@@ -14680,7 +14936,11 @@ public sealed partial class CMsgMatchMetaDataContents : pb::IMessage<CMsgMatchMe
       #else
         uint tag;
         while ((tag = input.ReadTag()) != 0) {
-          switch(tag) {
+        if ((tag & 7) == 4) {
+          // Abort on any end group tag.
+          return;
+        }
+        switch(tag) {
             default:
               _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
               break;
@@ -14784,7 +15044,11 @@ public sealed partial class CMsgMatchMetaDataContents : pb::IMessage<CMsgMatchMe
       void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
         uint tag;
         while ((tag = input.ReadTag()) != 0) {
-          switch(tag) {
+        if ((tag & 7) == 4) {
+          // Abort on any end group tag.
+          return;
+        }
+        switch(tag) {
             default:
               _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
               break;
@@ -15409,7 +15673,11 @@ public sealed partial class CMsgMatchMetaDataContents : pb::IMessage<CMsgMatchMe
       #else
         uint tag;
         while ((tag = input.ReadTag()) != 0) {
-          switch(tag) {
+        if ((tag & 7) == 4) {
+          // Abort on any end group tag.
+          return;
+        }
+        switch(tag) {
             default:
               _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
               break;
@@ -15460,7 +15728,11 @@ public sealed partial class CMsgMatchMetaDataContents : pb::IMessage<CMsgMatchMe
       void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
         uint tag;
         while ((tag = input.ReadTag()) != 0) {
-          switch(tag) {
+        if ((tag & 7) == 4) {
+          // Abort on any end group tag.
+          return;
+        }
+        switch(tag) {
             default:
               _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
               break;
@@ -15768,7 +16040,11 @@ public sealed partial class CMsgMatchMetaDataContents : pb::IMessage<CMsgMatchMe
       #else
         uint tag;
         while ((tag = input.ReadTag()) != 0) {
-          switch(tag) {
+        if ((tag & 7) == 4) {
+          // Abort on any end group tag.
+          return;
+        }
+        switch(tag) {
             default:
               _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
               break;
@@ -15795,7 +16071,11 @@ public sealed partial class CMsgMatchMetaDataContents : pb::IMessage<CMsgMatchMe
       void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
         uint tag;
         while ((tag = input.ReadTag()) != 0) {
-          switch(tag) {
+        if ((tag & 7) == 4) {
+          // Abort on any end group tag.
+          return;
+        }
+        switch(tag) {
             default:
               _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
               break;
@@ -16079,7 +16359,11 @@ public sealed partial class CMsgMatchMetaDataContents : pb::IMessage<CMsgMatchMe
       #else
         uint tag;
         while ((tag = input.ReadTag()) != 0) {
-          switch(tag) {
+        if ((tag & 7) == 4) {
+          // Abort on any end group tag.
+          return;
+        }
+        switch(tag) {
             default:
               _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
               break;
@@ -16106,7 +16390,11 @@ public sealed partial class CMsgMatchMetaDataContents : pb::IMessage<CMsgMatchMe
       void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
         uint tag;
         while ((tag = input.ReadTag()) != 0) {
-          switch(tag) {
+        if ((tag & 7) == 4) {
+          // Abort on any end group tag.
+          return;
+        }
+        switch(tag) {
             default:
               _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
               break;
@@ -16346,7 +16634,11 @@ public sealed partial class CMsgMatchMetaDataContents : pb::IMessage<CMsgMatchMe
       #else
         uint tag;
         while ((tag = input.ReadTag()) != 0) {
-          switch(tag) {
+        if ((tag & 7) == 4) {
+          // Abort on any end group tag.
+          return;
+        }
+        switch(tag) {
             default:
               _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
               break;
@@ -16369,7 +16661,11 @@ public sealed partial class CMsgMatchMetaDataContents : pb::IMessage<CMsgMatchMe
       void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
         uint tag;
         while ((tag = input.ReadTag()) != 0) {
-          switch(tag) {
+        if ((tag & 7) == 4) {
+          // Abort on any end group tag.
+          return;
+        }
+        switch(tag) {
             default:
               _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
               break;
@@ -17129,7 +17425,11 @@ public sealed partial class CMsgMatchMetaDataContents : pb::IMessage<CMsgMatchMe
       #else
         uint tag;
         while ((tag = input.ReadTag()) != 0) {
-          switch(tag) {
+        if ((tag & 7) == 4) {
+          // Abort on any end group tag.
+          return;
+        }
+        switch(tag) {
             default:
               _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
               break;
@@ -17222,7 +17522,11 @@ public sealed partial class CMsgMatchMetaDataContents : pb::IMessage<CMsgMatchMe
       void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
         uint tag;
         while ((tag = input.ReadTag()) != 0) {
-          switch(tag) {
+        if ((tag & 7) == 4) {
+          // Abort on any end group tag.
+          return;
+        }
+        switch(tag) {
             default:
               _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
               break;
@@ -17576,7 +17880,11 @@ public sealed partial class CMsgMatchMetaData : pb::IMessage<CMsgMatchMetaData>
   #else
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
           break;
@@ -17603,7 +17911,11 @@ public sealed partial class CMsgMatchMetaData : pb::IMessage<CMsgMatchMetaData>
   void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
           break;
@@ -17887,7 +18199,11 @@ public sealed partial class CMsgMapLine : pb::IMessage<CMsgMapLine>
   #else
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
           break;
@@ -17914,7 +18230,11 @@ public sealed partial class CMsgMapLine : pb::IMessage<CMsgMapLine>
   void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
           break;
@@ -18200,7 +18520,11 @@ public sealed partial class CMsgAccountHeroStats : pb::IMessage<CMsgAccountHeroS
   #else
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
           break;
@@ -18244,7 +18568,11 @@ public sealed partial class CMsgAccountHeroStats : pb::IMessage<CMsgAccountHeroS
   void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
           break;
@@ -18545,7 +18873,11 @@ public sealed partial class CMsgAccountBookStats : pb::IMessage<CMsgAccountBookS
   #else
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
           break;
@@ -18572,7 +18904,11 @@ public sealed partial class CMsgAccountBookStats : pb::IMessage<CMsgAccountBookS
   void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
           break;
@@ -18786,7 +19122,11 @@ public sealed partial class CMsgAccountStats : pb::IMessage<CMsgAccountStats>
   #else
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
           break;
@@ -18809,7 +19149,11 @@ public sealed partial class CMsgAccountStats : pb::IMessage<CMsgAccountStats>
   void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
           break;
