@@ -37,7 +37,7 @@ public static partial class NetworkbasetypesReflection {
           "MTY3NzcyMTUiUgoKQ01zZ19DVmFycxIfCgVjdmFycxgBIAMoCzIQLkNNc2df",
           "Q1ZhcnMuQ1ZhchojCgRDVmFyEgwKBG5hbWUYASABKAkSDQoFdmFsdWUYAiAB",
           "KAkiDQoLQ05FVE1zZ19OT1AiJwoXQ05FVE1zZ19TcGxpdFNjcmVlblVzZXIS",
-          "DAoEc2xvdBgBIAEoBSLfAgoMQ05FVE1zZ19UaWNrEgwKBHRpY2sYASABKA0S",
+          "DAoEc2xvdBgBIAEoBSLvAgoMQ05FVE1zZ19UaWNrEgwKBHRpY2sYASABKA0S",
           "FgoOaG9zdF9mcmFtZXRpbWUYAiABKA0SJAocaG9zdF9mcmFtZXRpbWVfc3Rk",
           "X2RldmlhdGlvbhgDIAEoDRIcChRob3N0X2NvbXB1dGF0aW9udGltZRgEIAEo",
           "DRIqCiJob3N0X2NvbXB1dGF0aW9udGltZV9zdGRfZGV2aWF0aW9uGAUgASgN",
@@ -45,77 +45,77 @@ public static partial class NetworkbasetypesReflection {
           "Cglob3N0X2xvc3MYByABKA0SIQoZaG9zdF91bmZpbHRlcmVkX2ZyYW1ldGlt",
           "ZRgIIAEoDRIZChFobHR2X3JlcGxheV9mbGFncxgJIAEoDRIaChJleHBlY3Rl",
           "ZF9sb25nX3RpY2sYCiABKA0SIQoZZXhwZWN0ZWRfbG9uZ190aWNrX3JlYXNv",
-          "bhgLIAEoCSI9ChFDTkVUTXNnX1N0cmluZ0NtZBIPCgdjb21tYW5kGAEgASgJ",
-          "EhcKD3ByZWRpY3Rpb25fc3luYxgCIAEoDSIxChFDTkVUTXNnX1NldENvblZh",
-          "chIcCgdjb252YXJzGAEgASgLMgsuQ01zZ19DVmFycyK8AQoTQ05FVE1zZ19T",
-          "aWdub25TdGF0ZRI2CgxzaWdub25fc3RhdGUYASABKA4yDi5TaWdub25TdGF0",
-          "ZV90OhBTSUdOT05TVEFURV9OT05FEhMKC3NwYXduX2NvdW50GAIgASgNEhoK",
-          "Em51bV9zZXJ2ZXJfcGxheWVycxgDIAEoDRIaChJwbGF5ZXJzX25ldHdvcmtp",
-          "ZHMYBCADKAkSEAoIbWFwX25hbWUYBSABKAkSDgoGYWRkb25zGAYgASgJIvwB",
-          "ChFDU1ZDTXNnX0dhbWVFdmVudBISCgpldmVudF9uYW1lGAEgASgJEg8KB2V2",
-          "ZW50aWQYAiABKAUSJgoEa2V5cxgDIAMoCzIYLkNTVkNNc2dfR2FtZUV2ZW50",
-          "LmtleV90GpkBCgVrZXlfdBIMCgR0eXBlGAEgASgFEhIKCnZhbF9zdHJpbmcY",
-          "AiABKAkSEQoJdmFsX2Zsb2F0GAMgASgCEhAKCHZhbF9sb25nGAQgASgFEhEK",
-          "CXZhbF9zaG9ydBgFIAEoBRIQCgh2YWxfYnl0ZRgGIAEoBRIQCgh2YWxfYm9v",
-          "bBgHIAEoCBISCgp2YWxfdWludDY0GAggASgEIoUBChZDU1ZDTXNnTGlzdF9H",
-          "YW1lRXZlbnRzEi8KBmV2ZW50cxgBIAMoCzIfLkNTVkNNc2dMaXN0X0dhbWVF",
-          "dmVudHMuZXZlbnRfdBo6CgdldmVudF90EgwKBHRpY2sYASABKAUSIQoFZXZl",
-          "bnQYAiABKAsyEi5DU1ZDTXNnX0dhbWVFdmVudCKrBAoXQ05FVE1zZ19TcGF3",
-          "bkdyb3VwX0xvYWQSEQoJd29ybGRuYW1lGAEgASgJEhYKDmVudGl0eWx1bXBu",
-          "YW1lGAIgASgJEhgKEGVudGl0eWZpbHRlcm5hbWUYAyABKAkSGAoQc3Bhd25n",
-          "cm91cGhhbmRsZRgEIAEoDRIdChVzcGF3bmdyb3Vwb3duZXJoYW5kbGUYBSAB",
-          "KA0SJQoQd29ybGRfb2Zmc2V0X3BvcxgGIAEoCzILLkNNc2dWZWN0b3ISJwoS",
-          "d29ybGRfb2Zmc2V0X2FuZ2xlGAcgASgLMgsuQ01zZ1FBbmdsZRIaChJzcGF3",
-          "bmdyb3VwbWFuaWZlc3QYCCABKAwSDQoFZmxhZ3MYCSABKA0SEQoJdGlja2Nv",
-          "dW50GAogASgFEhoKEm1hbmlmZXN0aW5jb21wbGV0ZRgLIAEoCBIWCg5sb2Nh",
-          "bG5hbWVmaXh1cBgMIAEoCRIXCg9wYXJlbnRuYW1lZml4dXAYDSABKAkSHAoU",
-          "bWFuaWZlc3Rsb2FkcHJpb3JpdHkYDiABKAUSFAoMd29ybGRncm91cGlkGA8g",
-          "ASgNEhgKEGNyZWF0aW9uc2VxdWVuY2UYECABKA0SGAoQc2F2ZWdhbWVmaWxl",
-          "bmFtZRgRIAEoCRIeChZzcGF3bmdyb3VwcGFyZW50aGFuZGxlGBIgASgNEhcK",
-          "D2xldmVsdHJhbnNpdGlvbhgTIAEoCBIWCg53b3JsZGdyb3VwbmFtZRgUIAEo",
-          "CSJ1CiFDTkVUTXNnX1NwYXduR3JvdXBfTWFuaWZlc3RVcGRhdGUSGAoQc3Bh",
-          "d25ncm91cGhhbmRsZRgBIAEoDRIaChJzcGF3bmdyb3VwbWFuaWZlc3QYAiAB",
-          "KAwSGgoSbWFuaWZlc3RpbmNvbXBsZXRlGAMgASgIImsKIkNORVRNc2dfU3Bh",
-          "d25Hcm91cF9TZXRDcmVhdGlvblRpY2sSGAoQc3Bhd25ncm91cGhhbmRsZRgB",
-          "IAEoDRIRCgl0aWNrY291bnQYAiABKAUSGAoQY3JlYXRpb25zZXF1ZW5jZRgD",
-          "IAEoDSJXChlDTkVUTXNnX1NwYXduR3JvdXBfVW5sb2FkEhgKEHNwYXduZ3Jv",
-          "dXBoYW5kbGUYASABKA0SDQoFZmxhZ3MYAiABKA0SEQoJdGlja2NvdW50GAMg",
-          "ASgFIjwKIENORVRNc2dfU3Bhd25Hcm91cF9Mb2FkQ29tcGxldGVkEhgKEHNw",
-          "YXduZ3JvdXBoYW5kbGUYASABKA0izQMKIENTVkNNc2dfR2FtZVNlc3Npb25D",
-          "b25maWd1cmF0aW9uEhYKDmlzX211bHRpcGxheWVyGAEgASgIEhcKD2lzX2xv",
-          "YWRzYXZlZ2FtZRgCIAEoCBIZChFpc19iYWNrZ3JvdW5kX21hcBgDIAEoCBIT",
-          "Cgtpc19oZWFkbGVzcxgEIAEoCBIYChBtaW5fY2xpZW50X2xpbWl0GAUgASgN",
-          "EhgKEG1heF9jbGllbnRfbGltaXQYBiABKA0SEwoLbWF4X2NsaWVudHMYByAB",
-          "KA0SFQoNdGlja19pbnRlcnZhbBgIIAEoBxIQCghob3N0bmFtZRgJIAEoCRIU",
-          "CgxzYXZlZ2FtZW5hbWUYCiABKAkSEgoKczFfbWFwbmFtZRgLIAEoCRIQCghn",
-          "YW1lbW9kZRgMIAEoCRIZChFzZXJ2ZXJfaXBfYWRkcmVzcxgNIAEoCRIMCgRk",
-          "YXRhGA4gASgMEhQKDGlzX2xvY2Fsb25seRgPIAEoCBIXCg9ub19zdGVhbV9z",
-          "ZXJ2ZXIYEyABKAgSFQoNaXNfdHJhbnNpdGlvbhgQIAEoCBIVCg1wcmV2aW91",
-          "c2xldmVsGBEgASgJEhQKDGxhbmRtYXJrbmFtZRgSIAEoCSKyAQoUQ05FVE1z",
-          "Z19EZWJ1Z092ZXJsYXkSDQoFZXR5cGUYASABKAUSHAoHdmVjdG9ycxgCIAMo",
-          "CzILLkNNc2dWZWN0b3ISGQoGY29sb3JzGAMgAygLMgkuQ01zZ1JHQkESEgoK",
-          "ZGltZW5zaW9ucxgEIAMoAhINCgV0aW1lcxgFIAMoAhINCgVib29scxgGIAMo",
-          "CBIPCgd1aW50NjRzGAcgAygEEg8KB3N0cmluZ3MYCCADKAkq1AEKDVNpZ25v",
-          "blN0YXRlX3QSFAoQU0lHTk9OU1RBVEVfTk9ORRAAEhkKFVNJR05PTlNUQVRF",
-          "X0NIQUxMRU5HRRABEhkKFVNJR05PTlNUQVRFX0NPTk5FQ1RFRBACEhMKD1NJ",
-          "R05PTlNUQVRFX05FVxADEhgKFFNJR05PTlNUQVRFX1BSRVNQQVdOEAQSFQoR",
-          "U0lHTk9OU1RBVEVfU1BBV04QBRIUChBTSUdOT05TVEFURV9GVUxMEAYSGwoX",
-          "U0lHTk9OU1RBVEVfQ0hBTkdFTEVWRUwQByrLAgoMTkVUX01lc3NhZ2VzEgsK",
-          "B25ldF9OT1AQABIZChVuZXRfRGlzY29ubmVjdF9MZWdhY3kQARIXChNuZXRf",
-          "U3BsaXRTY3JlZW5Vc2VyEAMSDAoIbmV0X1RpY2sQBBIRCg1uZXRfU3RyaW5n",
-          "Q21kEAUSEQoNbmV0X1NldENvblZhchAGEhMKD25ldF9TaWdub25TdGF0ZRAH",
-          "EhcKE25ldF9TcGF3bkdyb3VwX0xvYWQQCBIhCh1uZXRfU3Bhd25Hcm91cF9N",
-          "YW5pZmVzdFVwZGF0ZRAJEiIKHm5ldF9TcGF3bkdyb3VwX1NldENyZWF0aW9u",
-          "VGljaxALEhkKFW5ldF9TcGF3bkdyb3VwX1VubG9hZBAMEiAKHG5ldF9TcGF3",
-          "bkdyb3VwX0xvYWRDb21wbGV0ZWQQDRIUChBuZXRfRGVidWdPdmVybGF5EA8q",
-          "zAIKEVNwYXduR3JvdXBGbGFnc190EicKI1NQQVdOX0dST1VQX0xPQURfRU5U",
-          "SVRJRVNfRlJPTV9TQVZFEAESIwofU1BBV05fR1JPVVBfRE9OVF9TUEFXTl9F",
-          "TlRJVElFUxACEiEKHVNQQVdOX0dST1VQX1NZTkNIUk9OT1VTX1NQQVdOEAQS",
-          "JgoiU1BBV05fR1JPVVBfSVNfSU5JVElBTF9TUEFXTl9HUk9VUBAIEisKJ1NQ",
-          "QVdOX0dST1VQX0NSRUFURV9DTElFTlRfT05MWV9FTlRJVElFUxAQEiIKHlNQ",
-          "QVdOX0dST1VQX0JMT0NLX1VOVElMX0xPQURFRBBAEiQKH1NQQVdOX0dST1VQ",
-          "X0xPQURfU1RSRUFNSU5HX0RBVEEQgAESJwoiU1BBV05fR1JPVVBfQ1JFQVRF",
-          "X05FV19TQ0VORV9XT1JMRBCAAg=="));
+          "bhgLIAEoCRIOCgZqaXR0ZXIYDCABKA0iPQoRQ05FVE1zZ19TdHJpbmdDbWQS",
+          "DwoHY29tbWFuZBgBIAEoCRIXCg9wcmVkaWN0aW9uX3N5bmMYAiABKA0iMQoR",
+          "Q05FVE1zZ19TZXRDb25WYXISHAoHY29udmFycxgBIAEoCzILLkNNc2dfQ1Zh",
+          "cnMivAEKE0NORVRNc2dfU2lnbm9uU3RhdGUSNgoMc2lnbm9uX3N0YXRlGAEg",
+          "ASgOMg4uU2lnbm9uU3RhdGVfdDoQU0lHTk9OU1RBVEVfTk9ORRITCgtzcGF3",
+          "bl9jb3VudBgCIAEoDRIaChJudW1fc2VydmVyX3BsYXllcnMYAyABKA0SGgoS",
+          "cGxheWVyc19uZXR3b3JraWRzGAQgAygJEhAKCG1hcF9uYW1lGAUgASgJEg4K",
+          "BmFkZG9ucxgGIAEoCSL8AQoRQ1NWQ01zZ19HYW1lRXZlbnQSEgoKZXZlbnRf",
+          "bmFtZRgBIAEoCRIPCgdldmVudGlkGAIgASgFEiYKBGtleXMYAyADKAsyGC5D",
+          "U1ZDTXNnX0dhbWVFdmVudC5rZXlfdBqZAQoFa2V5X3QSDAoEdHlwZRgBIAEo",
+          "BRISCgp2YWxfc3RyaW5nGAIgASgJEhEKCXZhbF9mbG9hdBgDIAEoAhIQCgh2",
+          "YWxfbG9uZxgEIAEoBRIRCgl2YWxfc2hvcnQYBSABKAUSEAoIdmFsX2J5dGUY",
+          "BiABKAUSEAoIdmFsX2Jvb2wYByABKAgSEgoKdmFsX3VpbnQ2NBgIIAEoBCKF",
+          "AQoWQ1NWQ01zZ0xpc3RfR2FtZUV2ZW50cxIvCgZldmVudHMYASADKAsyHy5D",
+          "U1ZDTXNnTGlzdF9HYW1lRXZlbnRzLmV2ZW50X3QaOgoHZXZlbnRfdBIMCgR0",
+          "aWNrGAEgASgFEiEKBWV2ZW50GAIgASgLMhIuQ1NWQ01zZ19HYW1lRXZlbnQi",
+          "qwQKF0NORVRNc2dfU3Bhd25Hcm91cF9Mb2FkEhEKCXdvcmxkbmFtZRgBIAEo",
+          "CRIWCg5lbnRpdHlsdW1wbmFtZRgCIAEoCRIYChBlbnRpdHlmaWx0ZXJuYW1l",
+          "GAMgASgJEhgKEHNwYXduZ3JvdXBoYW5kbGUYBCABKA0SHQoVc3Bhd25ncm91",
+          "cG93bmVyaGFuZGxlGAUgASgNEiUKEHdvcmxkX29mZnNldF9wb3MYBiABKAsy",
+          "Cy5DTXNnVmVjdG9yEicKEndvcmxkX29mZnNldF9hbmdsZRgHIAEoCzILLkNN",
+          "c2dRQW5nbGUSGgoSc3Bhd25ncm91cG1hbmlmZXN0GAggASgMEg0KBWZsYWdz",
+          "GAkgASgNEhEKCXRpY2tjb3VudBgKIAEoBRIaChJtYW5pZmVzdGluY29tcGxl",
+          "dGUYCyABKAgSFgoObG9jYWxuYW1lZml4dXAYDCABKAkSFwoPcGFyZW50bmFt",
+          "ZWZpeHVwGA0gASgJEhwKFG1hbmlmZXN0bG9hZHByaW9yaXR5GA4gASgFEhQK",
+          "DHdvcmxkZ3JvdXBpZBgPIAEoDRIYChBjcmVhdGlvbnNlcXVlbmNlGBAgASgN",
+          "EhgKEHNhdmVnYW1lZmlsZW5hbWUYESABKAkSHgoWc3Bhd25ncm91cHBhcmVu",
+          "dGhhbmRsZRgSIAEoDRIXCg9sZXZlbHRyYW5zaXRpb24YEyABKAgSFgoOd29y",
+          "bGRncm91cG5hbWUYFCABKAkidQohQ05FVE1zZ19TcGF3bkdyb3VwX01hbmlm",
+          "ZXN0VXBkYXRlEhgKEHNwYXduZ3JvdXBoYW5kbGUYASABKA0SGgoSc3Bhd25n",
+          "cm91cG1hbmlmZXN0GAIgASgMEhoKEm1hbmlmZXN0aW5jb21wbGV0ZRgDIAEo",
+          "CCJrCiJDTkVUTXNnX1NwYXduR3JvdXBfU2V0Q3JlYXRpb25UaWNrEhgKEHNw",
+          "YXduZ3JvdXBoYW5kbGUYASABKA0SEQoJdGlja2NvdW50GAIgASgFEhgKEGNy",
+          "ZWF0aW9uc2VxdWVuY2UYAyABKA0iVwoZQ05FVE1zZ19TcGF3bkdyb3VwX1Vu",
+          "bG9hZBIYChBzcGF3bmdyb3VwaGFuZGxlGAEgASgNEg0KBWZsYWdzGAIgASgN",
+          "EhEKCXRpY2tjb3VudBgDIAEoBSI8CiBDTkVUTXNnX1NwYXduR3JvdXBfTG9h",
+          "ZENvbXBsZXRlZBIYChBzcGF3bmdyb3VwaGFuZGxlGAEgASgNIs0DCiBDU1ZD",
+          "TXNnX0dhbWVTZXNzaW9uQ29uZmlndXJhdGlvbhIWCg5pc19tdWx0aXBsYXll",
+          "chgBIAEoCBIXCg9pc19sb2Fkc2F2ZWdhbWUYAiABKAgSGQoRaXNfYmFja2dy",
+          "b3VuZF9tYXAYAyABKAgSEwoLaXNfaGVhZGxlc3MYBCABKAgSGAoQbWluX2Ns",
+          "aWVudF9saW1pdBgFIAEoDRIYChBtYXhfY2xpZW50X2xpbWl0GAYgASgNEhMK",
+          "C21heF9jbGllbnRzGAcgASgNEhUKDXRpY2tfaW50ZXJ2YWwYCCABKAcSEAoI",
+          "aG9zdG5hbWUYCSABKAkSFAoMc2F2ZWdhbWVuYW1lGAogASgJEhIKCnMxX21h",
+          "cG5hbWUYCyABKAkSEAoIZ2FtZW1vZGUYDCABKAkSGQoRc2VydmVyX2lwX2Fk",
+          "ZHJlc3MYDSABKAkSDAoEZGF0YRgOIAEoDBIUCgxpc19sb2NhbG9ubHkYDyAB",
+          "KAgSFwoPbm9fc3RlYW1fc2VydmVyGBMgASgIEhUKDWlzX3RyYW5zaXRpb24Y",
+          "ECABKAgSFQoNcHJldmlvdXNsZXZlbBgRIAEoCRIUCgxsYW5kbWFya25hbWUY",
+          "EiABKAkisgEKFENORVRNc2dfRGVidWdPdmVybGF5Eg0KBWV0eXBlGAEgASgF",
+          "EhwKB3ZlY3RvcnMYAiADKAsyCy5DTXNnVmVjdG9yEhkKBmNvbG9ycxgDIAMo",
+          "CzIJLkNNc2dSR0JBEhIKCmRpbWVuc2lvbnMYBCADKAISDQoFdGltZXMYBSAD",
+          "KAISDQoFYm9vbHMYBiADKAgSDwoHdWludDY0cxgHIAMoBBIPCgdzdHJpbmdz",
+          "GAggAygJKtQBCg1TaWdub25TdGF0ZV90EhQKEFNJR05PTlNUQVRFX05PTkUQ",
+          "ABIZChVTSUdOT05TVEFURV9DSEFMTEVOR0UQARIZChVTSUdOT05TVEFURV9D",
+          "T05ORUNURUQQAhITCg9TSUdOT05TVEFURV9ORVcQAxIYChRTSUdOT05TVEFU",
+          "RV9QUkVTUEFXThAEEhUKEVNJR05PTlNUQVRFX1NQQVdOEAUSFAoQU0lHTk9O",
+          "U1RBVEVfRlVMTBAGEhsKF1NJR05PTlNUQVRFX0NIQU5HRUxFVkVMEAcqywIK",
+          "DE5FVF9NZXNzYWdlcxILCgduZXRfTk9QEAASGQoVbmV0X0Rpc2Nvbm5lY3Rf",
+          "TGVnYWN5EAESFwoTbmV0X1NwbGl0U2NyZWVuVXNlchADEgwKCG5ldF9UaWNr",
+          "EAQSEQoNbmV0X1N0cmluZ0NtZBAFEhEKDW5ldF9TZXRDb25WYXIQBhITCg9u",
+          "ZXRfU2lnbm9uU3RhdGUQBxIXChNuZXRfU3Bhd25Hcm91cF9Mb2FkEAgSIQod",
+          "bmV0X1NwYXduR3JvdXBfTWFuaWZlc3RVcGRhdGUQCRIiCh5uZXRfU3Bhd25H",
+          "cm91cF9TZXRDcmVhdGlvblRpY2sQCxIZChVuZXRfU3Bhd25Hcm91cF9Vbmxv",
+          "YWQQDBIgChxuZXRfU3Bhd25Hcm91cF9Mb2FkQ29tcGxldGVkEA0SFAoQbmV0",
+          "X0RlYnVnT3ZlcmxheRAPKswCChFTcGF3bkdyb3VwRmxhZ3NfdBInCiNTUEFX",
+          "Tl9HUk9VUF9MT0FEX0VOVElUSUVTX0ZST01fU0FWRRABEiMKH1NQQVdOX0dS",
+          "T1VQX0RPTlRfU1BBV05fRU5USVRJRVMQAhIhCh1TUEFXTl9HUk9VUF9TWU5D",
+          "SFJPTk9VU19TUEFXThAEEiYKIlNQQVdOX0dST1VQX0lTX0lOSVRJQUxfU1BB",
+          "V05fR1JPVVAQCBIrCidTUEFXTl9HUk9VUF9DUkVBVEVfQ0xJRU5UX09OTFlf",
+          "RU5USVRJRVMQEBIiCh5TUEFXTl9HUk9VUF9CTE9DS19VTlRJTF9MT0FERUQQ",
+          "QBIkCh9TUEFXTl9HUk9VUF9MT0FEX1NUUkVBTUlOR19EQVRBEIABEicKIlNQ",
+          "QVdOX0dST1VQX0NSRUFURV9ORVdfU0NFTkVfV09STEQQgAI="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(new[] {typeof(global::SignonState_t), typeof(global::NET_Messages), typeof(global::SpawnGroupFlags_t), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -130,7 +130,7 @@ public static partial class NetworkbasetypesReflection {
           new pbr::GeneratedClrTypeInfo(typeof(global::CMsg_CVars), global::CMsg_CVars.Parser, new[]{ "Cvars" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::CMsg_CVars.Types.CVar), global::CMsg_CVars.Types.CVar.Parser, new[]{ "Name", "Value" }, null, null, null, null)}),
           new pbr::GeneratedClrTypeInfo(typeof(global::CNETMsg_NOP), global::CNETMsg_NOP.Parser, null, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::CNETMsg_SplitScreenUser), global::CNETMsg_SplitScreenUser.Parser, new[]{ "Slot" }, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::CNETMsg_Tick), global::CNETMsg_Tick.Parser, new[]{ "Tick", "HostFrametime", "HostFrametimeStdDeviation", "HostComputationtime", "HostComputationtimeStdDeviation", "HostFramestarttimeStdDeviation", "HostLoss", "HostUnfilteredFrametime", "HltvReplayFlags", "ExpectedLongTick", "ExpectedLongTickReason" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::CNETMsg_Tick), global::CNETMsg_Tick.Parser, new[]{ "Tick", "HostFrametime", "HostFrametimeStdDeviation", "HostComputationtime", "HostComputationtimeStdDeviation", "HostFramestarttimeStdDeviation", "HostLoss", "HostUnfilteredFrametime", "HltvReplayFlags", "ExpectedLongTick", "ExpectedLongTickReason", "Jitter" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::CNETMsg_StringCmd), global::CNETMsg_StringCmd.Parser, new[]{ "Command", "PredictionSync" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::CNETMsg_SetConVar), global::CNETMsg_SetConVar.Parser, new[]{ "Convars" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::CNETMsg_SignonState), global::CNETMsg_SignonState.Parser, new[]{ "SignonState", "SpawnCount", "NumServerPlayers", "PlayersNetworkids", "MapName", "Addons" }, null, null, null, null),
@@ -495,7 +495,11 @@ public sealed partial class CMsgVector : pb::IMessage<CMsgVector>
   #else
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
           break;
@@ -526,7 +530,11 @@ public sealed partial class CMsgVector : pb::IMessage<CMsgVector>
   void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
           break;
@@ -770,7 +778,11 @@ public sealed partial class CMsgVector2D : pb::IMessage<CMsgVector2D>
   #else
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
           break;
@@ -793,7 +805,11 @@ public sealed partial class CMsgVector2D : pb::IMessage<CMsgVector2D>
   void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
           break;
@@ -1073,7 +1089,11 @@ public sealed partial class CMsgQAngle : pb::IMessage<CMsgQAngle>
   #else
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
           break;
@@ -1100,7 +1120,11 @@ public sealed partial class CMsgQAngle : pb::IMessage<CMsgQAngle>
   void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
           break;
@@ -1428,7 +1452,11 @@ public sealed partial class CMsgQuaternion : pb::IMessage<CMsgQuaternion>
   #else
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
           break;
@@ -1459,7 +1487,11 @@ public sealed partial class CMsgQuaternion : pb::IMessage<CMsgQuaternion>
   void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
           break;
@@ -1723,7 +1755,11 @@ public sealed partial class CMsgTransform : pb::IMessage<CMsgTransform>
   #else
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
           break;
@@ -1756,7 +1792,11 @@ public sealed partial class CMsgTransform : pb::IMessage<CMsgTransform>
   void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
           break;
@@ -2090,7 +2130,11 @@ public sealed partial class CMsgRGBA : pb::IMessage<CMsgRGBA>
   #else
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
           break;
@@ -2121,7 +2165,11 @@ public sealed partial class CMsgRGBA : pb::IMessage<CMsgRGBA>
   void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
           break;
@@ -2540,7 +2588,11 @@ public sealed partial class CMsgPlayerInfo : pb::IMessage<CMsgPlayerInfo>
   #else
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
           break;
@@ -2579,7 +2631,11 @@ public sealed partial class CMsgPlayerInfo : pb::IMessage<CMsgPlayerInfo>
   void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
           break;
@@ -2787,7 +2843,11 @@ public sealed partial class CEntityMsg : pb::IMessage<CEntityMsg>
   #else
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
           break;
@@ -2806,7 +2866,11 @@ public sealed partial class CEntityMsg : pb::IMessage<CEntityMsg>
   void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
           break;
@@ -2966,7 +3030,11 @@ public sealed partial class CMsg_CVars : pb::IMessage<CMsg_CVars>
   #else
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
           break;
@@ -2985,7 +3053,11 @@ public sealed partial class CMsg_CVars : pb::IMessage<CMsg_CVars>
   void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
           break;
@@ -3216,7 +3288,11 @@ public sealed partial class CMsg_CVars : pb::IMessage<CMsg_CVars>
       #else
         uint tag;
         while ((tag = input.ReadTag()) != 0) {
-          switch(tag) {
+        if ((tag & 7) == 4) {
+          // Abort on any end group tag.
+          return;
+        }
+        switch(tag) {
             default:
               _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
               break;
@@ -3239,7 +3315,11 @@ public sealed partial class CMsg_CVars : pb::IMessage<CMsg_CVars>
       void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
         uint tag;
         while ((tag = input.ReadTag()) != 0) {
-          switch(tag) {
+        if ((tag & 7) == 4) {
+          // Abort on any end group tag.
+          return;
+        }
+        switch(tag) {
             default:
               _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
               break;
@@ -3390,7 +3470,11 @@ public sealed partial class CNETMsg_NOP : pb::IMessage<CNETMsg_NOP>
   #else
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
           break;
@@ -3405,7 +3489,11 @@ public sealed partial class CNETMsg_NOP : pb::IMessage<CNETMsg_NOP>
   void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
           break;
@@ -3589,7 +3677,11 @@ public sealed partial class CNETMsg_SplitScreenUser : pb::IMessage<CNETMsg_Split
   #else
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
           break;
@@ -3608,7 +3700,11 @@ public sealed partial class CNETMsg_SplitScreenUser : pb::IMessage<CNETMsg_Split
   void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
           break;
@@ -3671,6 +3767,7 @@ public sealed partial class CNETMsg_Tick : pb::IMessage<CNETMsg_Tick>
     hltvReplayFlags_ = other.hltvReplayFlags_;
     expectedLongTick_ = other.expectedLongTick_;
     expectedLongTickReason_ = other.expectedLongTickReason_;
+    jitter_ = other.jitter_;
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
@@ -3976,6 +4073,33 @@ public sealed partial class CNETMsg_Tick : pb::IMessage<CNETMsg_Tick>
     expectedLongTickReason_ = null;
   }
 
+  /// <summary>Field number for the "jitter" field.</summary>
+  public const int JitterFieldNumber = 12;
+  private readonly static uint JitterDefaultValue = 0;
+
+  private uint jitter_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public uint Jitter {
+    get { if ((_hasBits0 & 1024) != 0) { return jitter_; } else { return JitterDefaultValue; } }
+    set {
+      _hasBits0 |= 1024;
+      jitter_ = value;
+    }
+  }
+  /// <summary>Gets whether the "jitter" field is set</summary>
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public bool HasJitter {
+    get { return (_hasBits0 & 1024) != 0; }
+  }
+  /// <summary>Clears the value of the "jitter" field</summary>
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public void ClearJitter() {
+    _hasBits0 &= ~1024;
+  }
+
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public override bool Equals(object other) {
@@ -4002,6 +4126,7 @@ public sealed partial class CNETMsg_Tick : pb::IMessage<CNETMsg_Tick>
     if (HltvReplayFlags != other.HltvReplayFlags) return false;
     if (ExpectedLongTick != other.ExpectedLongTick) return false;
     if (ExpectedLongTickReason != other.ExpectedLongTickReason) return false;
+    if (Jitter != other.Jitter) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -4020,6 +4145,7 @@ public sealed partial class CNETMsg_Tick : pb::IMessage<CNETMsg_Tick>
     if (HasHltvReplayFlags) hash ^= HltvReplayFlags.GetHashCode();
     if (HasExpectedLongTick) hash ^= ExpectedLongTick.GetHashCode();
     if (HasExpectedLongTickReason) hash ^= ExpectedLongTickReason.GetHashCode();
+    if (HasJitter) hash ^= Jitter.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -4082,6 +4208,10 @@ public sealed partial class CNETMsg_Tick : pb::IMessage<CNETMsg_Tick>
       output.WriteRawTag(90);
       output.WriteString(ExpectedLongTickReason);
     }
+    if (HasJitter) {
+      output.WriteRawTag(96);
+      output.WriteUInt32(Jitter);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
     }
@@ -4136,6 +4266,10 @@ public sealed partial class CNETMsg_Tick : pb::IMessage<CNETMsg_Tick>
       output.WriteRawTag(90);
       output.WriteString(ExpectedLongTickReason);
     }
+    if (HasJitter) {
+      output.WriteRawTag(96);
+      output.WriteUInt32(Jitter);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(ref output);
     }
@@ -4178,6 +4312,9 @@ public sealed partial class CNETMsg_Tick : pb::IMessage<CNETMsg_Tick>
     }
     if (HasExpectedLongTickReason) {
       size += 1 + pb::CodedOutputStream.ComputeStringSize(ExpectedLongTickReason);
+    }
+    if (HasJitter) {
+      size += 1 + pb::CodedOutputStream.ComputeUInt32Size(Jitter);
     }
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
@@ -4224,6 +4361,9 @@ public sealed partial class CNETMsg_Tick : pb::IMessage<CNETMsg_Tick>
     if (other.HasExpectedLongTickReason) {
       ExpectedLongTickReason = other.ExpectedLongTickReason;
     }
+    if (other.HasJitter) {
+      Jitter = other.Jitter;
+    }
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
 
@@ -4235,7 +4375,11 @@ public sealed partial class CNETMsg_Tick : pb::IMessage<CNETMsg_Tick>
   #else
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
           break;
@@ -4283,6 +4427,10 @@ public sealed partial class CNETMsg_Tick : pb::IMessage<CNETMsg_Tick>
           ExpectedLongTickReason = input.ReadString();
           break;
         }
+        case 96: {
+          Jitter = input.ReadUInt32();
+          break;
+        }
       }
     }
   #endif
@@ -4294,7 +4442,11 @@ public sealed partial class CNETMsg_Tick : pb::IMessage<CNETMsg_Tick>
   void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
           break;
@@ -4340,6 +4492,10 @@ public sealed partial class CNETMsg_Tick : pb::IMessage<CNETMsg_Tick>
         }
         case 90: {
           ExpectedLongTickReason = input.ReadString();
+          break;
+        }
+        case 96: {
+          Jitter = input.ReadUInt32();
           break;
         }
       }
@@ -4565,7 +4721,11 @@ public sealed partial class CNETMsg_StringCmd : pb::IMessage<CNETMsg_StringCmd>
   #else
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
           break;
@@ -4588,7 +4748,11 @@ public sealed partial class CNETMsg_StringCmd : pb::IMessage<CNETMsg_StringCmd>
   void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
           break;
@@ -4766,7 +4930,11 @@ public sealed partial class CNETMsg_SetConVar : pb::IMessage<CNETMsg_SetConVar>
   #else
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
           break;
@@ -4788,7 +4956,11 @@ public sealed partial class CNETMsg_SetConVar : pb::IMessage<CNETMsg_SetConVar>
   void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
           break;
@@ -5171,7 +5343,11 @@ public sealed partial class CNETMsg_SignonState : pb::IMessage<CNETMsg_SignonSta
   #else
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
           break;
@@ -5210,7 +5386,11 @@ public sealed partial class CNETMsg_SignonState : pb::IMessage<CNETMsg_SignonSta
   void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
           break;
@@ -5479,7 +5659,11 @@ public sealed partial class CSVCMsg_GameEvent : pb::IMessage<CSVCMsg_GameEvent>
   #else
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
           break;
@@ -5506,7 +5690,11 @@ public sealed partial class CSVCMsg_GameEvent : pb::IMessage<CSVCMsg_GameEvent>
   void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
           break;
@@ -6012,7 +6200,11 @@ public sealed partial class CSVCMsg_GameEvent : pb::IMessage<CSVCMsg_GameEvent>
       #else
         uint tag;
         while ((tag = input.ReadTag()) != 0) {
-          switch(tag) {
+        if ((tag & 7) == 4) {
+          // Abort on any end group tag.
+          return;
+        }
+        switch(tag) {
             default:
               _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
               break;
@@ -6059,7 +6251,11 @@ public sealed partial class CSVCMsg_GameEvent : pb::IMessage<CSVCMsg_GameEvent>
       void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
         uint tag;
         while ((tag = input.ReadTag()) != 0) {
-          switch(tag) {
+        if ((tag & 7) == 4) {
+          // Abort on any end group tag.
+          return;
+        }
+        switch(tag) {
             default:
               _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
               break;
@@ -6252,7 +6448,11 @@ public sealed partial class CSVCMsgList_GameEvents : pb::IMessage<CSVCMsgList_Ga
   #else
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
           break;
@@ -6271,7 +6471,11 @@ public sealed partial class CSVCMsgList_GameEvents : pb::IMessage<CSVCMsgList_Ga
   void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
           break;
@@ -6494,7 +6698,11 @@ public sealed partial class CSVCMsgList_GameEvents : pb::IMessage<CSVCMsgList_Ga
       #else
         uint tag;
         while ((tag = input.ReadTag()) != 0) {
-          switch(tag) {
+        if ((tag & 7) == 4) {
+          // Abort on any end group tag.
+          return;
+        }
+        switch(tag) {
             default:
               _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
               break;
@@ -6520,7 +6728,11 @@ public sealed partial class CSVCMsgList_GameEvents : pb::IMessage<CSVCMsgList_Ga
       void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
         uint tag;
         while ((tag = input.ReadTag()) != 0) {
-          switch(tag) {
+        if ((tag & 7) == 4) {
+          // Abort on any end group tag.
+          return;
+        }
+        switch(tag) {
             default:
               _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
               break;
@@ -7524,7 +7736,11 @@ public sealed partial class CNETMsg_SpawnGroup_Load : pb::IMessage<CNETMsg_Spawn
   #else
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
           break;
@@ -7625,7 +7841,11 @@ public sealed partial class CNETMsg_SpawnGroup_Load : pb::IMessage<CNETMsg_Spawn
   void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
           break;
@@ -7982,7 +8202,11 @@ public sealed partial class CNETMsg_SpawnGroup_ManifestUpdate : pb::IMessage<CNE
   #else
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
           break;
@@ -8009,7 +8233,11 @@ public sealed partial class CNETMsg_SpawnGroup_ManifestUpdate : pb::IMessage<CNE
   void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
           break;
@@ -8293,7 +8521,11 @@ public sealed partial class CNETMsg_SpawnGroup_SetCreationTick : pb::IMessage<CN
   #else
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
           break;
@@ -8320,7 +8552,11 @@ public sealed partial class CNETMsg_SpawnGroup_SetCreationTick : pb::IMessage<CN
   void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
           break;
@@ -8604,7 +8840,11 @@ public sealed partial class CNETMsg_SpawnGroup_Unload : pb::IMessage<CNETMsg_Spa
   #else
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
           break;
@@ -8631,7 +8871,11 @@ public sealed partial class CNETMsg_SpawnGroup_Unload : pb::IMessage<CNETMsg_Spa
   void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
           break;
@@ -8827,7 +9071,11 @@ public sealed partial class CNETMsg_SpawnGroup_LoadCompleted : pb::IMessage<CNET
   #else
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
           break;
@@ -8846,7 +9094,11 @@ public sealed partial class CNETMsg_SpawnGroup_LoadCompleted : pb::IMessage<CNET
   void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
           break;
@@ -9818,7 +10070,11 @@ public sealed partial class CSVCMsg_GameSessionConfiguration : pb::IMessage<CSVC
   #else
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
           break;
@@ -9909,7 +10165,11 @@ public sealed partial class CSVCMsg_GameSessionConfiguration : pb::IMessage<CSVC
   void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
           break;
@@ -10295,7 +10555,11 @@ public sealed partial class CNETMsg_DebugOverlay : pb::IMessage<CNETMsg_DebugOve
   #else
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
           break;
@@ -10346,7 +10610,11 @@ public sealed partial class CNETMsg_DebugOverlay : pb::IMessage<CNETMsg_DebugOve
   void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
     uint tag;
     while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
           break;
