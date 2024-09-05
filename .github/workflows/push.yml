@@ -1,0 +1,46 @@
+name: Push
+on:
+  push:
+    branches: "main"
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        dotnet: ['8.x']
+    name: "Test on .NET ${{ matrix.dotnet }}"
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: "Setup .NET ${{ matrix.dotnet }}"
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ matrix.dotnet }}
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: "Build on ${{ matrix.dotnet }}"
+      run: dotnet build --no-restore ./DemLock.Tests/DemLock.Tests.csproj
+    - name: "Test on ${{ matrix.dotnet }}"
+      run: dotnet test --no-build --verbosity normal
+
+  benchmark:
+    strategy:
+      matrix:
+        dotnet: ['8.x']
+    name: "Benchmark on ${{ matrix.dotnet }}"
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: "Setup .NET ${{ matrix.dotnet }}"
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ matrix.dotnet }}
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: "Build on ${{ matrix.dotnet }}"
+      run: dotnet build --no-restore -c Release ./DemLock.Benchmarks/DemLock.Benchmarks.csproj
+    # We need sudo so BenchmarkDotNet can set itself as high priority on the CPU.
+    # We're still running without any Github credentials/can only do stuff within
+    # the branch, so we should be good security wise.
+    - name: "Benchmark on ${{ matrix.dotnet }}"
+      run: sudo dotnet run -c Release --project ./DemLock.Benchmarks/DemLock.Benchmarks.csproj
