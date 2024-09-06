@@ -77,18 +77,4 @@ public class Vector : FieldDecoder
         return ticks / 64.0f;
     }
 
-    public override object GetValue() => (X, Y, Z);
-
-
-    public override string ToJson()
-    {
-        StringBuilder sb = new();
-        sb.AppendLine("{");
-        sb.AppendLine($"\"X\": \"{X}\",");
-        sb.AppendLine($"\"Y\": \"{Y}\",");
-        sb.AppendLine($"\"Z\": \"{Z}\"");
-        sb.AppendLine("}");
-
-        return sb.ToString();
-    }
 }

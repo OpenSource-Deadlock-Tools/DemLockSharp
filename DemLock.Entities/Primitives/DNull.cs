@@ -17,8 +17,5 @@ public class DNull: DPrimitive
         throw new Exception("Tried to update a null value field");
     }
 
-    public override object GetValue()
-    {
-        return null;
-    }
+
 }

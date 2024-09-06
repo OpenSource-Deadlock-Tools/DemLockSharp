@@ -16,6 +16,4 @@ public class DUInt8: DPrimitive
         return (byte)bs.ReadVarUInt32();
     }
 
-    public override object GetValue() => Value;
-
 }

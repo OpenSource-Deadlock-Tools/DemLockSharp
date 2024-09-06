@@ -39,44 +39,6 @@ public class DFixedSizeArray:FieldDecoder
         return null;
     }
 
-    public override string ToJson()
-    {
-        StringBuilder sb = new();
-        sb.AppendLine("{");
-        sb.AppendLine($"\"@TypeName\": \"{TypeName}\",");
-        sb.AppendLine($"\"Length\": \"{Length}\"");
-        sb.AppendLine(",\"Values\": [");
-        for (int i = 0; i < Data.Length; i++)
-        {
-            if (Data[i] != null)
-            {
-                sb.AppendLine(Data[i].ToJson());
-                if(i < Data.Length - 1) sb.AppendLine(",");
-                else sb.AppendLine();
-            }
-        }
 
-        sb.Append("]");
-        sb.AppendLine("}");
 
-        return sb.ToString();
-    }
-
-    public override JsonNode ToJsonNode()
-    {
-        JsonArray arr = new JsonArray();
-        if (Data.Length > 0)
-        {
-            foreach (var d in Data)
-            {
-                arr.Add(d?.ToJsonNode());
-            }
-        }
-        return arr;
-    }
-
-    public override object GetValue()
-    {
-        return Data;
-    }
 }

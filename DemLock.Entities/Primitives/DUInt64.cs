@@ -44,7 +44,4 @@ public class DUInt64 : DPrimitive
         buffer.ReadBytes(bytes);
         return BinaryPrimitives.ReadUInt64LittleEndian(bytes);
     }
-
-    public override object GetValue() => Value;
-
 }

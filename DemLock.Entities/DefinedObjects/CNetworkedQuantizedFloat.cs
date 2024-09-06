@@ -23,7 +23,6 @@ public class CNetworkedQuantizedFloat: FieldDecoder
         return encoding.Decode(ref bs);
     }
 
-    public override object GetValue() => _value;
 
     public override string ToString()
     {

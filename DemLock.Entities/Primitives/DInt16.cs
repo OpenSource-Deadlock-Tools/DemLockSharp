@@ -15,8 +15,5 @@ public class DInt16: DPrimitive
         return (short)bs.ReadVarInt32();
     }
 
-    public override object GetValue()
-    {
-        return Value;
-    }
+  
 }

@@ -7,9 +7,5 @@ namespace DemLock.Entities.Primitives;
 /// </summary>
 public abstract class DPrimitive: FieldDecoder
 {
-    public override void SetValue(ReadOnlySpan<int> path, ref BitBuffer bs, ref UpdateDelta returnDelta)
-    {
-        SetValue(path, ref bs);
-        returnDelta.Value = GetValue();
-    }
+
 }

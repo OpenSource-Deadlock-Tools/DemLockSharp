@@ -28,18 +28,4 @@ public class Vector2D : FieldDecoder
         return (X, Y);
     }
 
-    public override string ToJson()
-    {
-        StringBuilder sb = new();
-        sb.AppendLine("{");
-        sb.AppendLine($"\"X\": \"{X}\",");
-        sb.AppendLine($"\"Y\": \"{Y}\",");
-        sb.AppendLine("}");
-
-        return sb.ToString();
-    }
-    public override object GetValue()
-    {
-        return new {X = X, Y = Y};
-    }
 }

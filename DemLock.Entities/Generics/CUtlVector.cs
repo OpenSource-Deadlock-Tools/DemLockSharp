@@ -39,47 +39,4 @@ public class CUtlVector: DGeneric
 
     }
 
-    public override JsonNode ToJsonNode()
-    {
-        JsonArray arr = new JsonArray();
-        if (Data.Count > 0)
-        {
-            foreach (var d in Data)
-            {
-                arr.Add(d.Value?.ToJsonNode());
-            }
-        }
-        return arr;
-    }
-    public override string ToJson()
-    {
-        StringBuilder sb = new();
-        sb.AppendLine("{");
-        sb.AppendLine("\"@FieldType\": \"" + "CNetworkUtlVectorBase" + "\",");
-        sb.AppendLine("\"@GenericType\": \"" + GenericTypeName + "\",");
-        sb.AppendLine($"\"@Size\": \"{Size}\"");
-        sb.AppendLine(",\"Values\": [");
-        if (Data.Count > 0)
-        {
-            List<string> il = new List<string>();
-            foreach (var kv in Data)
-            {
-                if (kv.Value != null)
-                {
-                    il.Add(kv.Value.ToJson());
-                }
-            }
-
-            sb.AppendLine(string.Join(",", il));
-        }
-
-        sb.Append("]");
-        sb.AppendLine("}");
-
-        return sb.ToString();
-    }
-    public override object GetValue()
-    {
-        return Data;
-    }
 }

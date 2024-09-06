@@ -15,8 +15,4 @@ public class HSequence: FieldDecoder
         return bs.ReadUVarInt64() - 1;
     }
 
-    public override object GetValue()
-    {
-        return Value;
-    }
 }

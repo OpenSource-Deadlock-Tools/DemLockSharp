@@ -27,10 +27,48 @@ class Program
         //        Console.WriteLine($"[{eventArgs.Tick}] {v}");
         //    }
         //};
+
+
+        new EntityBindingBuilder()
+            .Entity("CCitadelPlayerPawn")
+            .WithFields(fieldBindings =>
+            {
+                fieldBindings.Field("CBodyComponent").Field("m_cellX").As<uint>();
+                fieldBindings.Field("m_iHealth").As<int>();
+                fieldBindings.Field("m_iHealthMax").As<int>("MaxHealth");
+            })
+            .Entity("CCitadelPlayerController")
+            .WithFields(fieldBindings =>
+            {
+                fieldBindings.Field("m_steamID").As<ulong>("SteamID");
+            }).OnUpdate(data =>
+            {
+                Console.WriteLine($"{data["SteamID"]}");
+                Console.WriteLine($"{data["m_iHealth"]}/{data["MaxHealth"]}");
+            });
+
+
+        new EntityBindingBuilder<CCitadelPlayerController>()
+            .Entity("CCitadelPlayerPawn")
+            .WithFields(fieldBindings =>
+            {
+                fieldBindings.Field("CBodyComponent").Field("m_cellX");
+                fieldBindings.Field("m_iHealth").As<int>().MapTo(player => player.Health);
+                fieldBindings.Field("m_iHealthMax").As<int>("MaxHealth").MapTo(player => player.MaxHealth);
+            })
+            .Entity("CCitadelPlayerController")
+            .WithFields(fieldBindings =>
+            {
+                fieldBindings.Field("m_steamID").As<ulong>("SteamID").MapTo(player => player.SteamID);
+            }).OnUpdate(data =>
+            {
+                Console.WriteLine($"{data.SteamID}");
+                Console.WriteLine($"{data.Health}/{data.MaxHealth}");
+            });
         
         parser.BindEntity("CCitadelPlayerPawn", fields =>
         {
-            foreach (var v in fields.Where(x=>x.FieldName == "m_flSimulationTime"))
+            foreach (var v in fields.Where(x=>x.FieldName == "m_iHealth"))
             {
                 Console.WriteLine(v);
             }

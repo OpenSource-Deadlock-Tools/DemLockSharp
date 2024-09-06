@@ -29,43 +29,11 @@ public abstract class FieldDecoder
     /// <param name="bs"></param>
     public abstract object SetValue(ReadOnlySpan<int> path, ref BitBuffer bs);
 
-    public virtual void SetValue(ReadOnlySpan<int> path, ref BitBuffer bs, ref UpdateDelta returnDelta)
-    {
-        SetValue(path, ref bs);
-        returnDelta.Value = GetValue();
-    }
-
-
     public virtual void ReadFieldName(ReadOnlySpan<int> path, ref string fieldName)
     {
         if (string.IsNullOrEmpty(fieldName))
             fieldName = string.Empty;
     }
-    
-
-    public abstract object GetValue();
-
-    public virtual (string, object) GetValueAsPath(string path)
-    {
-        return (path, GetValue());
-    }
-    /// <summary>
-    /// Get the object in a JSON encoded string.
-    /// This is the default implementation and assumes that we can just put the value into
-    /// a JSON string field
-    /// </summary>
-    /// <returns></returns>
-    public virtual string ToJson()
-    {
-        return $"\"{GetValue()}\"";
-    }
-    
-    public virtual JsonNode ToJsonNode()
-    {
-        return $"{GetValue()?.ToString()}";
-    }
-
-
     public static FieldDecoder CreateFixedSizeArray(string typeName, int count, Func<FieldDecoder> objectFactory)
     {
         return new DFixedSizeArray(typeName, count, objectFactory);

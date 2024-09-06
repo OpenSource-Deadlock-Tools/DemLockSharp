@@ -15,8 +15,4 @@ public class CUtlString: FieldDecoder
         return bs.ReadStringUtf8();
     }
 
-    public override object GetValue()
-    {
-        return Value;
-    }
 }

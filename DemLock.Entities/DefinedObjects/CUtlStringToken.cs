@@ -15,7 +15,6 @@ public class CUtlStringToken: FieldDecoder
         return bs.ReadVarUInt32();
     }
 
-    public override object GetValue() => Value;
 
 
     public override string ToString()

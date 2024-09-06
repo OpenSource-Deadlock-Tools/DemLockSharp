@@ -68,6 +68,4 @@ public class DFloat : DPrimitive
             return *(float*)&bits;
         }
     }
-
-    public override object GetValue() => Value;
 }

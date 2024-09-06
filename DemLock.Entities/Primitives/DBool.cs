@@ -15,6 +15,5 @@ public class DBool: DPrimitive
         return bs.ReadBit();
     }
 
-    public override object GetValue() => Value;
 
 }

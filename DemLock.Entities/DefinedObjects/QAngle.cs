@@ -63,29 +63,6 @@ public class QAngle : FieldDecoder
         return (pitch: Pitch, yaw: Yaw, roll: Roll);
     }
 
-    /// <summary>
-    /// Bad implementation of get value here, tuple is not a great return type...
-    /// not sure how I want to handle more complex access like this, because most interaction
-    /// should be through the fields directly
-    /// </summary>
-    /// <returns></returns>
-    public override object GetValue() => (Pitch, Yaw, Roll);
-
-    public override string ToJson()
-    {
-        StringBuilder sb = new();
-        sb.AppendLine("{");
-        sb.AppendLine($"\"@FieldType\": \"QAngle\",");
-        sb.AppendLine($"\"@VarEncoder\": \"{_encodingInfo.VarEncoder}\",");
-        sb.AppendLine($"\"@BitCount\": \"{_encodingInfo.BitCount}\",");
-        sb.AppendLine($"\"Pitch\": \"{Pitch}\",");
-        sb.AppendLine($"\"Yaw\": \"{Yaw}\",");
-        sb.AppendLine($"\"Roll\": \"{Roll}\"");
-        sb.AppendLine("}");
-
-        return sb.ToString();
-    }
-
     public override string ToString()
     {
         return $"[QAngle : {{Pitch: {Pitch}, Yaw: {Yaw}, Roll: {Roll}}}]";

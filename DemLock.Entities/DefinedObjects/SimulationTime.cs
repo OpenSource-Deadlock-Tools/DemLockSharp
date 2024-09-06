@@ -22,7 +22,6 @@ public class SimulationTime: FieldDecoder
         var ticks = bs.ReadVarUInt32();
         return  ticks * _tickInterval;
     }
-    public override object GetValue() => Value;
     public TimeSpan ToTimeSpan() => TimeSpan.FromSeconds(Value);
     
     public override string ToString() => ToTimeSpan().ToString();

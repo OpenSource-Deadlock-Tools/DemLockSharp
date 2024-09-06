@@ -15,9 +15,6 @@ public class DUInt16: DPrimitive
          return bs.ReadVarUInt32();
     }
 
-    public override object GetValue() => _value;
-
-
     public override string ToString()
     {
         return $"[UInt32 : {_value}]";

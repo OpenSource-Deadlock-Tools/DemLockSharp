@@ -15,10 +15,4 @@ public abstract class DGeneric: FieldDecoder
     {
         GenericTypeName = genericTypeName;
     }
-    
-    public override void SetValue(ReadOnlySpan<int> path, ref BitBuffer bs, ref UpdateDelta returnDelta)
-    {
-        SetValue(path, ref bs);
-        returnDelta.Value = GetValue();
-    }
 }

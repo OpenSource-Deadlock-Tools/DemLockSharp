@@ -18,7 +18,6 @@ public class CHandle: DGeneric
     {
         return bs.ReadVarUInt32();
     }
-    public override object GetValue() => _value;
     public override string ToString()
     {
         return $"[CBaseHandle {_value}]";

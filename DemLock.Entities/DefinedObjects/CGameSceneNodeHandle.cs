@@ -15,7 +15,6 @@ public class CGameSceneNodeHandle: FieldDecoder
         return bs.ReadVarUInt32();
     }
 
-    public override object GetValue() => _value;
     public override string ToString()
     {
         return $"[CGameSceneNodeHandle : {_value}]";

@@ -14,7 +14,6 @@ public class GameTime: FieldDecoder
         IsSet = true;
         return bs.ReadFloat();
     }
-    public override object GetValue() => Value;
     public TimeSpan ToTimeSpan() => TimeSpan.FromSeconds(Value);
     public override string ToString() => ToTimeSpan().ToString();
 }

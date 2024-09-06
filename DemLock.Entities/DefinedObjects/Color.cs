@@ -22,5 +22,4 @@ public class DColor: FieldDecoder
         return Color.FromArgb((int)((aa << 24) | (rr << 16) | (gg << 8) | bb));
     }
 
-    public override object GetValue() => Value;
 }

@@ -15,8 +15,6 @@ public class DInt8: DPrimitive
         return (sbyte)bs.ReadVarInt32();
     }
 
-    public override object GetValue() => Value;
-
 
     public override string ToString()
     {

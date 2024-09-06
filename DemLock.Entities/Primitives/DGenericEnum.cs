@@ -15,6 +15,4 @@ public class DGenericEnum: DPrimitive
         return bs.ReadUVarInt64();
     }
 
-    public override object GetValue() => Value;
-
 }

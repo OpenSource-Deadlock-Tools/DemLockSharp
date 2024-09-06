@@ -31,9 +31,4 @@ public class Vector4D : FieldDecoder
         
         return (X, Y, Z, W);
     }
-
-    public override object GetValue()
-    {
-        throw new NotImplementedException("Vector4D::GetValue");
-    }
 }

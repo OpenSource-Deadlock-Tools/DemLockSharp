@@ -20,8 +20,6 @@ public class CStrongHandle: DGeneric
         return bs.ReadUVarInt64();
     }
 
-    public override object GetValue() => Value;
-
 
     public override string ToString()
     {
