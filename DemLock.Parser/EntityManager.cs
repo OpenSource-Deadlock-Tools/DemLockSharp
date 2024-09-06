@@ -1,4 +1,5 @@
 ﻿using DemLock.Entities;
+using DemLock.Entities.ClassMappings;
 using DemLock.Parser.Models;
 using DemLock.Utils;
 
@@ -45,9 +46,11 @@ public class EntityManager
     private Dictionary<int, EntityMetaData> _metaData;
     private Dictionary<int, EntityDecoder> _deserializerMap;
     private Dictionary<ulong, FieldDecoder> _fieldDecoderMap;
+    private Dictionary<int, Entity> _mappedEntities;
 
     public EntityManager(DemoParserContext context)
     {
+        _mappedEntities = new();
         _context = context;
         _metaData = new();
         _fieldDecoderMap = new Dictionary<ulong, FieldDecoder>();
@@ -60,6 +63,10 @@ public class EntityManager
         var entity = _context.GetSerializerByClassName(serverClass.ClassName)?.Instantiate(serial);
         _deserializerMap[index] = entity;
         _entities[index] = new Dictionary<ulong, EntityFieldData>();
+        if (serverClass.ClassName == "CCitadelPlayerPawn")
+        {
+            _mappedEntities[index] = new CCitadelPlayerPawn();
+        }
         _metaData[index] = new EntityMetaData()
         {
             ClassName = serverClass.ClassName
@@ -76,6 +83,7 @@ public class EntityManager
         _entities[index] = null!;
         _deserializerMap[index] = null!;
         _metaData[index] = null!;
+        _mappedEntities[index] = null!;
     }
 
     public void UpdateAtIndex(int index, byte[] entityData)
@@ -118,15 +126,14 @@ public class EntityManager
             var value = deserializer.SetValue(pathSpan, ref entityData);
             var hash = fieldPath.GetHash();
 
-            if (metaData?.ClassName == "CCitadelPlayerPawn" 
-                && _entities.ContainsKey(index) 
-                && _entities[index].ContainsKey(hash) 
-                && _entities[index][hash].FieldName == "m_iHealth")
-            {
-                //Console.WriteLine($"{_context.CurrentTick} || {value}");
-            }
             string fieldName = null;
             EntityFieldData fieldData;
+
+            if (_mappedEntities.ContainsKey(index) && _mappedEntities[index] != null)
+            {
+                _mappedEntities[index].UpdateProperty(pathSpan, value);
+                continue;
+            }
             if (_entities[index].TryGetValue(hash, out fieldData))
             {
                 if (string.IsNullOrEmpty(fieldData.FieldName))

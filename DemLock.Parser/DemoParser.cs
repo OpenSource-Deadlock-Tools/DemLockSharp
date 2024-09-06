@@ -54,6 +54,10 @@ public class DemoParser
         } while (frame.Command != DemoFrameCommand.DEM_Stop);
     }
 
+    public void AddClassBinding<Tclass>(string className, Action<Tclass, int, object> binder)
+    {
+        
+    }
     public void BindEntity(string entityName, Action<List<EntityFieldData>> callback)
     {
         if (_context.EntityBinders.ContainsKey(entityName))
