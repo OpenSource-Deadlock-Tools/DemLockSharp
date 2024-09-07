@@ -14,5 +14,9 @@ public class DUInt32: DPrimitive
     {
         return bs.ReadVarUInt32();
     }
+    public override object ReadValue(ref BitBuffer bs)
+    {
+        return bs.ReadVarUInt32();
+    }
 
 }

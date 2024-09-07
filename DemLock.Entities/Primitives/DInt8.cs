@@ -15,6 +15,10 @@ public class DInt8: DPrimitive
         return (sbyte)bs.ReadVarInt32();
     }
 
+    public override object ReadValue(ref BitBuffer bs)
+    {
+        return (sbyte)bs.ReadVarInt32();
+    }
 
     public override string ToString()
     {

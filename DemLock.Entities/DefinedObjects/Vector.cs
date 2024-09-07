@@ -21,6 +21,19 @@ public class Vector : FieldDecoder
         _encodingInfo = encodingInfo;
     }
 
+    public override object ReadValue(ref BitBuffer bs)
+    {
+                IsSet = true;
+                if (_encodingInfo.VarEncoder == "normal")
+                {
+                    return (bs.Read3BitNormal());
+                }
+        
+                X = ReadFloat(ref bs);
+                Y = ReadFloat(ref bs);
+                Z = ReadFloat(ref bs);
+                return (X, Y, Z);
+    }
     public override object SetValue(ReadOnlySpan<int> path, ref BitBuffer bs)
     {
         IsSet = true;

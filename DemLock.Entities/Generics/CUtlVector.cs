@@ -1,19 +1,17 @@
 ﻿using System.Text;
 using System.Text.Json.Nodes;
+using DemLock.Entities.Primitives;
 using DemLock.Utils;
 
 namespace DemLock.Entities.Generics;
 
 public class CUtlVector: DGeneric
 {
-    public int Size { get; set; }
-    private Func<FieldDecoder> _typeFactory;
+    private readonly FieldDecoder _childDecoder;
     public Dictionary<int, FieldDecoder?> Data { get; set; }
-    public CUtlVector(string genericTypeName, Func<FieldDecoder> typeFactory) : base(genericTypeName)
+    public CUtlVector(string genericTypeName,FieldDecoder childDecoder) : base(genericTypeName)
     {
-        GenericTypeName = genericTypeName;
-        _typeFactory = typeFactory;
-        Data = new();
+        _childDecoder = childDecoder;
     }
 
     public override void SetValue(object value)
@@ -23,20 +21,20 @@ public class CUtlVector: DGeneric
 
     public override object SetValue(ReadOnlySpan<int> path, ref BitBuffer bs)
     {
-        if (path.Length == 0)
-        {
-            Size = (int)bs.ReadVarUInt32();
-        }
-
-        if (path.Length >= 1)
-        {
-            var i = path[0];
-            if (!Data.ContainsKey(i)) Data.Add(i, _typeFactory());
-            return Data[i].SetValue(path[1..], ref bs);
-        }
-
-        return null;
+        throw new NotImplementedException($"CUtlVector::SetValue(ReadOnlySpan<int>) is not implemented for {GenericTypeName}");
 
     }
+    public override object ReadValue(ref BitBuffer bs)
+    {
+        throw new NotImplementedException("CUtlVector should not be getting called here!");
+    }
 
+    public override FieldDecoder GetFieldDecoder(ReadOnlySpan<int> path)
+    {
+        
+        if (path.Length == 0)
+            return new DUInt32();
+
+        return _childDecoder.GetFieldDecoder(path[1..]);
+    }
 }

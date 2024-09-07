@@ -9,6 +9,11 @@ public class GameTime: FieldDecoder
     {
         throw new NotImplementedException();
     }
+
+    public override object ReadValue(ref BitBuffer bs)
+    {
+        return bs.ReadFloat();
+    }
     public override object SetValue(ReadOnlySpan<int> path, ref BitBuffer bs)
     {
         IsSet = true;

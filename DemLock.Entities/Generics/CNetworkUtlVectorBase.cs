@@ -1,44 +1,36 @@
 ﻿using System.Text;
 using System.Text.Json.Nodes;
+using DemLock.Entities.Primitives;
 using DemLock.Utils;
 
 namespace DemLock.Entities.Generics;
 
 public class CNetworkUtlVectorBase : DGeneric
 {
-    public Dictionary<int, FieldDecoder?> Data { get; set; }
-    private Func<FieldDecoder> _typeFactory;
-
-    public CNetworkUtlVectorBase(string genericTypeName, Func<FieldDecoder> typeFactory) : base(genericTypeName)
+    private FieldDecoder _childDecoder;
+    public CNetworkUtlVectorBase(string genericTypeName, FieldDecoder childDecoder) : base(genericTypeName)
     {
-        _typeFactory = typeFactory;
-        
-        Data = new ();
+        _childDecoder = childDecoder;
     }
-
-    public int Size { get; set; }
-
+    [Obsolete]
     public override void SetValue(object value)
     {
         throw new NotImplementedException();
     }
-
+    [Obsolete]
     public override object SetValue(ReadOnlySpan<int> path, ref BitBuffer bs)
     {
-        if (path.Length == 0)
-        {
-            return (int)bs.ReadVarUInt32();
-        }
-
-        if (path.Length >= 1)
-        {
-            var i = path[0];
-            if (!Data.ContainsKey(i)) Data.Add(i, _typeFactory());
-            return Data[i].SetValue(path[1..], ref bs);
-        }
-
-        return null;
+        throw new NotImplementedException("CNetworkUtlVectorBase.SetValue was called but shouldn't be called");
     }
     
-
+    public override object ReadValue(ref BitBuffer bs)
+    {
+        throw new NotImplementedException("CUtlVector should not be getting called here!");
+    }
+    public override FieldDecoder GetFieldDecoder(ReadOnlySpan<int> path)
+    {
+        if (path.Length == 0)
+            return new DUInt32();
+        return _childDecoder.GetFieldDecoder(path[1..]);
+    }
 }

@@ -25,7 +25,7 @@ public class EntityFieldData
 public class EntityMetaData
 {
     public string ClassName { get; set; }
-    public EntityBinder Binder { get; set; }
+    public int ClassId { get; set; }
 }
 
 /// <summary>
@@ -43,17 +43,21 @@ public class EntityManager
     /// just to get things running
     /// </summary>
     private Dictionary<int, Dictionary<ulong, EntityFieldData>> _entities;
+
     private Dictionary<int, EntityMetaData> _metaData;
     private Dictionary<int, EntityDecoder> _deserializerMap;
-    private Dictionary<ulong, FieldDecoder> _fieldDecoderMap;
+
+    private Dictionary<ulong, string> _witness;
+    private Dictionary<int, FieldDecoder> _fieldDecoders;
     private Dictionary<int, Entity> _mappedEntities;
 
     public EntityManager(DemoParserContext context)
     {
+        _witness = new();
         _mappedEntities = new();
         _context = context;
         _metaData = new();
-        _fieldDecoderMap = new Dictionary<ulong, FieldDecoder>();
+        _fieldDecoders = new Dictionary<int, FieldDecoder>();
         _deserializerMap = new Dictionary<int, EntityDecoder>();
         _entities = new();
     }
@@ -67,15 +71,11 @@ public class EntityManager
         {
             _mappedEntities[index] = new CCitadelPlayerPawn();
         }
+
         _metaData[index] = new EntityMetaData()
         {
             ClassName = serverClass.ClassName
         };
-
-        if (_context.EntityBinders.TryGetValue(serverClass.ClassName, out EntityBinder entityBinder))
-        {
-            _metaData[index].Binder = entityBinder;
-        }
     }
 
     public void DeleteEntity(int index)
@@ -92,11 +92,11 @@ public class EntityManager
         UpdateAtIndex(index, ref bb);
     }
 
-    public (EntityMetaData MetaData, EntityFieldData[] Fields) UpdateAtIndex(int index, ref BitBuffer entityData)
+    public Entity UpdateAtIndex(int index, ref BitBuffer entityData)
     {
         List<EntityFieldData> entityDataList = new();
         var metaData = _metaData[index];
-        
+
         Span<FieldPath> fieldPaths = stackalloc FieldPath[512];
         var fp = FieldPath.Default;
         // Keep reading field paths until we reach an op with a null reader.
@@ -117,42 +117,47 @@ public class EntityManager
 
         fieldPaths = fieldPaths[..fpi];
 
+        Entity targetEntity = null;
+
+        if (_mappedEntities.ContainsKey(index))
+        {
+            targetEntity = _mappedEntities[index];
+        }
+
         for (var idx = 0; idx < fieldPaths.Length; idx++)
         {
             var fieldPath = fieldPaths[idx];
+            var fieldHash = fieldPath.GetHash(metaData.ClassId);
+
             var pathSpan = fieldPath.AsSpan();
-            
+
             var deserializer = _deserializerMap[index];
-            var value = deserializer.SetValue(pathSpan, ref entityData);
-            var hash = fieldPath.GetHash();
+            FieldDecoder decoder = deserializer.GetFieldDecoder(pathSpan);
+            var value = decoder.ReadValue(ref entityData);
+            targetEntity?.UpdateProperty(pathSpan, value);
 
-            string fieldName = null;
-            EntityFieldData fieldData;
 
-            if (_mappedEntities.ContainsKey(index) && _mappedEntities[index] != null)
+            continue;
+            if (metaData.ClassName == "CCitadelPlayerPawn")
             {
-                _mappedEntities[index].UpdateProperty(pathSpan, value);
-                continue;
-            }
-            if (_entities[index].TryGetValue(hash, out fieldData))
-            {
-                if (string.IsNullOrEmpty(fieldData.FieldName))
+                var hash = fieldPath.GetHash();
+                string fieldName = null;
+                EntityFieldData fieldData;
+                if (_entities[index].TryGetValue(hash, out fieldData))
+                {
+                    if (string.IsNullOrEmpty(fieldData.FieldName))
+                        deserializer.ReadFieldName(pathSpan, ref fieldName);
+                    fieldData.FieldValue = value;
+                }
+                else
+                {
                     deserializer.ReadFieldName(pathSpan, ref fieldName);
-                fieldData.FieldValue = value;
-            }
-            else
-            {
-                deserializer.ReadFieldName(pathSpan, ref fieldName);
-                fieldData = new EntityFieldData(fieldName, value);
-                _entities[index][hash] = fieldData;
-            }
+                }
 
-            entityDataList.Add(fieldData);
+                Console.WriteLine($"\t[{string.Join(",", pathSpan.ToArray())}] ({decoder}){fieldName}::{value}");
+            }
         }
-        
-        if(metaData.Binder != null) metaData.Binder?.RaiseEntityChangedEvent(_entities[index].Values.ToList());
-        
-        return (metaData, _entities[index].Values.ToArray());
-    }
 
+        return targetEntity;
+    }
 }

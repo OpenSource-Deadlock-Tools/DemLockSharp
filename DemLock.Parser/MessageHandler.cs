@@ -157,6 +157,9 @@ public class MessageHandler
 
         for (int i = 0; i < packetEntities.UpdatedEntries; i++)
         {
+            if (i == 2)
+            {
+            }
             entityIndex += 1 + (int)eventData.ReadUBitVar();
 
             var flags = DeltaHeaderFlags.FHDR_ZERO;
@@ -198,7 +201,7 @@ public class MessageHandler
                 }
                 var entity = _context.EntityManager.UpdateAtIndex(entityIndex, ref eventData);
                 
-                _events.Raise_OnEntityUpdated(_context.CurrentTick,entity.Fields, entity.MetaData.ClassName, "CREATE");
+                _events.Raise_OnEntityUpdated(_context.CurrentTick,entity, "CREATE");
             }
 
             if (updateType == PacketUpdateTypes.LeavePvs)
@@ -212,7 +215,7 @@ public class MessageHandler
             if (updateType == PacketUpdateTypes.DeltaEnt)
             {
                 var entity = _context.EntityManager.UpdateAtIndex(entityIndex, ref eventData);
-                _events.Raise_OnEntityUpdated(_context.CurrentTick,entity.Fields, entity.MetaData.ClassName, "UPDATE");
+                _events.Raise_OnEntityUpdated(_context.CurrentTick, entity, "UPDATE");
             }
         }
     }

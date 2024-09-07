@@ -119,7 +119,6 @@ public class FrameHandler
                 ClassName = v.NetworkName,
             });
         }
-        _context.PrintClasses();
     }
 
     private void HandleSendTables(DemoFrame frame)
@@ -173,9 +172,5 @@ public class FrameHandler
                 };
             }).ToList();
         _context.AddSerializerRange(serializers);
-        
-        
-        
-        _context.DebugFunction();
     }
 }

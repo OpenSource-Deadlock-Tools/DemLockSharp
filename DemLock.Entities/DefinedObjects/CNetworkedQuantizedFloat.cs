@@ -17,6 +17,12 @@ public class CNetworkedQuantizedFloat: FieldDecoder
         throw new NotImplementedException();
     }
 
+    public override object ReadValue(ref BitBuffer bs)
+    {
+        
+        var encoding = QuantizedFloatEncoding.Create(_encodingInfo);
+        return encoding.Decode(ref bs);
+    }
     public override object SetValue(ReadOnlySpan<int> path, ref BitBuffer bs)
     {
         var encoding = QuantizedFloatEncoding.Create(_encodingInfo);

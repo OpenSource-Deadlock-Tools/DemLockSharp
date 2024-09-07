@@ -16,6 +16,11 @@ public class DNull: DPrimitive
     {
         throw new Exception("Tried to update a null value field");
     }
+    public override object ReadValue(ref BitBuffer bs)
+    {
+        throw new Exception("Honestly not sure how you got here");
+    }
+
 
 
 }

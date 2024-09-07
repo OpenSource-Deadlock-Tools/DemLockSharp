@@ -14,6 +14,10 @@ public class DInt16: DPrimitive
     {
         return (short)bs.ReadVarInt32();
     }
+    public override object ReadValue(ref BitBuffer bs)
+    {
+        return (short)bs.ReadVarInt32();
+    }
 
   
 }

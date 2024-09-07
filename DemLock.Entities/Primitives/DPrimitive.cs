@@ -7,5 +7,4 @@ namespace DemLock.Entities.Primitives;
 /// </summary>
 public abstract class DPrimitive: FieldDecoder
 {
-
 }

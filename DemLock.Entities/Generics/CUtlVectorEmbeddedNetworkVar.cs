@@ -9,20 +9,19 @@ public class CUtlVectorEmbeddedNetworkVar : DGeneric
 {
     public int Size { get; set; }
     public Dictionary<int, FieldDecoder?> Data { get; set; }
-    private readonly Func<FieldDecoder> _typeFactory;
+    private readonly FieldDecoder _childDecoder;
 
     public CUtlVectorEmbeddedNetworkVar(string genericTypeName) : base(genericTypeName)
     {
         Data = new ();
         GenericTypeName = genericTypeName;
-        _typeFactory = () => new DNull();
     }
     
-    public CUtlVectorEmbeddedNetworkVar(string genericTypeName, Func<FieldDecoder> typeFactory) : base(genericTypeName)
+    public CUtlVectorEmbeddedNetworkVar(string genericTypeName, FieldDecoder childDecoder) : base(genericTypeName)
     {
         Data = new ();
         GenericTypeName = genericTypeName;
-        _typeFactory = typeFactory;
+        _childDecoder = childDecoder;
     }
 
     public override void SetValue(object value)
@@ -32,18 +31,18 @@ public class CUtlVectorEmbeddedNetworkVar : DGeneric
 
     public override object SetValue(ReadOnlySpan<int> path, ref BitBuffer bs)
     {
+        throw new NotImplementedException("CUtlVectorEmbeddedNetworkVar should not be getting called here!");
+    }
+
+    public override object ReadValue(ref BitBuffer bs)
+    {
+        throw new NotImplementedException("CUtlVectorEmbeddedNetworkVar should not be getting called here!");
+    }
+
+    public override FieldDecoder GetFieldDecoder(ReadOnlySpan<int> path)
+    {
         if (path.Length == 0)
-        {
-            return (int)bs.ReadVarUInt32();
-        }
-
-        if (path.Length >= 1)
-        {
-            var i = path[0];
-            if(!Data.ContainsKey(i) ) Data.Add(i, _typeFactory());
-            return Data[i].SetValue(path[1..], ref bs);
-        }
-
-        return null;
+            return new DUInt32();
+        return _childDecoder.GetFieldDecoder(path[1..]);
     }
 }

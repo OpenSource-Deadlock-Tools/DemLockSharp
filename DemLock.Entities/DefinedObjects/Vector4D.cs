@@ -31,4 +31,14 @@ public class Vector4D : FieldDecoder
         
         return (X, Y, Z, W);
     }
+    
+    public override object ReadValue(ref BitBuffer bs)
+    {
+        X = FloatDecoder.ReadFloat(ref bs, _encodingInfo);
+        Y = FloatDecoder.ReadFloat(ref bs, _encodingInfo);
+        Z = FloatDecoder.ReadFloat(ref bs, _encodingInfo);
+        W = FloatDecoder.ReadFloat(ref bs, _encodingInfo);
+        
+        return (X, Y, Z, W);
+    }
 }

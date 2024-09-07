@@ -29,14 +29,20 @@ public abstract class FieldDecoder
     /// <param name="bs"></param>
     public abstract object SetValue(ReadOnlySpan<int> path, ref BitBuffer bs);
 
+    public virtual FieldDecoder GetFieldDecoder(ReadOnlySpan<int> path)
+    {
+        return this;
+    }
+    public abstract object ReadValue(ref BitBuffer bs);
+
     public virtual void ReadFieldName(ReadOnlySpan<int> path, ref string fieldName)
     {
         if (string.IsNullOrEmpty(fieldName))
             fieldName = string.Empty;
     }
-    public static FieldDecoder CreateFixedSizeArray(string typeName, int count, Func<FieldDecoder> objectFactory)
+    public static FieldDecoder CreateFixedSizeArray(string typeName, int count, FieldDecoder childDecoder)
     {
-        return new DFixedSizeArray(typeName, count, objectFactory);
+        return new DFixedSizeArray(typeName, count, childDecoder);
     }
     /// <summary>
     /// Create a new object that's a generic, this is segmented as there will need to be some special handling for generics
@@ -45,18 +51,18 @@ public abstract class FieldDecoder
     /// <param name="typeName"></param>
     /// <param name="genericTypeName"></param>
     /// <returns></returns>
-    public static FieldDecoder CreateGenericObject(string typeName, string genericTypeName, Func<FieldDecoder> typeFactory)
+    public static FieldDecoder CreateGenericObject(string typeName, string genericTypeName, FieldDecoder childDecoder)
     {
         if(typeName == "CNetworkUtlVectorBase")
-            return new CNetworkUtlVectorBase(genericTypeName, typeFactory);
+            return new CNetworkUtlVectorBase(genericTypeName, childDecoder);
         if (typeName == "CHandle")
             return new CHandle(genericTypeName);
         if(typeName == "CStrongHandle")
             return new CStrongHandle(genericTypeName);
         if (typeName == "CUtlVector")
-            return new CUtlVector(genericTypeName, typeFactory);
+            return new CUtlVector(genericTypeName, childDecoder);
         if(typeName == "CUtlVectorEmbeddedNetworkVar")
-            return new CUtlVectorEmbeddedNetworkVar(genericTypeName, typeFactory);
+            return new CUtlVectorEmbeddedNetworkVar(genericTypeName, childDecoder);
 
         throw new Exception($"Unmapped generic type {typeName}");
         return new DNull();
@@ -74,7 +80,7 @@ public abstract class FieldDecoder
         if (typeName == "CGameSceneNodeHandle")
             return new CGameSceneNodeHandle();
         if (typeName == "QAngle")
-            return new QAngle(fieldEncodingInfo);
+            return new QAngleDecoder(fieldEncodingInfo);
         if (typeName == "CUtlStringToken")
             return new CUtlStringToken();
         if (typeName == "bool")
@@ -101,7 +107,7 @@ public abstract class FieldDecoder
         if (typeName == "Vector2D")
             return new Vector2D(fieldEncodingInfo);
         if (typeName == "Vector4D")
-            throw new Exception("Vector4D is not supported yet"); 
+            return new Vector4D(fieldEncodingInfo);
         
         if(typeName == "HSequence")
             return new HSequence();

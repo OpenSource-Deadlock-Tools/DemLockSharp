@@ -12,7 +12,11 @@ public class DGenericEnum: DPrimitive
 
     public override object SetValue(ReadOnlySpan<int> path, ref BitBuffer bs)
     {
-        return bs.ReadUVarInt64();
+        return bs.ReadVarInt32();
     }
 
+    public override object ReadValue(ref BitBuffer bs)
+    {
+        return bs.ReadVarInt32();
+    }
 }

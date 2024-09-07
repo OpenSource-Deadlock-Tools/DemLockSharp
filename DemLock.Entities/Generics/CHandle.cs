@@ -14,6 +14,10 @@ public class CHandle: DGeneric
     {
         throw new NotImplementedException();
     }
+    public override object ReadValue(ref BitBuffer bs)
+    {
+        return bs.ReadVarUInt32();
+    }
     public override object SetValue(ReadOnlySpan<int> path, ref BitBuffer bs)
     {
         return bs.ReadVarUInt32();

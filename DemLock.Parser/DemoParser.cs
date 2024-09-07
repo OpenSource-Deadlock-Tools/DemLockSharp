@@ -9,7 +9,7 @@ namespace DemLock.Parser;
 public class DemoParser
 {
     public DemoEventSystem Events { get; }
-    private FrameHandler _frameHandler; 
+    private FrameHandler _frameHandler;
     private MessageHandler _messageHandler;
     private DemoParserContext _context;
     private DemoParserConfig _config;
@@ -23,6 +23,7 @@ public class DemoParser
         _messageHandler = new MessageHandler(Events, _context);
         _frameHandler = new FrameHandler(Events, _messageHandler, _context);
     }
+
     public DemoParser(DemoParserConfig config)
     {
         _config = config;
@@ -32,6 +33,7 @@ public class DemoParser
         _messageHandler = new MessageHandler(Events, _context);
         _frameHandler = new FrameHandler(Events, _messageHandler, _context);
     }
+
     /// <summary>
     /// Process a demo file, emitting events to any registered listeners when a derived event
     /// is calculated, which will contain data about the event (such as file info being parsed, 
@@ -48,27 +50,36 @@ public class DemoParser
         {
             frame = demo.ReadFrame();
             _context.CurrentTick = frame.Tick;
-            if(_config.LogReadFrames) Console.WriteLine($"[{i}::{frame.Tick}] {frame.Command}({(int)frame.Command})");
+            if (_config.LogReadFrames) Console.WriteLine($"[{i}::{frame.Tick}] {frame.Command}({(int)frame.Command})");
             _frameHandler.HandleFrame(frame);
             i++;
         } while (frame.Command != DemoFrameCommand.DEM_Stop);
     }
 
-    public void AddClassBinding<Tclass>(string className, Action<Tclass, int, object> binder)
+    public void DumpClassDefinitions(string fileName, string outputDirectory)
     {
+        // Make sure we clear our context to start fresh
+        _context.ClearContext();
+        using DemoFile demo = new DemoFile(fileName);
+        DemoFrame frame;
+        int i = 0;
+        do
+        {
+            frame = demo.ReadFrame();
+            _context.CurrentTick = frame.Tick;
+            if (frame.Command == DemoFrameCommand.DEM_SendTables || frame.Command == DemoFrameCommand.DEM_ClassInfo)
+            {
+                _frameHandler.HandleFrame(frame);
+            }
+            i++;
+        } while (frame.Command != DemoFrameCommand.DEM_Stop);
+
+        if (!Directory.Exists(outputDirectory))
+        {
+            Directory.CreateDirectory(outputDirectory);
+        }
         
-    }
-    public void BindEntity(string entityName, Action<List<EntityFieldData>> callback)
-    {
-        if (_context.EntityBinders.ContainsKey(entityName))
-        {
-            _context.EntityBinders[entityName].OnEntityChanged += (o,i)=>callback(i);
-        }
-        else
-        {
-            var binder = new EntityBinder() { EntityName = entityName };
-            binder.OnEntityChanged += (o,i)=>callback(i);
-            _context.EntityBinders.Add(entityName, binder);
-        }
+            
+        _context.DumpClassDefinitions(outputDirectory);
     }
 }

@@ -25,4 +25,8 @@ public class DString: DPrimitive
         // Not taking into account max length or anything yet, since it should be fine but will want to later for safety
         return bs.ReadStringUtf8();
     }
+    public override object ReadValue(ref BitBuffer bs)
+    {
+        return bs.ReadStringUtf8();
+    }
 }

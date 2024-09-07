@@ -52,6 +52,34 @@ public class DFloat : DPrimitive
         var encoding = QuantizedFloatEncoding.Create(_encodingInfo);
         return encoding.Decode(ref bs);
     }
+    
+    public override object ReadValue(ref BitBuffer bs)
+    {
+        if (_encodingInfo != null)
+        {
+            switch (_encodingInfo.VarEncoder)
+            {
+                case "coord":
+                    return bs.ReadCoord();
+                case "simtime":
+                    return (DecodeSimulationTime(ref bs));
+                case "runetime":
+                    return DecodeRuneTime(ref bs);
+                case null:
+                    break;
+                default:
+                    throw new Exception($"Unknown float encoder: {_encodingInfo.VarEncoder}");
+            }
+        }
+
+        if (_encodingInfo.BitCount <= 0 || _encodingInfo.BitCount >= 32)
+        {
+            return bs.ReadFloat();
+        }
+
+        var encoding = QuantizedFloatEncoding.Create(_encodingInfo);
+        return encoding.Decode(ref bs);
+    }
 
     internal static float DecodeSimulationTime(ref BitBuffer buffer)
     {

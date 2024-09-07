@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Reflection.PortableExecutable;
 using System.Text;
 using System.Text.Json.Nodes;
 using DemLock.Entities.Generics;
@@ -63,6 +64,22 @@ public class EntityDecoder: FieldDecoder
 
         return null;
     }
+    
+    public override FieldDecoder GetFieldDecoder(ReadOnlySpan<int> path)
+    {
+        if (path.Length >= 1)
+        {
+            var targetField = _fields[path[0]];
+            return targetField.GetFieldDecoder(path[1..]);
+        }
+        // If path length is 0, then the entity setter is to check if the object is set or not
+        if (path.Length == 0)
+        {
+            return new DBool();
+        }
+
+        return null;
+    }
 
     public void SetValue(ReadOnlySpan<int> path, ref BitBuffer bs, ref object entity)
     {
@@ -77,6 +94,12 @@ public class EntityDecoder: FieldDecoder
             var v = bs.ReadBit();
         }
     }
+
+    public override object ReadValue(ref BitBuffer bs)
+    {
+        throw new NotImplementedException("You should not be reading a value of an entity like this!");
+    }
+
     public override void ReadFieldName(ReadOnlySpan<int> path, ref string fieldName)
     {
         

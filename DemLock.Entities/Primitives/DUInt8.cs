@@ -15,5 +15,9 @@ public class DUInt8: DPrimitive
         IsSet = true;
         return (byte)bs.ReadVarUInt32();
     }
+    public override object ReadValue(ref BitBuffer bs)
+    {
+        return bs.ReadVarUInt32();
+    }
 
 }

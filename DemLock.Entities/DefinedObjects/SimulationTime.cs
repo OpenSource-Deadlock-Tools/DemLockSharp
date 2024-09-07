@@ -16,6 +16,13 @@ public class SimulationTime: FieldDecoder
     {
         throw new NotImplementedException();
     }
+
+    public override object ReadValue(ref BitBuffer bs)
+    {
+                IsSet = true;
+                var ticks = bs.ReadVarUInt32();
+                return  ticks * _tickInterval;
+    }
     public override object SetValue(ReadOnlySpan<int> path, ref BitBuffer bs)
     {
         IsSet = true;

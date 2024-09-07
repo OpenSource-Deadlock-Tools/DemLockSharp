@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using DemLock.Entities.ClassMappings;
 using DemLock.Parser;
 using DemLock.Parser.Models;
 
@@ -18,8 +19,15 @@ class Program
         config.LogReadFrames = false;
         
         DemoParser parser = new DemoParser(config);
-        
-        parser.ProcessDemo("C:\\tmp\\DeadlockDemos\\534870CS.dem");
+        parser.Events.OnEntityUpdated += (sender, eventArgs) =>
+        {
+            if (eventArgs.Updates is CCitadelPlayerPawn pawn)
+            {
+                Console.WriteLine($"{pawn.SimulationTime}");
+                Console.WriteLine($"\t{pawn.CBodyComponent.EyeAngles}");
+            }
+        };
+        parser.DumpClassDefinitions("C:\\tmp\\DeadlockDemos\\534870CS.dem", "C:\\tmp\\ClassDefinitions");
         Console.WriteLine($"Processed demo in {sw.Elapsed.TotalSeconds} seconds");
         // 14011DEMLOCK.dem
         

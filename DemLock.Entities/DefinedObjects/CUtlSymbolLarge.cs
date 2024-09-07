@@ -10,6 +10,11 @@ public class CUtlSymbolLarge: FieldDecoder
         throw new NotImplementedException();
     }
 
+    public override object ReadValue(ref BitBuffer bs)
+    {
+        
+        return bs.ReadStringUtf8();
+    }
     public override object SetValue(ReadOnlySpan<int> path, ref BitBuffer bs)
     {
         return bs.ReadStringUtf8();

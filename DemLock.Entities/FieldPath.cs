@@ -90,19 +90,23 @@ public struct FieldPath : IReadOnlyList<int>
     public readonly IEnumerator<int> GetEnumerator() => new Enumerator(in this);
     
     IEnumerator IEnumerable.GetEnumerator() => new Enumerator(in this);
-
     public ulong GetHash()  {
         // Random prime number we will start from to attempt a even distribution
         ulong hash = 3739894998211223;
-        hash ^= 51414113 * (ulong)_path0;
-        hash ^= 51414113 * (ulong)_path1;
-        hash ^= 51414113 * (ulong)_path2;
-        hash ^= 51414113 * (ulong)_path3;
-        hash ^= 51414113 * (ulong)_path4;
-        hash ^= 51414113 * (ulong)_path5;
-        hash ^= 51414113 * (ulong)_path6;
+        hash ^= 51414113 * (ulong)(_path0 << 2);
+        hash ^= 51414113 * (ulong)(_path1 << 2);
+        hash ^= 51414113 * (ulong)(_path2 << 2);
+        hash ^= 51414113 * (ulong)(_path3 << 2);
+        hash ^= 51414113 * (ulong)(_path4 << 2);
+        hash ^= 51414113 * (ulong)(_path5 << 2);
+        hash ^= 51414113 * (ulong)(_path6 << 2);
         hash ^= 51414113 * (ulong)_size;
         return hash;
+    }
+    
+    public int GetHash(int classId)
+    {
+        return (_path0, _path1, _path2, _path3, _path4, _path5, _path6, classId).GetHashCode();
     }
     public struct Enumerator : IEnumerator<int>
     {

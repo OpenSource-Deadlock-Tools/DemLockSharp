@@ -15,5 +15,9 @@ public class DBool: DPrimitive
         return bs.ReadBit();
     }
 
+    public override object ReadValue(ref BitBuffer bs)
+    {
+        return bs.ReadBit();
+    }
 
 }

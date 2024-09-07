@@ -10,6 +10,10 @@ public class HSequence: FieldDecoder
         throw new NotImplementedException("HSequence::SetValue(Object)");
     }
 
+    public override object ReadValue(ref BitBuffer bs)
+    {
+        return bs.ReadUVarInt64() - 1;
+    }
     public override object SetValue(ReadOnlySpan<int> path, ref BitBuffer bs)
     {
         return bs.ReadUVarInt64() - 1;

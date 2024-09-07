@@ -20,6 +20,10 @@ public class CStrongHandle: DGeneric
         return bs.ReadUVarInt64();
     }
 
+    public override object ReadValue(ref BitBuffer bs)
+    {
+        return bs.ReadUVarInt64();
+    }
 
     public override string ToString()
     {
