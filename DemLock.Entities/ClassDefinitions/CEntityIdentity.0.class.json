@@ -1,0 +1,11 @@
+{
+  "ClassName": "CEntityIdentity",
+  "Version": 0,
+  "Fields": {
+    "m_nameStringableIndex": {
+      "Path": 0,
+      "Type": "Int32",
+      "NetworkType": "int32"
+    }
+  }
+}

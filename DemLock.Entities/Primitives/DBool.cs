@@ -2,7 +2,7 @@
 
 namespace DemLock.Entities.Primitives;
 
-public class DBool: DObject
+public class DBool: DPrimitive
 {
     public bool Value { get; set; }
     public override void SetValue(object value)
@@ -10,12 +10,14 @@ public class DBool: DObject
         throw new NotImplementedException();
     }
 
-    public override void SetValue(ReadOnlySpan<int> path, ref BitBuffer bs)
+    public override object SetValue(ReadOnlySpan<int> path, ref BitBuffer bs)
     {
-        IsSet = true;
-        Value = bs.ReadBit();
+        return bs.ReadBit();
     }
 
-    public override object GetValue() => Value;
+    public override object ReadValue(ref BitBuffer bs)
+    {
+        return bs.ReadBit();
+    }
 
 }

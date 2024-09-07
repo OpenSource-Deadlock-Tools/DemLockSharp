@@ -10,7 +10,7 @@ namespace DemLock.Entities;
 /// Demo object that is the most atomic object that can be instantiated
 /// as this can represent an entity or a base data type.
 /// </summary>
-public abstract class DObject
+public abstract class FieldDecoder
 {
     public bool IsSet { get; set; } = false;
     /// <summary>
@@ -18,6 +18,7 @@ public abstract class DObject
     /// </summary>
     /// <param name="value"></param>
     public abstract void SetValue(object value);
+
     /// <summary>
     /// This will be used to decode the value from a bit stream if needed.
     /// There will be a callback function that is placed in the object at activation
@@ -26,30 +27,22 @@ public abstract class DObject
     /// </summary>
     /// <param name="path"></param>
     /// <param name="bs"></param>
-    public abstract void SetValue(ReadOnlySpan<int> path, ref BitBuffer bs);
+    public abstract object SetValue(ReadOnlySpan<int> path, ref BitBuffer bs);
 
-    public abstract object GetValue();
-
-    /// <summary>
-    /// Get the object in a JSON encoded string.
-    /// This is the default implementation and assumes that we can just put the value into
-    /// a JSON string field
-    /// </summary>
-    /// <returns></returns>
-    public virtual string ToJson()
+    public virtual FieldDecoder GetFieldDecoder(ReadOnlySpan<int> path)
     {
-        return $"\"{GetValue()}\"";
+        return this;
     }
-    
-    public virtual JsonNode ToJsonNode()
+    public abstract object ReadValue(ref BitBuffer bs);
+
+    public virtual void ReadFieldName(ReadOnlySpan<int> path, ref string fieldName)
     {
-        return $"{GetValue()?.ToString()}";
+        if (string.IsNullOrEmpty(fieldName))
+            fieldName = string.Empty;
     }
-
-
-    public static DObject CreateFixedSizeArray(string typeName, int count, Func<DObject> objectFactory)
+    public static FieldDecoder CreateFixedSizeArray(string typeName, int count, FieldDecoder childDecoder)
     {
-        return new DFixedSizeArray(typeName, count, objectFactory);
+        return new DFixedSizeArray(typeName, count, childDecoder);
     }
     /// <summary>
     /// Create a new object that's a generic, this is segmented as there will need to be some special handling for generics
@@ -58,23 +51,23 @@ public abstract class DObject
     /// <param name="typeName"></param>
     /// <param name="genericTypeName"></param>
     /// <returns></returns>
-    public static DObject CreateGenericObject(string typeName, string genericTypeName, Func<DObject> typeFactory)
+    public static FieldDecoder CreateGenericObject(string typeName, string genericTypeName, FieldDecoder childDecoder)
     {
         if(typeName == "CNetworkUtlVectorBase")
-            return new CNetworkUtlVectorBase(genericTypeName, typeFactory);
+            return new CNetworkUtlVectorBase(genericTypeName, childDecoder);
         if (typeName == "CHandle")
-            return new CHandle();
+            return new DInt32();
         if(typeName == "CStrongHandle")
-            return new CStrongHandle();
+            return new CStrongHandle(genericTypeName);
         if (typeName == "CUtlVector")
-            return new CUtlVector(genericTypeName, typeFactory);
+            return new CUtlVector(genericTypeName, childDecoder);
         if(typeName == "CUtlVectorEmbeddedNetworkVar")
-            return new CUtlVectorEmbeddedNetworkVar(genericTypeName, typeFactory);
+            return new CUtlVectorEmbeddedNetworkVar(genericTypeName, childDecoder);
 
         throw new Exception($"Unmapped generic type {typeName}");
         return new DNull();
     }
-    public static DObject CreateObject(string typeName, FieldEncodingInfo fieldEncodingInfo)
+    public static FieldDecoder CreateObject(string typeName, FieldEncodingInfo fieldEncodingInfo)
     {
         if (typeName == "float32")
             return new DFloat(fieldEncodingInfo);
@@ -87,7 +80,7 @@ public abstract class DObject
         if (typeName == "CGameSceneNodeHandle")
             return new CGameSceneNodeHandle();
         if (typeName == "QAngle")
-            return new QAngle(fieldEncodingInfo);
+            return new QAngleDecoder(fieldEncodingInfo);
         if (typeName == "CUtlStringToken")
             return new CUtlStringToken();
         if (typeName == "bool")
@@ -114,7 +107,7 @@ public abstract class DObject
         if (typeName == "Vector2D")
             return new Vector2D(fieldEncodingInfo);
         if (typeName == "Vector4D")
-            throw new Exception("Vector4D is not supported yet"); 
+            return new Vector4D(fieldEncodingInfo);
         
         if(typeName == "HSequence")
             return new HSequence();

@@ -3,7 +3,7 @@ using DemLock.Utils;
 
 namespace DemLock.Entities.DefinedObjects;
 
-public class DColor: DObject
+public class DColor: FieldDecoder
 {
     public Color Value { get; set; }
     public override void SetValue(object value)
@@ -11,7 +11,18 @@ public class DColor: DObject
         throw new NotImplementedException();
     }
 
-    public override void SetValue(ReadOnlySpan<int> path, ref BitBuffer bs)
+    public override object ReadValue(ref BitBuffer bs)
+    {
+        
+        IsSet = true;
+        var rgba = bs.ReadVarUInt32();
+        uint rr = (rgba & 0xFF000000) >> 24;
+        uint gg = (rgba & 0x00FF0000) >> 16;
+        uint bb = (rgba & 0x0000FF00) >> 8;
+        uint aa = (rgba & 0x000000FF);
+        return Color.FromArgb((int)((aa << 24) | (rr << 16) | (gg << 8) | bb));
+    }
+    public override object SetValue(ReadOnlySpan<int> path, ref BitBuffer bs)
     {
         IsSet = true;
         var rgba = bs.ReadVarUInt32();
@@ -19,8 +30,7 @@ public class DColor: DObject
         uint gg = (rgba & 0x00FF0000) >> 16;
         uint bb = (rgba & 0x0000FF00) >> 8;
         uint aa = (rgba & 0x000000FF);
-        Value = Color.FromArgb((int)((aa << 24) | (rr << 16) | (gg << 8) | bb));
+        return Color.FromArgb((int)((aa << 24) | (rr << 16) | (gg << 8) | bb));
     }
 
-    public override object GetValue() => Value;
 }

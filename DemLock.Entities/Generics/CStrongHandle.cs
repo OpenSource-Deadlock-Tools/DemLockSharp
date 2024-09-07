@@ -2,22 +2,28 @@
 
 namespace DemLock.Entities.Generics;
 
-public class CStrongHandle: DObject
+public class CStrongHandle: DGeneric
 {
+
     public UInt64 Value { get; set; }
+    
+    public CStrongHandle(string genericTypeName) : base(genericTypeName)
+    { }
     public override void SetValue(object value)
     {
         throw new NotImplementedException();
     }
 
-    public override void SetValue(ReadOnlySpan<int> path, ref BitBuffer bs)
+    public override object SetValue(ReadOnlySpan<int> path, ref BitBuffer bs)
     {
         IsSet = true;
-        Value = bs.ReadUVarInt64();
+        return bs.ReadUVarInt64();
     }
 
-    public override object GetValue() => Value;
-
+    public override object ReadValue(ref BitBuffer bs)
+    {
+        return bs.ReadUVarInt64();
+    }
 
     public override string ToString()
     {

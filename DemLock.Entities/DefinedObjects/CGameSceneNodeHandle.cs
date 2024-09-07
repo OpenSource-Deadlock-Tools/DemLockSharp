@@ -2,7 +2,7 @@
 
 namespace DemLock.Entities.DefinedObjects;
 
-public class CGameSceneNodeHandle: DObject
+public class CGameSceneNodeHandle: FieldDecoder
 {
     private UInt32 _value;
     public override void SetValue(object value)
@@ -10,12 +10,16 @@ public class CGameSceneNodeHandle: DObject
         throw new NotImplementedException();
     }
 
-    public override void SetValue(ReadOnlySpan<int> path, ref BitBuffer bs)
+    public override object ReadValue(ref BitBuffer bs)
     {
-        _value = bs.ReadVarUInt32();
+        
+        return bs.ReadVarUInt32();
+    }
+    public override object SetValue(ReadOnlySpan<int> path, ref BitBuffer bs)
+    {
+        return bs.ReadVarUInt32();
     }
 
-    public override object GetValue() => _value;
     public override string ToString()
     {
         return $"[CGameSceneNodeHandle : {_value}]";

@@ -10,11 +10,13 @@ public class DGenericEnum: DPrimitive
         throw new NotImplementedException();
     }
 
-    public override void SetValue(ReadOnlySpan<int> path, ref BitBuffer bs)
+    public override object SetValue(ReadOnlySpan<int> path, ref BitBuffer bs)
     {
-        Value = bs.ReadUVarInt64();
+        return bs.ReadVarInt32();
     }
 
-    public override object GetValue() => Value;
-
+    public override object ReadValue(ref BitBuffer bs)
+    {
+        return bs.ReadVarInt32();
+    }
 }

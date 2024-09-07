@@ -10,12 +10,14 @@ public class DUInt8: DPrimitive
         throw new NotImplementedException();
     }
 
-    public override void SetValue(ReadOnlySpan<int> path, ref BitBuffer bs)
+    public override object SetValue(ReadOnlySpan<int> path, ref BitBuffer bs)
     {
         IsSet = true;
-        Value = (byte)bs.ReadVarUInt32();
+        return (byte)bs.ReadVarUInt32();
     }
-
-    public override object GetValue() => Value;
+    public override object ReadValue(ref BitBuffer bs)
+    {
+        return bs.ReadVarUInt32();
+    }
 
 }

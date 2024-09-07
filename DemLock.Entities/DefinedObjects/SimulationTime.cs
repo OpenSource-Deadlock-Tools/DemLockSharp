@@ -2,7 +2,7 @@
 
 namespace DemLock.Entities.DefinedObjects;
 
-public class SimulationTime: DObject
+public class SimulationTime: FieldDecoder
 {
     public float Value { get; set; }
     private float _tickInterval;
@@ -16,13 +16,19 @@ public class SimulationTime: DObject
     {
         throw new NotImplementedException();
     }
-    public override void SetValue(ReadOnlySpan<int> path, ref BitBuffer bs)
+
+    public override object ReadValue(ref BitBuffer bs)
+    {
+                IsSet = true;
+                var ticks = bs.ReadVarUInt32();
+                return  ticks * _tickInterval;
+    }
+    public override object SetValue(ReadOnlySpan<int> path, ref BitBuffer bs)
     {
         IsSet = true;
         var ticks = bs.ReadVarUInt32();
-        Value =  ticks * _tickInterval;
+        return  ticks * _tickInterval;
     }
-    public override object GetValue() => Value;
     public TimeSpan ToTimeSpan() => TimeSpan.FromSeconds(Value);
     
     public override string ToString() => ToTimeSpan().ToString();

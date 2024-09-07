@@ -2,7 +2,7 @@
 
 namespace DemLock.Entities.DefinedObjects;
 
-public class CUtlSymbolLarge: DObject
+public class CUtlSymbolLarge: FieldDecoder
 {
     public string Value { get; set; }
     public override void SetValue(object value)
@@ -10,13 +10,15 @@ public class CUtlSymbolLarge: DObject
         throw new NotImplementedException();
     }
 
-    public override void SetValue(ReadOnlySpan<int> path, ref BitBuffer bs)
+    public override object ReadValue(ref BitBuffer bs)
     {
-        Value = bs.ReadStringUtf8();
+        
+        return bs.ReadStringUtf8();
+    }
+    public override object SetValue(ReadOnlySpan<int> path, ref BitBuffer bs)
+    {
+        return bs.ReadStringUtf8();
     }
 
-    public override object GetValue()
-    {
-        return Value;
-    }
+
 }

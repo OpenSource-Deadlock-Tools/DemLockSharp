@@ -2,4 +2,4 @@
 
 namespace DemLock.Entities;
 
-public record struct ActiveField(string FieldName, DObject Value);
+public record struct ActiveField(string FieldName, FieldDecoder Value);

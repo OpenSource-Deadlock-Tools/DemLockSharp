@@ -1,0 +1,21 @@
+{
+  "ClassName": "ViewAngleServerChange_t",
+  "Version": 0,
+  "Fields": {
+    "nType": {
+      "Path": 0,
+      "Type": "Enum<FixAngleSet_t>",
+      "NetworkType": "FixAngleSet_t"
+    },
+    "qAngle": {
+      "Path": 1,
+      "Type": "QAngle",
+      "NetworkType": "QAngle"
+    },
+    "nIndex": {
+      "Path": 2,
+      "Type": "UInt32",
+      "NetworkType": "uint32"
+    }
+  }
+}

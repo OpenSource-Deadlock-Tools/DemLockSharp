@@ -56,8 +56,8 @@ public class FrameHandler
     /// <param name="frame">The frame which contains the data to process</param>
     private void HandleFullPacket(DemoFrame frame)
     {
-        var packet = CDemoPacket.Parser.ParseFrom(frame.Data);
-        BitStream bs = new BitStream(packet.Data.ToByteArray());
+        var packet = CDemoFullPacket.Parser.ParseFrom(frame.Data);
+        BitStream bs = new BitStream(packet.Packet.Data.ToByteArray());
         while (bs.BitsRemaining > 8)
         {
             var msgtype = (MessageTypes)bs.ReadUBit();
@@ -119,38 +119,36 @@ public class FrameHandler
                 ClassName = v.NetworkName,
             });
         }
-        _context.PrintClasses();
     }
 
     private void HandleSendTables(DemoFrame frame)
     {
         CDemoSendTables sendTable = CDemoSendTables.Parser.ParseFrom(frame.Data);
 
-        BitStream bs = new BitStream(sendTable.Data.ToByteArray());
-        byte[] buf = bs.ReadBytes(bs.ReadVarUInt32());
+        BitBuffer bs = new BitBuffer(sendTable.Data.ToByteArray());
+        
+        Span<byte> byteArr = new Span<byte>(new byte[bs.ReadVarUInt32()]);
+        bs.ReadBytes(byteArr);
 
-        var msg = CSVCMsg_FlattenedSerializer.Parser.ParseFrom(buf);
+        var msg = CSVCMsg_FlattenedSerializer.Parser.ParseFrom(byteArr);
 
         // Create the fields objects
         var symbols = msg.Symbols;
         var fields = msg.Fields.Select(field =>
         {
             DField newField = new DField(_context);
-
             newField.SerializerVersion = field.FieldSerializerVersion;
             newField.Name = symbols[field.VarNameSym];
             var fieldType = DFieldType.Parse(symbols[field.VarTypeSym]);
             newField.FieldType = fieldType;
             _context.AddFieldType(fieldType);
             newField.SendNode = symbols[field.SendNodeSym];
-
             var varEncoder = field.HasVarEncoderSym
                 ? symbols[field.VarEncoderSym]
                 : null;
             if (field.HasFieldSerializerNameSym)
                 newField.SerializerName = symbols[field.FieldSerializerNameSym];
             else newField.SerializerName = string.Empty;
-            
             newField.EncodingInfo = new FieldEncodingInfo()
             {
                 VarEncoder = varEncoder,
@@ -174,6 +172,5 @@ public class FrameHandler
                 };
             }).ToList();
         _context.AddSerializerRange(serializers);
-        _context.DebugFunction();
     }
 }

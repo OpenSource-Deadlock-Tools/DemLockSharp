@@ -18,12 +18,12 @@ public class DUInt64 : DPrimitive
         throw new NotImplementedException();
     }
 
-    public override void SetValue(ReadOnlySpan<int> path, ref BitBuffer bs)
+    public override object SetValue(ReadOnlySpan<int> path, ref BitBuffer bs)
     {
         IsSet = true;
         if (_encodingInfo.VarEncoder == "fixed64")
         {
-            Value = DecodeFixed64(ref bs);
+            return DecodeFixed64(ref bs);
         }
         else if (_encodingInfo.VarEncoder != null)
         {
@@ -31,9 +31,22 @@ public class DUInt64 : DPrimitive
         }
         else
         {
-            Value = bs.ReadUVarInt64();
+            return bs.ReadUVarInt64();
         }
+        return null;
     }
+
+    public override object ReadValue(ref BitBuffer bs)
+    {
+        IsSet = true;
+        if (_encodingInfo.VarEncoder == "fixed64")
+            return DecodeFixed64(ref bs);
+        else if (_encodingInfo.VarEncoder != null)
+            throw new Exception($"Unknown uint64 encoder: {_encodingInfo.VarEncoder}");
+        else
+            return bs.ReadUVarInt64();
+    }
+
 
     private static ulong DecodeFixed64(ref BitBuffer buffer)
     {
@@ -41,7 +54,4 @@ public class DUInt64 : DPrimitive
         buffer.ReadBytes(bytes);
         return BinaryPrimitives.ReadUInt64LittleEndian(bytes);
     }
-
-    public override object GetValue() => Value;
-
 }

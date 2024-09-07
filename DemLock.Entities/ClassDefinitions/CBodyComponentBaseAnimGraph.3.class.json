@@ -1,0 +1,251 @@
+{
+  "ClassName": "CBodyComponentBaseAnimGraph",
+  "Version": 3,
+  "Fields": {
+    "m_skeletonInstance": {
+      "m_vecOrigin": {
+        "m_cellX": {
+          "Path": 0,
+          "Type": "UInt16",
+          "NetworkType": "uint16"
+        },
+        "m_cellY": {
+          "Path": 1,
+          "Type": "UInt16",
+          "NetworkType": "uint16"
+        },
+        "m_cellZ": {
+          "Path": 2,
+          "Type": "UInt16",
+          "NetworkType": "uint16"
+        },
+        "m_vecX": {
+          "Path": 3,
+          "Type": "float",
+          "NetworkType": "CNetworkedQuantizedFloat"
+        },
+        "m_vecY": {
+          "Path": 4,
+          "Type": "float",
+          "NetworkType": "CNetworkedQuantizedFloat"
+        },
+        "m_vecZ": {
+          "Path": 5,
+          "Type": "float",
+          "NetworkType": "CNetworkedQuantizedFloat"
+        },
+        "m_nOutsideWorld": {
+          "Path": 46,
+          "Type": "UInt16",
+          "NetworkType": "uint16"
+        }
+      },
+      "m_hParent": {
+        "Path": 6,
+        "Type": "UInt32",
+        "NetworkType": "CGameSceneNodeHandle"
+      },
+      "m_angRotation": {
+        "Path": 7,
+        "Type": "QAngle",
+        "NetworkType": "QAngle"
+      },
+      "m_flScale": {
+        "Path": 8,
+        "Type": "float",
+        "NetworkType": "float32"
+      },
+      "m_name": {
+        "Path": 13,
+        "Type": "UInt32",
+        "NetworkType": "CUtlStringToken"
+      },
+      "m_hierarchyAttachName": {
+        "Path": 14,
+        "Type": "UInt32",
+        "NetworkType": "CUtlStringToken"
+      },
+      "m_modelState": {
+        "m_bClientClothCreationSuppressed": {
+          "Path": 15,
+          "Type": "bool",
+          "NetworkType": "bool"
+        },
+        "m_MeshGroupMask": {
+          "Path": 16,
+          "Type": "UInt64",
+          "NetworkType": "uint64"
+        },
+        "m_nIdealMotionType": {
+          "Path": 17,
+          "Type": "SByte",
+          "NetworkType": "int8"
+        }
+      },
+      "m_bIsAnimationEnabled": {
+        "Path": 18,
+        "Type": "bool",
+        "NetworkType": "bool"
+      },
+      "m_bUseParentRenderBounds": {
+        "Path": 19,
+        "Type": "bool",
+        "NetworkType": "bool"
+      },
+      "m_materialGroup": {
+        "Path": 20,
+        "Type": "UInt32",
+        "NetworkType": "CUtlStringToken"
+      },
+      "m_nHitboxSet": {
+        "Path": 21,
+        "Type": "Byte",
+        "NetworkType": "uint8"
+      }
+    },
+    "m_animationController": {
+      "m_hSequence": {
+        "Path": 9,
+        "Type": "UInt64",
+        "NetworkType": "HSequence"
+      },
+      "m_flSeqStartTime": {
+        "Path": 10,
+        "Type": "float",
+        "NetworkType": "GameTime_t"
+      },
+      "m_flSeqFixedCycle": {
+        "Path": 11,
+        "Type": "float",
+        "NetworkType": "float32"
+      },
+      "m_nAnimLoopMode": {
+        "Path": 12,
+        "Type": "Enum<AnimLoopMode_t>",
+        "NetworkType": "AnimLoopMode_t"
+      },
+      "m_animGraphNetworkedVars": {
+        "m_PredBoolVariables": {
+          "Path": 22,
+          "Type": "List<UInt32>",
+          "NetworkType": "CNetworkUtlVectorBase< uint32 >"
+        },
+        "m_PredByteVariables": {
+          "Path": 23,
+          "Type": "List<Byte>",
+          "NetworkType": "CNetworkUtlVectorBase< uint8 >"
+        },
+        "m_PredUInt16Variables": {
+          "Path": 24,
+          "Type": "List<UInt16>",
+          "NetworkType": "CNetworkUtlVectorBase< uint16 >"
+        },
+        "m_PredIntVariables": {
+          "Path": 25,
+          "Type": "List<Int32>",
+          "NetworkType": "CNetworkUtlVectorBase< int32 >"
+        },
+        "m_PredUInt32Variables": {
+          "Path": 26,
+          "Type": "List<UInt32>",
+          "NetworkType": "CNetworkUtlVectorBase< uint32 >"
+        },
+        "m_PredUInt64Variables": {
+          "Path": 27,
+          "Type": "List<UInt64>",
+          "NetworkType": "CNetworkUtlVectorBase< uint64 >"
+        },
+        "m_PredFloatVariables": {
+          "Path": 28,
+          "Type": "List<float>",
+          "NetworkType": "CNetworkUtlVectorBase< float32 >"
+        },
+        "m_PredVectorVariables": {
+          "Path": 29,
+          "Type": "List<Vector3>",
+          "NetworkType": "CNetworkUtlVectorBase< Vector >"
+        },
+        "m_PredQuaternionVariables": {
+          "Path": 30,
+          "Type": "List<Enum<Quaternion>>",
+          "NetworkType": "CNetworkUtlVectorBase< Quaternion >"
+        },
+        "m_PredGlobalSymbolVariables": {
+          "Path": 31,
+          "Type": "List<Enum<CGlobalSymbol>>",
+          "NetworkType": "CNetworkUtlVectorBase< CGlobalSymbol >"
+        },
+        "m_OwnerOnlyPredNetBoolVariables": {
+          "Path": 32,
+          "Type": "List<UInt32>",
+          "NetworkType": "CNetworkUtlVectorBase< uint32 >"
+        },
+        "m_OwnerOnlyPredNetByteVariables": {
+          "Path": 33,
+          "Type": "List<Byte>",
+          "NetworkType": "CNetworkUtlVectorBase< uint8 >"
+        },
+        "m_OwnerOnlyPredNetUInt16Variables": {
+          "Path": 34,
+          "Type": "List<UInt16>",
+          "NetworkType": "CNetworkUtlVectorBase< uint16 >"
+        },
+        "m_OwnerOnlyPredNetIntVariables": {
+          "Path": 35,
+          "Type": "List<Int32>",
+          "NetworkType": "CNetworkUtlVectorBase< int32 >"
+        },
+        "m_OwnerOnlyPredNetUInt32Variables": {
+          "Path": 36,
+          "Type": "List<UInt32>",
+          "NetworkType": "CNetworkUtlVectorBase< uint32 >"
+        },
+        "m_OwnerOnlyPredNetUInt64Variables": {
+          "Path": 37,
+          "Type": "List<UInt64>",
+          "NetworkType": "CNetworkUtlVectorBase< uint64 >"
+        },
+        "m_OwnerOnlyPredNetFloatVariables": {
+          "Path": 38,
+          "Type": "List<float>",
+          "NetworkType": "CNetworkUtlVectorBase< float32 >"
+        },
+        "m_OwnerOnlyPredNetVectorVariables": {
+          "Path": 39,
+          "Type": "List<Vector3>",
+          "NetworkType": "CNetworkUtlVectorBase< Vector >"
+        },
+        "m_OwnerOnlyPredNetQuaternionVariables": {
+          "Path": 40,
+          "Type": "List<Enum<Quaternion>>",
+          "NetworkType": "CNetworkUtlVectorBase< Quaternion >"
+        },
+        "m_OwnerOnlyPredNetGlobalSymbolVariables": {
+          "Path": 41,
+          "Type": "List<Enum<CGlobalSymbol>>",
+          "NetworkType": "CNetworkUtlVectorBase< CGlobalSymbol >"
+        },
+        "m_nBoolVariablesCount": {
+          "Path": 42,
+          "Type": "Int32",
+          "NetworkType": "int32"
+        },
+        "m_nOwnerOnlyBoolVariablesCount": {
+          "Path": 43,
+          "Type": "Int32",
+          "NetworkType": "int32"
+        },
+        "m_nRandomSeedOffset": {
+          "Path": 44,
+          "Type": "Int32",
+          "NetworkType": "int32"
+        },
+        "m_flLastTeleportTime": {
+          "Path": 45,
+          "Type": "float",
+          "NetworkType": "float32"
+        }
+      }
+    }
+  }
+}

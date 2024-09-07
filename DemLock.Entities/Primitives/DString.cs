@@ -20,14 +20,13 @@ public class DString: DPrimitive
         throw new NotImplementedException();
     }
 
-    public override void SetValue(ReadOnlySpan<int> path, ref BitBuffer bs)
+    public override object SetValue(ReadOnlySpan<int> path, ref BitBuffer bs)
     {
         // Not taking into account max length or anything yet, since it should be fine but will want to later for safety
-        Value = bs.ReadStringUtf8();
+        return bs.ReadStringUtf8();
     }
-
-    public override object GetValue()
+    public override object ReadValue(ref BitBuffer bs)
     {
-        return Value;
+        return bs.ReadStringUtf8();
     }
 }

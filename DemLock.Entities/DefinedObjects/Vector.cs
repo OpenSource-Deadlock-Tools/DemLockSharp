@@ -3,7 +3,7 @@ using DemLock.Utils;
 
 namespace DemLock.Entities.DefinedObjects;
 
-public class Vector : DObject
+public class Vector : FieldDecoder
 {
     public float X { get; set; }
     public float Y { get; set; }
@@ -21,18 +21,31 @@ public class Vector : DObject
         _encodingInfo = encodingInfo;
     }
 
-    public override void SetValue(ReadOnlySpan<int> path, ref BitBuffer bs)
+    public override object ReadValue(ref BitBuffer bs)
+    {
+                IsSet = true;
+                if (_encodingInfo.VarEncoder == "normal")
+                {
+                    return (bs.Read3BitNormal());
+                }
+        
+                X = ReadFloat(ref bs);
+                Y = ReadFloat(ref bs);
+                Z = ReadFloat(ref bs);
+                return (X, Y, Z);
+    }
+    public override object SetValue(ReadOnlySpan<int> path, ref BitBuffer bs)
     {
         IsSet = true;
         if (_encodingInfo.VarEncoder == "normal")
         {
-            (X, Y, Z) = (bs.Read3BitNormal());
-            return;
+            return (bs.Read3BitNormal());
         }
 
         X = ReadFloat(ref bs);
         Y = ReadFloat(ref bs);
         Z = ReadFloat(ref bs);
+        return (X, Y, Z);
     }
 
     private float ReadFloat(ref BitBuffer bits)
@@ -77,18 +90,4 @@ public class Vector : DObject
         return ticks / 64.0f;
     }
 
-    public override object GetValue() => (X, Y, Z);
-
-
-    public override string ToJson()
-    {
-        StringBuilder sb = new();
-        sb.AppendLine("{");
-        sb.AppendLine($"\"X\": \"{X}\",");
-        sb.AppendLine($"\"Y\": \"{Y}\",");
-        sb.AppendLine($"\"Z\": \"{Z}\"");
-        sb.AppendLine("}");
-
-        return sb.ToString();
-    }
 }

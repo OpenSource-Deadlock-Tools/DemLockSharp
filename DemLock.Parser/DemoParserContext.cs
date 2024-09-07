@@ -1,4 +1,7 @@
-﻿using DemLock.Entities;
+﻿using System.Text;
+using System.Text.Json;
+using System.Text.Json.Nodes;
+using DemLock.Entities;
 using DemLock.Parser.Models;
 using DemLock.Utils;
 
@@ -21,18 +24,21 @@ public class DemoParserContext
     /// to set it and hope it works for now.
     /// </summary>
     internal const int NumEHandleSerialNumberBits = 17;
+
     public DemoParserConfig Config { get; set; }
     public int ClassIdSize { get; set; }
     public int MaxPlayers { get; set; }
     public float TickInterval { get; set; }
     public uint CurrentTick { get; set; }
-    
+    public DemoEventSystem Events { get; set; }
+
     private List<DClass> _classes;
     private List<DFieldType> _fieldTypes;
     private List<DField> _fields;
     private List<DSerializer> _serializers;
     private List<StringTable> _stringTables;
-    private List<DObject> _entities;
+    private List<FieldDecoder> _entities;
+
     public EntityManager EntityManager { get; }
 
     private Dictionary<int, byte[]> _instanceBaselines;
@@ -47,9 +53,9 @@ public class DemoParserContext
         _fields = new List<DField>();
         _serializers = new();
         _instanceBaselines = new();
-        EntityManager = new EntityManager(this); 
+        EntityManager = new EntityManager(this);
     }
-    
+
     public DemoParserContext(DemoParserConfig config)
     {
         Config = config;
@@ -60,21 +66,17 @@ public class DemoParserContext
         _fields = new List<DField>();
         _serializers = new();
         _instanceBaselines = new();
-        EntityManager = new EntityManager(this); 
+        EntityManager = new EntityManager(this);
     }
 
     public void AddClass(DClass dClass)
     {
-        var serializer = _serializers.FirstOrDefault(x => x.Name == dClass.ClassName);
-        if (serializer != null)
-        {
-            dClass.Fields = serializer.Fields;
-        }
-        _classes.Add(dClass);  
-    } 
+        _classes.Add(dClass);
+    }
+
     public DClass? GetClassById(int classId) => _classes.FirstOrDefault(c => c.ClassId == classId);
     public DClass? GetClassByName(string className) => _classes.FirstOrDefault(c => c.ClassName == className);
-    public void AddField(DField field)=> _fields.Add(field);
+    public void AddField(DField field) => _fields.Add(field);
     public void AddSerializerRange(params DSerializer[] serializer) => _serializers.AddRange(serializer);
     public void AddSerializerRange(IEnumerable<DSerializer> serializer) => _serializers.AddRange(serializer);
     public void AddStringTable(StringTable stringTable) => _stringTables.Add(stringTable);
@@ -85,15 +87,16 @@ public class DemoParserContext
     /// </summary>
     /// <param name="classId"></param>
     /// <returns></returns>
-    public byte[]? GetInstanceBaseline(int classId) => _instanceBaselines.ContainsKey(classId) ? _instanceBaselines[classId] : null;
+    public byte[]? GetInstanceBaseline(int classId) =>
+        _instanceBaselines.ContainsKey(classId) ? _instanceBaselines[classId] : null;
 
     // TODO: Optimize this look up and figure out what these god damn versions are all about and if I should care about lower order versions (manta doesn't)
-    public DSerializer GetSerializerByClassName(string className, bool latestVersion = true) => 
-        _serializers.Where(x => x.Name == className ).OrderByDescending(x=>x.Version).FirstOrDefault();
-    
-    public DSerializer GetSerializerByClassName(string className, int version) => 
+    public DSerializer GetSerializerByClassName(string className, bool latestVersion = true) =>
+        _serializers.Where(x => x.Name == className).OrderByDescending(x => x.Version).FirstOrDefault();
+
+    public DSerializer GetSerializerByClassName(string className, int version) =>
         _serializers.FirstOrDefault(x => x.Name == className && x.Version == version);
-    
+
     // TODO: Some sorta error handling would be nice here
     public StringTable GetStringTableByIndex(int index) => _stringTables[index];
 
@@ -113,18 +116,19 @@ public class DemoParserContext
         {
             RefreshInstanceBaselines(_stringTables[index]);
         }
-    } 
+    }
 
     public void AddFieldType(DFieldType fieldType)
     {
-        if(!_fieldTypes.Contains(fieldType))
+        if (!_fieldTypes.Contains(fieldType))
             _fieldTypes.Add(fieldType);
     }
 
     public void RefreshInstanceBaselines()
     {
-        RefreshInstanceBaselines(_stringTables.FirstOrDefault(x=>x.Name == "instanceBaselines"));
+        RefreshInstanceBaselines(_stringTables.FirstOrDefault(x => x.Name == "instanceBaselines"));
     }
+
     public void RefreshInstanceBaselines(StringTable? table)
     {
         if (table == null)
@@ -132,7 +136,7 @@ public class DemoParserContext
             Console.WriteLine("Instance baseline table does not exist yet");
             return;
         }
-        
+
         foreach (var entry in table.GetEntries())
         {
             if (int.TryParse(entry.Key, out int classId))
@@ -149,184 +153,61 @@ public class DemoParserContext
         _serializers.Clear();
     }
 
-    public void PrintClasses()
+    public void DumpClassDefinitions(string outputDirectory)
     {
-        Console.WriteLine("-------Class Table--------");
-        //int i = 0;
-        //foreach (DClass @class in _classes)
-        //{
-        //    Console.WriteLine($"[{i}] {@class.ClassId}::{@class.ClassName}");
-        //    i++;
-        //    if (i % 50 == 0) Console.ReadKey();
-        //}
-    }
-
-    public void PrintFields()
-    {
-        //Console.WriteLine($"Fields--------[{_fields.Count}]");
-        //foreach (var field in _fields)
-        //{
-        //    Console.WriteLine($"[{i}] {field.Name}::{field.SerializerName}::{field.SendNode}::{field.FieldType.Name}");
-        //    i++;
-        //    if (i % 50 == 0) Console.ReadKey();
-        //}
-
-        //var e = _fieldTypes.Where(x => x.GenericType != null);
-        //Console.WriteLine($"====Generic Types [{e.Count()}]====");
-        //int i = 0;
-        //foreach (var v in e)
-        //{
-        //    Console.WriteLine($"[{++i,-3}] {v}");
-        //}
-
-        //var e2 = e.GroupBy(x => x.Name).ToDictionary(x => x.Key, x => x.Count());
-
-        //Console.WriteLine($"==== Base Generics [{e2.Count}] ====");
-        //Console.WriteLine("[Count]  type | usages");
-        //i = 0;
-        //foreach (var kv in e2)
-        //{
-        //    Console.WriteLine($"[{i++,-3}] {kv.Key} | {kv.Value,-4}");
-        //    
-        //}
-        
-
-    }
-    public void PrintFieldTypes()
-    {
-        Console.WriteLine("Field Types--------");
-        int i = 0;
-        //foreach (var fieldType in _fieldTypes)
-        //{
-        //    Console.WriteLine($"[{i}] {fieldType.Name}::{fieldType.Count}::{fieldType.IsPointer}");
-        //    i++;
-        //    if (i % 50 == 0) Console.ReadKey();
-        //}
-    }
-
-    public void DebugFunction()
-    {
-        //CalculateUnsupportedEntities();
-    }
-    public void PrintSerializers()
-    {
-        return;
-        foreach (var serverClass in _classes.Where(x=>x.ClassName == "CNPC_TrooperNeutral"))
+        foreach (var v in _serializers.Where(x => new List<string>()
+                 {
+                     "CCitadelPlayerPawn", "CEntityIdentity", "CCitadelAbilityComponent",
+                     "ViewAngleServerChange_t", "ViewAngleServerChange_t", "FullSellPriceAbilityUpgrades_t","CBodyComponentBaseAnimGraph"
+                 }.Contains(x.Name)))
         {
-            Console.WriteLine($"=========={serverClass.ClassName}");
-            try
+            string outputPath = Path.Combine(outputDirectory, $"{v.Name}.{v.Version}.class.json");
+
+            JsonObject serializerObj = new JsonObject();
+            serializerObj["ClassName"] = v.Name;
+            serializerObj["Version"] = v.Version;
+
+
+            JsonObject fieldObj = new JsonObject();
+            serializerObj["Fields"] = fieldObj;
+
+            Queue<string> context = new Queue<string>();
+
+            for (int i = 0; i < v.Fields.Length; i++)
             {
-                var baseline = GetInstanceBaseline(serverClass.ClassId);
-                if (baseline == null) continue;
-                var entityBuffer = new BitBuffer(baseline);
-                //var v = EntityManager.CreateEntity(ref entityBuffer, serverClass.ClassName);
-                //Console.WriteLine(v.ToJson());
-            }
-            catch(Exception ex)
-            {
-                Console.WriteLine($"ERROR PARSING: {serverClass.ClassName} Probably something not supported yet!");
-                Console.WriteLine($"{ex.Message}");
-            }
-            
-            Console.WriteLine("====================================");
-            Console.WriteLine($"Press any key to try to read another class...");
-            Console.ReadKey();
-        }
-    }
-
-    public void DumpObjectBaselines()
-    {
-        string dumpFolder = @"C:\tmp\DemoParserResults\BaselineDumps";
-        foreach (var v in _instanceBaselines)
-        {
-            var outputFile = Path.Combine(dumpFolder, $"{v.Key}.DAT");
-            File.WriteAllBytes(outputFile, v.Value);
-        }
-    }
-
-    /// <summary>
-    /// Debug function that will do every costly things to calculate exactly how many entities we are able to parse given
-    /// they have a baseline from the string table that applies to them
-    ///
-    /// This is run after the whole demo plays out, and so might be prone to errors and long run times, but is
-    /// useful for seeing how close the system support is to being able to actually get useful data
-    /// </summary>
-    private void CalculateUnsupportedEntities()
-    {
-        int entitiesChecked = 0;
-        int baselinesMissing = 0;
-        int successfullyParsed = 0;
-        int failedToParse = 0;
-        HashSet<string> errorTypes = new HashSet<string>();
-        string[] targetClasses =
-        {
-            //"CCitadel_Ability_PrimaryWeapon_Bebop", // Parsing (unvalidated)
-            //"CCitadelPlayerController", // Parsing (unvalidated)
-            //"CCitadelTeam", // Parsing (unvalidated)
-            //"CParticleSystem", // Parsing (unvalidated)
-        };
-        
-        // Dynamic filter building to make it easier to back track on debugging
-        var filteredClasses = _classes.AsEnumerable();
-        
-        // If we have targets, only show the targets
-        if(targetClasses.Any())
-            filteredClasses = filteredClasses.Where(x => targetClasses.Contains(x.ClassName));
-        
-        foreach (var serverClass in filteredClasses)
-        {
-            entitiesChecked++;
-            try
-            {
-                var baseline = GetInstanceBaseline(serverClass.ClassId);
-                if (baseline == null)
+                var field = v.Fields[i];
+                List<string> fieldPath = new();
+                if (!string.IsNullOrWhiteSpace(field.SendNode) && field.SendNode.Trim().Length > 0)
                 {
-                    baselinesMissing++;
-                    continue;
+                    foreach (var path in field.SendNode.Split('.'))
+                    {
+                        context.Enqueue(path);
+                    }
                 }
-                var entityBuffer = new BitBuffer(baseline);
-            }
-            catch(Exception ex)
-            {
-                errorTypes.Add($"[{serverClass.ClassName}]{ex.Message}");
-                failedToParse++;
-            }
-            successfullyParsed++;
-        }
-        
-        Console.WriteLine($"BASELINE PARSING TEST RESULTS");
-        Console.WriteLine($"CLASSES CHECKED   :\t{entitiesChecked,-4}");
-        Console.WriteLine($"MISSING BASELINE  :\t{baselinesMissing,-4}");
-        Console.WriteLine($"SUCCESSFUL        :\t{successfullyParsed,-4}");
-        Console.WriteLine($"FAILED            :\t{failedToParse,-4}");
-        Console.WriteLine($"UNIQUE EXCEPTIONS :\t{errorTypes.Count(),-4}");
-        
-        Console.WriteLine("====Exceptions====");
-        foreach (var errorType in errorTypes)
-        {
-            Console.WriteLine(errorType);
-        }
-        
-    }
-    public void PrintStringTables()
-    {
-        Console.WriteLine($"===String Tables===");
-        Console.WriteLine($"COUNT: {_stringTables.Count}");
-        //int i = 0;
-        //foreach (var st in _stringTables)
-        //{
-        //    Console.WriteLine($"[{st.Name}::{i}] - {st.EntryCount}");
-        //    i++;
-        //}
-    }
 
-    public void PrintInstanceBaselines()
-    {
-        Console.WriteLine("=====Instance Baselines=====");
-        //Console.WriteLine($"COUNT: {_instanceBaselines.Count}");
-        //foreach (var bl in _instanceBaselines)
-        //{
-        //    Console.WriteLine($"{bl.Key}::{bl.Value}");
-        //}
+                context.Enqueue(field.Name ?? "");
+
+                JsonObject current = fieldObj;
+                while (context.Count > 0)
+                {
+                    var val = context.Dequeue();
+                    if (current[val] == null)
+                        current[val] = new JsonObject();
+                    current = current[val]!.AsObject();
+                }
+
+                current["Path"] = i;
+                current["Type"] = $"{field.PropertyType()}";
+                current["NetworkType"] = $"{field.FieldType.ToString()}";
+            }
+
+            var options = new JsonSerializerOptions()
+            {
+                Encoder = System.Text.Encodings.Web.JavaScriptEncoder
+                    .UnsafeRelaxedJsonEscaping, // Allow unsafe characters
+                WriteIndented = true // Pretty print
+            };
+            File.WriteAllText(outputPath, JsonSerializer.Serialize(serializerObj, options));
+        }
     }
 }
