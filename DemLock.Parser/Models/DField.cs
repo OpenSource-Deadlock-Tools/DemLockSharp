@@ -1,4 +1,6 @@
-﻿using DemLock.Entities;
+﻿using System.Diagnostics;
+using System.Drawing;
+using DemLock.Entities;
 using DemLock.Entities.DefinedObjects;
 using DemLock.Entities.Primitives;
 
@@ -27,10 +29,16 @@ public class DField
 
     private static int tmp = 0;
 
+    public string MappingRule()
+    {
+        if (FieldType.GenericType != null)
+            return "Class";
+         return $"Value";       
+    }
     public string PropertyType()
     {
         if (FieldType.Name == "CHandle")
-            return nameof(Int32);
+            return nameof(UInt32);
 
         if (FieldType.Count > 0 && FieldType.Name == "char")
             return nameof(String);
@@ -40,14 +48,14 @@ public class DField
             return "float";
 
         if (FieldType.Count > 0)
-            return $"{FieldType}[{FieldType.Count}] ";
+            return $"{MapTypeName(FieldType.Name)}[{FieldType.Count}] ";
         
         // If this has a generic, we will need to handle special cases
         if (FieldType.GenericType != null)
         {
             var childSerializer = _context.GetSerializerByClassName(FieldType.GenericType.Name);
             if (childSerializer == null)
-                return $"List<{FieldType.GenericType.Name}>";
+                return $"List<{MapTypeName(FieldType.GenericType.Name)}>";
 
             return $"List<{childSerializer.Name}>";
         }
@@ -59,9 +67,61 @@ public class DField
         if (!string.IsNullOrWhiteSpace(SerializerName))
             return $"{SerializerName}";
 
-
-        return $"{FieldType.Name}";
+        return MapTypeName(FieldType.Name);
     }
+
+    public string MapTypeName(string typeName)
+    {
+        if (typeName == "float32")
+            return "float";
+        if (typeName == "CNetworkedQuantizedFloat")
+            return "float";
+        if (typeName == "uint16")
+            return nameof(UInt16);
+        if (typeName == "int16")
+            return nameof(Int16);
+        if (typeName == "CGameSceneNodeHandle")
+            return nameof(UInt32);
+        if (typeName == "QAngle")
+            return "QAngle";
+        if (typeName == "CUtlStringToken")
+            return nameof(UInt32);
+        if (typeName == "bool")
+            return "bool";
+        if (typeName == "uint64")
+            return nameof(UInt64);
+        if (typeName == "int8")
+            return nameof(SByte);
+        if (typeName == "uint8")
+            return nameof(Byte);
+        if (typeName == "int32")
+            return nameof(Int32);
+        if (typeName == "uint32")
+            return nameof(UInt32);
+        if (typeName == "Color")
+            return nameof(Color);
+        if (typeName == "GameTime_t")
+            return "float";
+        if (typeName == "Vector2D")
+            return "Vector2";
+        if (typeName == "Vector")
+            return "Vector3";
+        if (typeName == "Vector4D")
+            return "Vector4";
+        if (typeName == "HSequence")
+            return nameof(UInt64);
+        if (typeName == "CUtlSymbolLarge")
+            return nameof(String);
+        if (typeName == "CUtlString")
+            return nameof(String);
+        if(typeName == "CHandle")
+            return nameof(UInt32);
+        
+        // Default to a UInt32 (basically just do what visit_ident is doing in haste)
+        return $"Enum<{typeName}>";
+    }
+    
+    
 
     /// <summary>
     /// Get the activated field for this field template

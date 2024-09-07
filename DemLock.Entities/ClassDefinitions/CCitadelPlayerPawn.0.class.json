@@ -1,0 +1,967 @@
+{
+  "ClassName": "CCitadelPlayerPawn",
+  "Version": 0,
+  "Fields": {
+    "m_flSimulationTime": {
+      "Path": 0,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_hOwnerEntity": {
+      "Path": 1,
+      "Type": "UInt32",
+      "NetworkType": "CHandle< CBaseEntity >"
+    },
+    "m_CCitadelAbilityComponent": {
+      "m_vecAbilities": {
+        "Path": 2,
+        "Type": "List<UInt32>",
+        "NetworkType": "CNetworkUtlVectorBase< CHandle< CBaseEntity > >"
+      },
+      "m_vecUniversalItems": {
+        "Path": 3,
+        "Type": "List<UInt32>",
+        "NetworkType": "CNetworkUtlVectorBase< CUtlStringToken >"
+      },
+      "m_arPendingAsyncAbilityReservationSlots": {
+        "Path": 4,
+        "Type": "List<Int32>",
+        "NetworkType": "CNetworkUtlVectorBase< int32 >"
+      },
+      "m_arPendingAsyncAbilityReservationAbilityIDs": {
+        "Path": 5,
+        "Type": "List<Int32>",
+        "NetworkType": "CNetworkUtlVectorBase< int32 >"
+      },
+      "m_hSelectedAbility": {
+        "Path": 107,
+        "Type": "UInt32",
+        "NetworkType": "CHandle< CBaseEntity >"
+      },
+      "m_flTimeScale": {
+        "Path": 108,
+        "Type": "float",
+        "NetworkType": "float32"
+      },
+      "m_flParticleTimeScale": {
+        "Path": 109,
+        "Type": "float",
+        "NetworkType": "float32"
+      },
+      "m_hPreviouslySelectedAbility": {
+        "Path": 159,
+        "Type": "UInt32",
+        "NetworkType": "CHandle< CBaseEntity >"
+      },
+      "m_bPreviousAbilityQueued": {
+        "Path": 160,
+        "Type": "bool",
+        "NetworkType": "bool"
+      },
+      "m_bInInterruptState": {
+        "Path": 161,
+        "Type": "bool",
+        "NetworkType": "bool"
+      },
+      "m_ResourceStamina": {
+        "m_flCurrentValue": {
+          "Path": 173,
+          "Type": "float",
+          "NetworkType": "float32"
+        },
+        "m_flPrevRegenRate": {
+          "Path": 174,
+          "Type": "float",
+          "NetworkType": "float32"
+        },
+        "m_flMaxValue": {
+          "Path": 175,
+          "Type": "float",
+          "NetworkType": "float32"
+        },
+        "m_flLatchTime": {
+          "Path": 176,
+          "Type": "float",
+          "NetworkType": "GameTime_t"
+        },
+        "m_flLatchValue": {
+          "Path": 177,
+          "Type": "float",
+          "NetworkType": "float32"
+        }
+      },
+      "m_ResourceAbility": {
+        "m_flCurrentValue": {
+          "Path": 178,
+          "Type": "float",
+          "NetworkType": "float32"
+        },
+        "m_flPrevRegenRate": {
+          "Path": 179,
+          "Type": "float",
+          "NetworkType": "float32"
+        },
+        "m_flMaxValue": {
+          "Path": 180,
+          "Type": "float",
+          "NetworkType": "float32"
+        },
+        "m_flLatchTime": {
+          "Path": 181,
+          "Type": "float",
+          "NetworkType": "GameTime_t"
+        },
+        "m_flLatchValue": {
+          "Path": 182,
+          "Type": "float",
+          "NetworkType": "float32"
+        }
+      }
+    },
+    "m_CCitadelHeroComponent": {
+      "m_nHeroLoading": {
+        "Path": 6,
+        "Type": "Enum<HeroID_t>",
+        "NetworkType": "HeroID_t"
+      },
+      "m_nHeroID": {
+        "Path": 110,
+        "Type": "Enum<HeroID_t>",
+        "NetworkType": "HeroID_t"
+      }
+    },
+    "m_iHealth": {
+      "Path": 7,
+      "Type": "Int32",
+      "NetworkType": "int32"
+    },
+    "m_lifeState": {
+      "Path": 8,
+      "Type": "Byte",
+      "NetworkType": "uint8"
+    },
+    "m_fFlags": {
+      "Path": 9,
+      "Type": "UInt32",
+      "NetworkType": "uint32"
+    },
+    "m_hGroundEntity": {
+      "Path": 10,
+      "Type": "UInt32",
+      "NetworkType": "CHandle< CBaseEntity >"
+    },
+    "m_nGroundBodyIndex": {
+      "Path": 11,
+      "Type": "Int32",
+      "NetworkType": "int32"
+    },
+    "m_angEyeAngles": {
+      "Path": 12,
+      "Type": "QAngle",
+      "NetworkType": "QAngle"
+    },
+    "m_angClientCamera": {
+      "Path": 13,
+      "Type": "QAngle",
+      "NetworkType": "QAngle"
+    },
+    "CBodyComponent": {
+      "Path": 14,
+      "Type": "CBodyComponentBaseAnimGraph",
+      "NetworkType": "CBodyComponent"
+    },
+    "m_pEntity": {
+      "Path": 15,
+      "Type": "CEntityIdentity",
+      "NetworkType": "CEntityIdentity"
+    },
+    "m_bVisibleinPVS": {
+      "Path": 16,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_iMaxHealth": {
+      "Path": 17,
+      "Type": "Int32",
+      "NetworkType": "int32"
+    },
+    "m_nPlatformType": {
+      "Path": 18,
+      "Type": "Enum<EntityPlatformTypes_t>",
+      "NetworkType": "EntityPlatformTypes_t"
+    },
+    "m_MoveCollide": {
+      "Path": 19,
+      "Type": "Enum<MoveCollide_t>",
+      "NetworkType": "MoveCollide_t"
+    },
+    "m_MoveType": {
+      "Path": 20,
+      "Type": "Enum<MoveType_t>",
+      "NetworkType": "MoveType_t"
+    },
+    "m_nSubclassID": {
+      "Path": 21,
+      "Type": "UInt32",
+      "NetworkType": "CUtlStringToken"
+    },
+    "m_flCreateTime": {
+      "Path": 22,
+      "Type": "float",
+      "NetworkType": "GameTime_t"
+    },
+    "m_bClientSideRagdoll": {
+      "Path": 23,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_ubInterpolationFrame": {
+      "Path": 24,
+      "Type": "Byte",
+      "NetworkType": "uint8"
+    },
+    "m_iTeamNum": {
+      "Path": 25,
+      "Type": "Byte",
+      "NetworkType": "uint8"
+    },
+    "m_pModifierProp": {
+      "Path": 26,
+      "Type": "CModifierProperty",
+      "NetworkType": "CModifierProperty"
+    },
+    "m_hEffectEntity": {
+      "Path": 27,
+      "Type": "UInt32",
+      "NetworkType": "CHandle< CBaseEntity >"
+    },
+    "m_fEffects": {
+      "Path": 28,
+      "Type": "UInt32",
+      "NetworkType": "uint32"
+    },
+    "m_flElasticity": {
+      "Path": 29,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_bAnimatedEveryTick": {
+      "Path": 30,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_flNavIgnoreUntilTime": {
+      "Path": 31,
+      "Type": "float",
+      "NetworkType": "GameTime_t"
+    },
+    "m_nRenderMode": {
+      "Path": 32,
+      "Type": "Enum<RenderMode_t>",
+      "NetworkType": "RenderMode_t"
+    },
+    "m_nRenderFX": {
+      "Path": 33,
+      "Type": "Enum<RenderFx_t>",
+      "NetworkType": "RenderFx_t"
+    },
+    "m_clrRender": {
+      "Path": 34,
+      "Type": "Color",
+      "NetworkType": "Color"
+    },
+    "m_vecRenderAttributes": {
+      "Path": 35,
+      "Type": "List<EntityRenderAttribute_t>",
+      "NetworkType": "CUtlVectorEmbeddedNetworkVar< EntityRenderAttribute_t >"
+    },
+    "m_bRenderToCubemaps": {
+      "Path": 36,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_bNoInterpolate": {
+      "Path": 37,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_Collision": {
+      "m_collisionAttribute": {
+        "m_nInteractsAs": {
+          "Path": 38,
+          "Type": "UInt64",
+          "NetworkType": "uint64"
+        },
+        "m_nInteractsWith": {
+          "Path": 39,
+          "Type": "UInt64",
+          "NetworkType": "uint64"
+        },
+        "m_nInteractsExclude": {
+          "Path": 40,
+          "Type": "UInt64",
+          "NetworkType": "uint64"
+        },
+        "m_nEntityId": {
+          "Path": 41,
+          "Type": "UInt32",
+          "NetworkType": "uint32"
+        },
+        "m_nOwnerId": {
+          "Path": 42,
+          "Type": "UInt32",
+          "NetworkType": "uint32"
+        },
+        "m_nHierarchyId": {
+          "Path": 43,
+          "Type": "UInt16",
+          "NetworkType": "uint16"
+        },
+        "m_nCollisionGroup": {
+          "Path": 44,
+          "Type": "Byte",
+          "NetworkType": "uint8"
+        },
+        "m_nCollisionFunctionMask": {
+          "Path": 45,
+          "Type": "Byte",
+          "NetworkType": "uint8"
+        }
+      },
+      "m_vecMins": {
+        "Path": 46,
+        "Type": "Vector3",
+        "NetworkType": "Vector"
+      },
+      "m_vecMaxs": {
+        "Path": 47,
+        "Type": "Vector3",
+        "NetworkType": "Vector"
+      },
+      "m_usSolidFlags": {
+        "Path": 48,
+        "Type": "Byte",
+        "NetworkType": "uint8"
+      },
+      "m_nSolidType": {
+        "Path": 49,
+        "Type": "Enum<SolidType_t>",
+        "NetworkType": "SolidType_t"
+      },
+      "m_triggerBloat": {
+        "Path": 50,
+        "Type": "Byte",
+        "NetworkType": "uint8"
+      },
+      "m_nSurroundType": {
+        "Path": 51,
+        "Type": "Enum<SurroundingBoundsType_t>",
+        "NetworkType": "SurroundingBoundsType_t"
+      },
+      "m_CollisionGroup": {
+        "Path": 52,
+        "Type": "Byte",
+        "NetworkType": "uint8"
+      },
+      "m_nEnablePhysics": {
+        "Path": 53,
+        "Type": "Byte",
+        "NetworkType": "uint8"
+      },
+      "m_vecSpecifiedSurroundingMins": {
+        "Path": 54,
+        "Type": "Vector3",
+        "NetworkType": "Vector"
+      },
+      "m_vecSpecifiedSurroundingMaxs": {
+        "Path": 55,
+        "Type": "Vector3",
+        "NetworkType": "Vector"
+      },
+      "m_vCapsuleCenter1": {
+        "Path": 56,
+        "Type": "Vector3",
+        "NetworkType": "Vector"
+      },
+      "m_vCapsuleCenter2": {
+        "Path": 57,
+        "Type": "Vector3",
+        "NetworkType": "Vector"
+      },
+      "m_flCapsuleRadius": {
+        "Path": 58,
+        "Type": "float",
+        "NetworkType": "float32"
+      }
+    },
+    "m_Glow": {
+      "m_iGlowType": {
+        "Path": 59,
+        "Type": "Int32",
+        "NetworkType": "int32"
+      },
+      "m_iGlowTeam": {
+        "Path": 60,
+        "Type": "Int32",
+        "NetworkType": "int32"
+      },
+      "m_nGlowRange": {
+        "Path": 61,
+        "Type": "Int32",
+        "NetworkType": "int32"
+      },
+      "m_nGlowRangeMin": {
+        "Path": 62,
+        "Type": "Int32",
+        "NetworkType": "int32"
+      },
+      "m_glowColorOverride": {
+        "Path": 63,
+        "Type": "Color",
+        "NetworkType": "Color"
+      },
+      "m_bFlashing": {
+        "Path": 64,
+        "Type": "bool",
+        "NetworkType": "bool"
+      },
+      "m_flGlowTime": {
+        "Path": 65,
+        "Type": "float",
+        "NetworkType": "float32"
+      },
+      "m_flGlowStartTime": {
+        "Path": 66,
+        "Type": "float",
+        "NetworkType": "float32"
+      }
+    },
+    "m_flGlowBackfaceMult": {
+      "Path": 67,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_fadeMinDist": {
+      "Path": 68,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_fadeMaxDist": {
+      "Path": 69,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_flFadeScale": {
+      "Path": 70,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_flShadowStrength": {
+      "Path": 71,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_nObjectCulling": {
+      "Path": 72,
+      "Type": "Byte",
+      "NetworkType": "uint8"
+    },
+    "m_nAddDecal": {
+      "Path": 73,
+      "Type": "Int32",
+      "NetworkType": "int32"
+    },
+    "m_vDecalPosition": {
+      "Path": 74,
+      "Type": "Vector3",
+      "NetworkType": "Vector"
+    },
+    "m_vDecalForwardAxis": {
+      "Path": 75,
+      "Type": "Vector3",
+      "NetworkType": "Vector"
+    },
+    "m_flDecalHealBloodRate": {
+      "Path": 76,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_flDecalHealHeightRate": {
+      "Path": 77,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_ConfigEntitiesToPropagateMaterialDecalsTo": {
+      "Path": 78,
+      "Type": "List<UInt32>",
+      "NetworkType": "CNetworkUtlVectorBase< CHandle< CBaseModelEntity > >"
+    },
+    "m_bInitiallyPopulateInterpHistory": {
+      "Path": 79,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_bAnimGraphUpdateEnabled": {
+      "Path": 80,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_vecForce": {
+      "Path": 81,
+      "Type": "Vector3",
+      "NetworkType": "Vector"
+    },
+    "m_nForceBone": {
+      "Path": 82,
+      "Type": "Int32",
+      "NetworkType": "int32"
+    },
+    "m_RagdollPose": {
+      "m_Transforms": {
+        "Path": 83,
+        "Type": "List<Enum<CTransform>>",
+        "NetworkType": "CNetworkUtlVectorBase< CTransform >"
+      },
+      "m_hOwner": {
+        "Path": 84,
+        "Type": "UInt32",
+        "NetworkType": "CHandle< CBaseEntity >"
+      }
+    },
+    "m_bRagdollClientSide": {
+      "Path": 85,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_flexWeight": {
+      "Path": 86,
+      "Type": "List<float>",
+      "NetworkType": "CNetworkUtlVectorBase< float32 >"
+    },
+    "m_vLookTargetPosition": {
+      "Path": 87,
+      "Type": "Vector3",
+      "NetworkType": "Vector"
+    },
+    "m_hMyWearables": {
+      "Path": 88,
+      "Type": "List<UInt32>",
+      "NetworkType": "CNetworkUtlVectorBase< CHandle< CEconWearable > >"
+    },
+    "m_pCameraServices": {
+      "Path": 89,
+      "Type": "CCitadelPlayer_CameraServices",
+      "NetworkType": "CPlayer_CameraServices"
+    },
+    "m_pMovementServices": {
+      "Path": 90,
+      "Type": "CCitadelPlayer_MovementServices",
+      "NetworkType": "CPlayer_MovementServices"
+    },
+    "m_flDeathTime": {
+      "Path": 91,
+      "Type": "float",
+      "NetworkType": "GameTime_t"
+    },
+    "m_hController": {
+      "Path": 92,
+      "Type": "UInt32",
+      "NetworkType": "CHandle< CBasePlayerController >"
+    },
+    "m_nLevel": {
+      "Path": 93,
+      "Type": "Int32",
+      "NetworkType": "int32"
+    },
+    "m_nCurrencies": {
+      "Path": 94,
+      "Type": "Int32[4] ",
+      "NetworkType": "int32[4]"
+    },
+    "m_nSpentCurrencies": {
+      "Path": 95,
+      "Type": "Int32[4] ",
+      "NetworkType": "int32[4]"
+    },
+    "m_flRespawnTime": {
+      "Path": 96,
+      "Type": "float",
+      "NetworkType": "GameTime_t"
+    },
+    "m_flLastSpawnTime": {
+      "Path": 97,
+      "Type": "float",
+      "NetworkType": "GameTime_t"
+    },
+    "m_bNetworkDisconnected": {
+      "Path": 98,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_nFlashStartTick": {
+      "Path": 99,
+      "Type": "Int32",
+      "NetworkType": "int32"
+    },
+    "m_nFlashMaxStartTick": {
+      "Path": 100,
+      "Type": "Int32",
+      "NetworkType": "int32"
+    },
+    "m_nFlashFadeStartTick": {
+      "Path": 101,
+      "Type": "Int32",
+      "NetworkType": "int32"
+    },
+    "m_nFlashEndTick": {
+      "Path": 102,
+      "Type": "Int32",
+      "NetworkType": "int32"
+    },
+    "m_nFlashMaxAlpha": {
+      "Path": 103,
+      "Type": "SByte",
+      "NetworkType": "int8"
+    },
+    "m_nDeducedLane": {
+      "Path": 104,
+      "Type": "Int32",
+      "NetworkType": "int32"
+    },
+    "m_bDismissedReportCard": {
+      "Path": 105,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_flCurrentHealingAmount": {
+      "Path": 106,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_CHitboxComponent": {
+      "m_bvDisabledHitGroups": {
+        "Path": 111,
+        "Type": "UInt32[1] ",
+        "NetworkType": "uint32[1]"
+      }
+    },
+    "CRenderComponent": {
+      "Path": 112,
+      "Type": "CRenderComponent",
+      "NetworkType": "CRenderComponent"
+    },
+    "m_skybox3d": {
+      "fog": {
+        "colorPrimaryLerpTo": {
+          "Path": 113,
+          "Type": "Color",
+          "NetworkType": "Color"
+        },
+        "colorSecondaryLerpTo": {
+          "Path": 114,
+          "Type": "Color",
+          "NetworkType": "Color"
+        },
+        "farz": {
+          "Path": 115,
+          "Type": "float",
+          "NetworkType": "float32"
+        },
+        "skyboxFogFactor": {
+          "Path": 116,
+          "Type": "float",
+          "NetworkType": "float32"
+        },
+        "skyboxFogFactorLerpTo": {
+          "Path": 117,
+          "Type": "float",
+          "NetworkType": "float32"
+        },
+        "startLerpTo": {
+          "Path": 118,
+          "Type": "float",
+          "NetworkType": "float32"
+        },
+        "endLerpTo": {
+          "Path": 119,
+          "Type": "float",
+          "NetworkType": "float32"
+        },
+        "maxdensityLerpTo": {
+          "Path": 120,
+          "Type": "float",
+          "NetworkType": "float32"
+        },
+        "lerptime": {
+          "Path": 121,
+          "Type": "float",
+          "NetworkType": "GameTime_t"
+        },
+        "duration": {
+          "Path": 122,
+          "Type": "float",
+          "NetworkType": "float32"
+        },
+        "blendtobackground": {
+          "Path": 123,
+          "Type": "float",
+          "NetworkType": "float32"
+        },
+        "scattering": {
+          "Path": 124,
+          "Type": "float",
+          "NetworkType": "float32"
+        },
+        "locallightscale": {
+          "Path": 125,
+          "Type": "float",
+          "NetworkType": "float32"
+        },
+        "dirPrimary": {
+          "Path": 141,
+          "Type": "Vector3",
+          "NetworkType": "Vector"
+        },
+        "colorPrimary": {
+          "Path": 142,
+          "Type": "Color",
+          "NetworkType": "Color"
+        },
+        "colorSecondary": {
+          "Path": 143,
+          "Type": "Color",
+          "NetworkType": "Color"
+        },
+        "start": {
+          "Path": 144,
+          "Type": "float",
+          "NetworkType": "float32"
+        },
+        "end": {
+          "Path": 145,
+          "Type": "float",
+          "NetworkType": "float32"
+        },
+        "maxdensity": {
+          "Path": 146,
+          "Type": "float",
+          "NetworkType": "float32"
+        },
+        "exponent": {
+          "Path": 147,
+          "Type": "float",
+          "NetworkType": "float32"
+        },
+        "HDRColorScale": {
+          "Path": 148,
+          "Type": "float",
+          "NetworkType": "float32"
+        },
+        "enable": {
+          "Path": 149,
+          "Type": "bool",
+          "NetworkType": "bool"
+        },
+        "blend": {
+          "Path": 150,
+          "Type": "bool",
+          "NetworkType": "bool"
+        },
+        "m_bNoReflectionFog": {
+          "Path": 151,
+          "Type": "bool",
+          "NetworkType": "bool"
+        }
+      },
+      "scale": {
+        "Path": 137,
+        "Type": "Int16",
+        "NetworkType": "int16"
+      },
+      "origin": {
+        "Path": 138,
+        "Type": "Vector3",
+        "NetworkType": "Vector"
+      },
+      "bClip3DSkyBoxNearToWorldFar": {
+        "Path": 139,
+        "Type": "bool",
+        "NetworkType": "bool"
+      },
+      "flClip3DSkyBoxNearToWorldFarOffset": {
+        "Path": 140,
+        "Type": "float",
+        "NetworkType": "float32"
+      },
+      "m_nWorldGroupID": {
+        "Path": 152,
+        "Type": "Enum<WorldGroupId_t>",
+        "NetworkType": "WorldGroupId_t"
+      }
+    },
+    "m_bInRegenerationZone": {
+      "Path": 126,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_timeRevealedOnMinimapByNPC": {
+      "Path": 127,
+      "Type": "float",
+      "NetworkType": "GameTime_t"
+    },
+    "m_nNextThinkTick": {
+      "Path": 128,
+      "Type": "Enum<GameTick_t>",
+      "NetworkType": "GameTick_t"
+    },
+    "m_vecVelocity": {
+      "m_vecX": {
+        "Path": 129,
+        "Type": "float",
+        "NetworkType": "CNetworkedQuantizedFloat"
+      },
+      "m_vecY": {
+        "Path": 130,
+        "Type": "float",
+        "NetworkType": "CNetworkedQuantizedFloat"
+      },
+      "m_vecZ": {
+        "Path": 131,
+        "Type": "float",
+        "NetworkType": "CNetworkedQuantizedFloat"
+      }
+    },
+    "m_flFriction": {
+      "Path": 132,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_flGravityScale": {
+      "Path": 133,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_flTimeScale": {
+      "Path": 134,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_ServerViewAngleChanges": {
+      "Path": 135,
+      "Type": "List<ViewAngleServerChange_t>",
+      "NetworkType": "CUtlVectorEmbeddedNetworkVar< ViewAngleServerChange_t >"
+    },
+    "m_iHideHUD": {
+      "Path": 136,
+      "Type": "UInt32",
+      "NetworkType": "uint32"
+    },
+    "m_angLockedEyeAngles": {
+      "Path": 153,
+      "Type": "QAngle",
+      "NetworkType": "QAngle"
+    },
+    "m_bInItemShopZone": {
+      "Path": 154,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_vecFullSellPriceItems": {
+      "Path": 155,
+      "Type": "List<UInt32>",
+      "NetworkType": "CNetworkUtlVectorBase< CUtlStringToken >"
+    },
+    "m_vecFullSellPriceAbilityUpgrades": {
+      "Path": 156,
+      "Type": "List<FullSellPriceAbilityUpgrades_t>",
+      "NetworkType": "CNetworkUtlVectorBase< FullSellPriceAbilityUpgrades_t >"
+    },
+    "m_bHasIncomingThreats": {
+      "Path": 157,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_bLearningAbility": {
+      "Path": 158,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_eZipLineLaneColor": {
+      "Path": 162,
+      "Type": "Enum<CMsgLaneColor>",
+      "NetworkType": "CMsgLaneColor"
+    },
+    "m_bAnimGraphMovementClipped": {
+      "Path": 163,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_bAnimGraphMovementDisableGravity": {
+      "Path": 164,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_bAnimGraphMovementDirectAirControl": {
+      "Path": 165,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_flPredTimeSlowedStart": {
+      "Path": 166,
+      "Type": "float",
+      "NetworkType": "GameTime_t"
+    },
+    "m_flPredTimeSlowedEnd": {
+      "Path": 167,
+      "Type": "float",
+      "NetworkType": "GameTime_t"
+    },
+    "m_flPredSlowSpeed": {
+      "Path": 168,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_flTimeSlowedStart": {
+      "Path": 169,
+      "Type": "float[4] ",
+      "NetworkType": "GameTime_t[4]"
+    },
+    "m_flTimeSlowedEnd": {
+      "Path": 170,
+      "Type": "float[4] ",
+      "NetworkType": "GameTime_t[4]"
+    },
+    "m_flSlowSpeed": {
+      "Path": 171,
+      "Type": "float[4] ",
+      "NetworkType": "float32[4]"
+    },
+    "m_flSprintAnimSuppressEndTime": {
+      "Path": 172,
+      "Type": "float",
+      "NetworkType": "GameTime_t"
+    },
+    "m_vecViewOffset": {
+      "m_vecX": {
+        "Path": 183,
+        "Type": "float",
+        "NetworkType": "CNetworkedQuantizedFloat"
+      },
+      "m_vecY": {
+        "Path": 184,
+        "Type": "float",
+        "NetworkType": "CNetworkedQuantizedFloat"
+      },
+      "m_vecZ": {
+        "Path": 185,
+        "Type": "float",
+        "NetworkType": "CNetworkedQuantizedFloat"
+      }
+    },
+    "m_flWaterLevel": {
+      "Path": 186,
+      "Type": "float",
+      "NetworkType": "float32"
+    }
+  }
+}

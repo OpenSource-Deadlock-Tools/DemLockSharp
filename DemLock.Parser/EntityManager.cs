@@ -1,5 +1,5 @@
 ﻿using DemLock.Entities;
-using DemLock.Entities.ClassMappings;
+using DemLock.Entities.Generated;
 using DemLock.Parser.Models;
 using DemLock.Utils;
 
@@ -49,7 +49,7 @@ public class EntityManager
 
     private Dictionary<ulong, string> _witness;
     private Dictionary<int, FieldDecoder> _fieldDecoders;
-    private Dictionary<int, Entity> _mappedEntities;
+    private Dictionary<int, BaseEntity> _mappedEntities;
 
     public EntityManager(DemoParserContext context)
     {
@@ -92,7 +92,7 @@ public class EntityManager
         UpdateAtIndex(index, ref bb);
     }
 
-    public Entity UpdateAtIndex(int index, ref BitBuffer entityData)
+    public BaseEntity UpdateAtIndex(int index, ref BitBuffer entityData)
     {
         List<EntityFieldData> entityDataList = new();
         var metaData = _metaData[index];
@@ -117,7 +117,7 @@ public class EntityManager
 
         fieldPaths = fieldPaths[..fpi];
 
-        Entity targetEntity = null;
+        BaseEntity targetEntity = null;
 
         if (_mappedEntities.ContainsKey(index))
         {

@@ -1,4 +1,6 @@
 ﻿using System.Text;
+using System.Text.Json;
+using System.Text.Json.Nodes;
 using DemLock.Entities;
 using DemLock.Parser.Models;
 using DemLock.Utils;
@@ -22,13 +24,14 @@ public class DemoParserContext
     /// to set it and hope it works for now.
     /// </summary>
     internal const int NumEHandleSerialNumberBits = 17;
+
     public DemoParserConfig Config { get; set; }
     public int ClassIdSize { get; set; }
     public int MaxPlayers { get; set; }
     public float TickInterval { get; set; }
     public uint CurrentTick { get; set; }
     public DemoEventSystem Events { get; set; }
-    
+
     private List<DClass> _classes;
     private List<DFieldType> _fieldTypes;
     private List<DField> _fields;
@@ -36,8 +39,6 @@ public class DemoParserContext
     private List<StringTable> _stringTables;
     private List<FieldDecoder> _entities;
 
-    public Dictionary<string, EntityBinder> EntityBinders { get; set; } = new();
-    
     public EntityManager EntityManager { get; }
 
     private Dictionary<int, byte[]> _instanceBaselines;
@@ -52,9 +53,9 @@ public class DemoParserContext
         _fields = new List<DField>();
         _serializers = new();
         _instanceBaselines = new();
-        EntityManager = new EntityManager(this); 
+        EntityManager = new EntityManager(this);
     }
-    
+
     public DemoParserContext(DemoParserConfig config)
     {
         Config = config;
@@ -65,16 +66,17 @@ public class DemoParserContext
         _fields = new List<DField>();
         _serializers = new();
         _instanceBaselines = new();
-        EntityManager = new EntityManager(this); 
+        EntityManager = new EntityManager(this);
     }
 
     public void AddClass(DClass dClass)
     {
-        _classes.Add(dClass);  
-    } 
+        _classes.Add(dClass);
+    }
+
     public DClass? GetClassById(int classId) => _classes.FirstOrDefault(c => c.ClassId == classId);
     public DClass? GetClassByName(string className) => _classes.FirstOrDefault(c => c.ClassName == className);
-    public void AddField(DField field)=> _fields.Add(field);
+    public void AddField(DField field) => _fields.Add(field);
     public void AddSerializerRange(params DSerializer[] serializer) => _serializers.AddRange(serializer);
     public void AddSerializerRange(IEnumerable<DSerializer> serializer) => _serializers.AddRange(serializer);
     public void AddStringTable(StringTable stringTable) => _stringTables.Add(stringTable);
@@ -85,15 +87,16 @@ public class DemoParserContext
     /// </summary>
     /// <param name="classId"></param>
     /// <returns></returns>
-    public byte[]? GetInstanceBaseline(int classId) => _instanceBaselines.ContainsKey(classId) ? _instanceBaselines[classId] : null;
+    public byte[]? GetInstanceBaseline(int classId) =>
+        _instanceBaselines.ContainsKey(classId) ? _instanceBaselines[classId] : null;
 
     // TODO: Optimize this look up and figure out what these god damn versions are all about and if I should care about lower order versions (manta doesn't)
-    public DSerializer GetSerializerByClassName(string className, bool latestVersion = true) => 
-        _serializers.Where(x => x.Name == className ).OrderByDescending(x=>x.Version).FirstOrDefault();
-    
-    public DSerializer GetSerializerByClassName(string className, int version) => 
+    public DSerializer GetSerializerByClassName(string className, bool latestVersion = true) =>
+        _serializers.Where(x => x.Name == className).OrderByDescending(x => x.Version).FirstOrDefault();
+
+    public DSerializer GetSerializerByClassName(string className, int version) =>
         _serializers.FirstOrDefault(x => x.Name == className && x.Version == version);
-    
+
     // TODO: Some sorta error handling would be nice here
     public StringTable GetStringTableByIndex(int index) => _stringTables[index];
 
@@ -113,18 +116,19 @@ public class DemoParserContext
         {
             RefreshInstanceBaselines(_stringTables[index]);
         }
-    } 
+    }
 
     public void AddFieldType(DFieldType fieldType)
     {
-        if(!_fieldTypes.Contains(fieldType))
+        if (!_fieldTypes.Contains(fieldType))
             _fieldTypes.Add(fieldType);
     }
 
     public void RefreshInstanceBaselines()
     {
-        RefreshInstanceBaselines(_stringTables.FirstOrDefault(x=>x.Name == "instanceBaselines"));
+        RefreshInstanceBaselines(_stringTables.FirstOrDefault(x => x.Name == "instanceBaselines"));
     }
+
     public void RefreshInstanceBaselines(StringTable? table)
     {
         if (table == null)
@@ -132,7 +136,7 @@ public class DemoParserContext
             Console.WriteLine("Instance baseline table does not exist yet");
             return;
         }
-        
+
         foreach (var entry in table.GetEntries())
         {
             if (int.TryParse(entry.Key, out int classId))
@@ -151,34 +155,59 @@ public class DemoParserContext
 
     public void DumpClassDefinitions(string outputDirectory)
     {
-
-        foreach (var v in _serializers.Where(x => new List<string>(){"CCitadelPlayerPawn"}.Contains(x.Name)))
+        foreach (var v in _serializers.Where(x => new List<string>()
+                 {
+                     "CCitadelPlayerPawn", "CEntityIdentity", "CCitadelAbilityComponent",
+                     "ViewAngleServerChange_t", "ViewAngleServerChange_t", "FullSellPriceAbilityUpgrades_t","CBodyComponentBaseAnimGraph"
+                 }.Contains(x.Name)))
         {
-            StringBuilder sb = new StringBuilder();
-            string outputPath = Path.Combine(outputDirectory, $"{v.Name}.{v.Version}.class");
+            string outputPath = Path.Combine(outputDirectory, $"{v.Name}.{v.Version}.class.json");
 
-            sb.AppendLine($"{{");
-            sb.AppendLine($"\"ClassName\": \"{v.Name}\",");
-            sb.AppendLine($"\"Version\": \"{v.Version}\",");
-            sb.AppendLine($"\"Fields\": {{");
-            
+            JsonObject serializerObj = new JsonObject();
+            serializerObj["ClassName"] = v.Name;
+            serializerObj["Version"] = v.Version;
+
+
+            JsonObject fieldObj = new JsonObject();
+            serializerObj["Fields"] = fieldObj;
+
+            Queue<string> context = new Queue<string>();
+
             for (int i = 0; i < v.Fields.Length; i++)
             {
                 var field = v.Fields[i];
-                sb.AppendLine($"\"{field.Name}\": {{");
-                sb.AppendLine($"\"Path\": \"{i}\",");
-                sb.AppendLine($"\"Type\": \"{field.PropertyType()}\",");
-                var decoder = field.Activate();
-                sb.AppendLine($"\"DecoderType\": \"{decoder.GetType().Name}\"");
-                
-                sb.Append($"}}");
-                if (i < v.Fields.Length - 1) sb.AppendLine($",");
+                List<string> fieldPath = new();
+                if (!string.IsNullOrWhiteSpace(field.SendNode) && field.SendNode.Trim().Length > 0)
+                {
+                    foreach (var path in field.SendNode.Split('.'))
+                    {
+                        context.Enqueue(path);
+                    }
+                }
+
+                context.Enqueue(field.Name ?? "");
+
+                JsonObject current = fieldObj;
+                while (context.Count > 0)
+                {
+                    var val = context.Dequeue();
+                    if (current[val] == null)
+                        current[val] = new JsonObject();
+                    current = current[val]!.AsObject();
+                }
+
+                current["Path"] = i;
+                current["Type"] = $"{field.PropertyType()}";
+                current["NetworkType"] = $"{field.FieldType.ToString()}";
             }
-            sb.AppendLine($"}}");
-            sb.AppendLine($"}}");
-            File.WriteAllText(outputPath, sb.ToString());
+
+            var options = new JsonSerializerOptions()
+            {
+                Encoder = System.Text.Encodings.Web.JavaScriptEncoder
+                    .UnsafeRelaxedJsonEscaping, // Allow unsafe characters
+                WriteIndented = true // Pretty print
+            };
+            File.WriteAllText(outputPath, JsonSerializer.Serialize(serializerObj, options));
         }
     }
-
-  
 }

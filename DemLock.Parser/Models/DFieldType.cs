@@ -17,6 +17,8 @@ public class DFieldType
     public bool IsPointer { get; set; }
     public int Count { get; set; }
 
+
+    
     public static DFieldType Parse(string typeName)
     {
         if (_fieldTypeCache.TryGetValue(typeName, out var fieldType))

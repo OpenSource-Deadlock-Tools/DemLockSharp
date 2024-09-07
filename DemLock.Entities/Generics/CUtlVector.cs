@@ -13,7 +13,6 @@ public class CUtlVector: DGeneric
     {
         _childDecoder = childDecoder;
     }
-
     public override void SetValue(object value)
     {
         throw new NotImplementedException($"CUtlVector::SetValue(Object) is not implemented for {GenericTypeName}");

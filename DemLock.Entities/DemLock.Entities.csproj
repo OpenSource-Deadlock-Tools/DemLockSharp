@@ -6,9 +6,32 @@
         <Nullable>enable</Nullable>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     </PropertyGroup>
-
+    
     <ItemGroup>
+      <ProjectReference Include="..\DemLock.ClassMappingGenerator\DemLock.ClassMappingGenerator\DemLock.ClassMappingGenerator.csproj" OutputItemType="Analyzer"  ReferenceOutputAssembly="false"/>
       <ProjectReference Include="..\DemLock.Utils\DemLock.Utils.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <AdditionalFiles Include="ClassDefinitions\CBodyComponentBaseAnimGraph.3.class.json"/>
+      <AdditionalFiles Include="ClassDefinitions\CCitadelPlayerPawn.0.class.json"/>
+      <AdditionalFiles Include="ClassDefinitions\CEntityIdentity.0.class.json"/>
+      <AdditionalFiles Include="ClassDefinitions\FullSellPriceAbilityUpgrades_t.0.class.json"/>
+      <AdditionalFiles Include="ClassDefinitions\ViewAngleServerChange_t.0.class.json"/>
+    </ItemGroup>
+    <PropertyGroup>
+        <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+    </PropertyGroup>
+    <Target Name="GenerateSources" BeforeTargets="BeforeBuild">
+        <Copy SourceFiles="@(FileName)" DestinationFiles="@(FileName->'Generated.cs')">
+            <Output TaskParameter="DestinationFiles" ItemName="GeneratedCodeFiles" />
+        </Copy>
+        <ItemGroup>
+            <Compile Include="@(GeneratedCodeFiles)" Exclude="@(Compile)" />
+        </ItemGroup>
+    </Target>
 </Project>

@@ -56,7 +56,7 @@ public abstract class FieldDecoder
         if(typeName == "CNetworkUtlVectorBase")
             return new CNetworkUtlVectorBase(genericTypeName, childDecoder);
         if (typeName == "CHandle")
-            return new CHandle(genericTypeName);
+            return new DInt32();
         if(typeName == "CStrongHandle")
             return new CStrongHandle(genericTypeName);
         if (typeName == "CUtlVector")
