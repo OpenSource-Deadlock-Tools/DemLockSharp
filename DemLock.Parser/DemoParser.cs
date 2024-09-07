@@ -43,7 +43,7 @@ public class DemoParser
     {
         // Make sure we clear our context to start fresh
         _context.ClearContext();
-        using DemoFile demo = new DemoFile(fileName);
+        using DemoStream demo = DemoStream.FromFilePath(fileName);
         DemoFrame frame;
         int i = 0;
         do
@@ -60,7 +60,7 @@ public class DemoParser
     {
         // Make sure we clear our context to start fresh
         _context.ClearContext();
-        using DemoFile demo = new DemoFile(fileName);
+        using DemoStream demo = DemoStream.FromFilePath(fileName);
         DemoFrame frame;
         int i = 0;
         do
@@ -78,8 +78,8 @@ public class DemoParser
         {
             Directory.CreateDirectory(outputDirectory);
         }
-        
-            
+
+
         _context.DumpClassDefinitions(outputDirectory);
     }
 }
