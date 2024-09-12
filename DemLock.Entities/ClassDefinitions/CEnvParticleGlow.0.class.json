@@ -1,0 +1,121 @@
+{
+  "ClassName": "CEnvParticleGlow",
+  "Version": 0,
+  "Fields": {
+    "m_hOwnerEntity": {
+      "Path": 0,
+      "Type": "UInt32",
+      "NetworkType": "CHandle< CBaseEntity >"
+    },
+    "CBodyComponent": {
+      "Path": 1,
+      "Type": "CBodyComponentBaseModelEntity",
+      "NetworkType": "CBodyComponent"
+    },
+    "m_pEntity": {
+      "Path": 2,
+      "Type": "CEntityIdentity",
+      "NetworkType": "CEntityIdentity"
+    },
+    "m_szSnapshotFileName": {
+      "Path": 3,
+      "Type": "String",
+      "NetworkType": "char[512]"
+    },
+    "m_bActive": {
+      "Path": 4,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_bFrozen": {
+      "Path": 5,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_flFreezeTransitionDuration": {
+      "Path": 6,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_nStopType": {
+      "Path": 7,
+      "Type": "Int32",
+      "NetworkType": "int32"
+    },
+    "m_bAnimateDuringGameplayPause": {
+      "Path": 8,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_iEffectIndex": {
+      "Path": 9,
+      "Type": "List<Enum<InfoForResourceTypeIParticleSystemDefinition>>",
+      "NetworkType": "CStrongHandle< InfoForResourceTypeIParticleSystemDefinition >"
+    },
+    "m_flStartTime": {
+      "Path": 10,
+      "Type": "float",
+      "NetworkType": "GameTime_t"
+    },
+    "m_flPreSimTime": {
+      "Path": 11,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_vServerControlPoints": {
+      "Path": 12,
+      "Type": "Vector3[4] ",
+      "NetworkType": "Vector[4]"
+    },
+    "m_iServerControlPointAssignments": {
+      "Path": 13,
+      "Type": "Byte[4] ",
+      "NetworkType": "uint8[4]"
+    },
+    "m_hControlPointEnts": {
+      "Path": 14,
+      "Type": "UInt32",
+      "NetworkType": "CHandle< CBaseEntity >[64]"
+    },
+    "m_bNoSave": {
+      "Path": 15,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_bNoFreeze": {
+      "Path": 16,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_bNoRamp": {
+      "Path": 17,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_flAlphaScale": {
+      "Path": 18,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_flRadiusScale": {
+      "Path": 19,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_flSelfIllumScale": {
+      "Path": 20,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_ColorTint": {
+      "Path": 21,
+      "Type": "Color",
+      "NetworkType": "Color"
+    },
+    "m_hTextureOverride": {
+      "Path": 22,
+      "Type": "List<Enum<InfoForResourceTypeCTextureBase>>",
+      "NetworkType": "CStrongHandle< InfoForResourceTypeCTextureBase >"
+    }
+  }
+}

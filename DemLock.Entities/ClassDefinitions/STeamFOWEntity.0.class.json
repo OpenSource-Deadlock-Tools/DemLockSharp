@@ -1,0 +1,61 @@
+{
+  "ClassName": "STeamFOWEntity",
+  "Version": 0,
+  "Fields": {
+    "m_nPositionX": {
+      "Path": 0,
+      "Type": "Byte",
+      "NetworkType": "uint8"
+    },
+    "m_nPositionY": {
+      "Path": 1,
+      "Type": "Byte",
+      "NetworkType": "uint8"
+    },
+    "m_nEntIndex": {
+      "Path": 2,
+      "Type": "Enum<CEntityIndex>",
+      "NetworkType": "CEntityIndex"
+    },
+    "m_nTeam": {
+      "Path": 3,
+      "Type": "Int32",
+      "NetworkType": "int32"
+    },
+    "m_eClass": {
+      "Path": 4,
+      "Type": "Enum<Class_T>",
+      "NetworkType": "Class_T"
+    },
+    "m_iLane": {
+      "Path": 5,
+      "Type": "Int32",
+      "NetworkType": "int32"
+    },
+    "m_eHeight": {
+      "Path": 6,
+      "Type": "Enum<EMinimapHeight>",
+      "NetworkType": "EMinimapHeight"
+    },
+    "m_bVisibleOnMap": {
+      "Path": 7,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_bBackdoorProtectionActive": {
+      "Path": 8,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_nTickHidden": {
+      "Path": 9,
+      "Type": "Enum<GameTick_t>",
+      "NetworkType": "GameTick_t"
+    },
+    "m_nHealthPercent": {
+      "Path": 10,
+      "Type": "Byte",
+      "NetworkType": "uint8"
+    }
+  }
+}

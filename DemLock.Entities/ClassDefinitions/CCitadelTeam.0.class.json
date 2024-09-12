@@ -1,0 +1,56 @@
+{
+  "ClassName": "CCitadelTeam",
+  "Version": 0,
+  "Fields": {
+    "m_vecFOWEntities": {
+      "Path": 0,
+      "Type": "List<STeamFOWEntity>",
+      "NetworkType": "CUtlVectorEmbeddedNetworkVar< STeamFOWEntity >"
+    },
+    "m_iTeamNum": {
+      "Path": 1,
+      "Type": "Byte",
+      "NetworkType": "uint8"
+    },
+    "m_aPlayers": {
+      "Path": 2,
+      "Type": "List<UInt32>",
+      "NetworkType": "CNetworkUtlVectorBase< CHandle< CBasePlayerController > >"
+    },
+    "m_aPawns": {
+      "Path": 3,
+      "Type": "List<UInt32>",
+      "NetworkType": "CNetworkUtlVectorBase< CHandle< CBasePlayerPawn > >"
+    },
+    "m_iScore": {
+      "Path": 4,
+      "Type": "Int32",
+      "NetworkType": "int32"
+    },
+    "m_szTeamname": {
+      "Path": 5,
+      "Type": "String",
+      "NetworkType": "char[129]"
+    },
+    "m_hPayload": {
+      "Path": 6,
+      "Type": "UInt32",
+      "NetworkType": "CHandle< CBaseEntity >"
+    },
+    "m_nBossesAlive": {
+      "Path": 7,
+      "Type": "Int32",
+      "NetworkType": "int32"
+    },
+    "m_nBossesMax": {
+      "Path": 8,
+      "Type": "Int32",
+      "NetworkType": "int32"
+    },
+    "m_nFlexSlotsUnlocked": {
+      "Path": 9,
+      "Type": "Enum<EFlexSlotTypes_t>",
+      "NetworkType": "EFlexSlotTypes_t"
+    }
+  }
+}

@@ -1,0 +1,331 @@
+{
+  "ClassName": "CLightComponent",
+  "Version": 0,
+  "Fields": {
+    "m_Color": {
+      "Path": 0,
+      "Type": "Color",
+      "NetworkType": "Color"
+    },
+    "m_SecondaryColor": {
+      "Path": 1,
+      "Type": "Color",
+      "NetworkType": "Color"
+    },
+    "m_flBrightness": {
+      "Path": 2,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_flBrightnessScale": {
+      "Path": 3,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_flBrightnessMult": {
+      "Path": 4,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_flRange": {
+      "Path": 5,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_flFalloff": {
+      "Path": 6,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_flAttenuation0": {
+      "Path": 7,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_flAttenuation1": {
+      "Path": 8,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_flAttenuation2": {
+      "Path": 9,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_flTheta": {
+      "Path": 10,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_flPhi": {
+      "Path": 11,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_hLightCookie": {
+      "Path": 12,
+      "Type": "List<Enum<InfoForResourceTypeCTextureBase>>",
+      "NetworkType": "CStrongHandle< InfoForResourceTypeCTextureBase >"
+    },
+    "m_nCascades": {
+      "Path": 13,
+      "Type": "Int32",
+      "NetworkType": "int32"
+    },
+    "m_nCastShadows": {
+      "Path": 14,
+      "Type": "Int32",
+      "NetworkType": "int32"
+    },
+    "m_nShadowWidth": {
+      "Path": 15,
+      "Type": "Int32",
+      "NetworkType": "int32"
+    },
+    "m_nShadowHeight": {
+      "Path": 16,
+      "Type": "Int32",
+      "NetworkType": "int32"
+    },
+    "m_bRenderDiffuse": {
+      "Path": 17,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_nRenderSpecular": {
+      "Path": 18,
+      "Type": "Int32",
+      "NetworkType": "int32"
+    },
+    "m_bRenderTransmissive": {
+      "Path": 19,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_flOrthoLightWidth": {
+      "Path": 20,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_flOrthoLightHeight": {
+      "Path": 21,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_nStyle": {
+      "Path": 22,
+      "Type": "Int32",
+      "NetworkType": "int32"
+    },
+    "m_Pattern": {
+      "Path": 23,
+      "Type": "String",
+      "NetworkType": "CUtlString"
+    },
+    "m_nCascadeRenderStaticObjects": {
+      "Path": 24,
+      "Type": "Int32",
+      "NetworkType": "int32"
+    },
+    "m_flShadowCascadeCrossFade": {
+      "Path": 25,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_flShadowCascadeDistanceFade": {
+      "Path": 26,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_flShadowCascadeDistance0": {
+      "Path": 27,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_flShadowCascadeDistance1": {
+      "Path": 28,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_flShadowCascadeDistance2": {
+      "Path": 29,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_flShadowCascadeDistance3": {
+      "Path": 30,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_nShadowCascadeResolution0": {
+      "Path": 31,
+      "Type": "Int32",
+      "NetworkType": "int32"
+    },
+    "m_nShadowCascadeResolution1": {
+      "Path": 32,
+      "Type": "Int32",
+      "NetworkType": "int32"
+    },
+    "m_nShadowCascadeResolution2": {
+      "Path": 33,
+      "Type": "Int32",
+      "NetworkType": "int32"
+    },
+    "m_nShadowCascadeResolution3": {
+      "Path": 34,
+      "Type": "Int32",
+      "NetworkType": "int32"
+    },
+    "m_bUsesIndexedBakedLighting": {
+      "Path": 35,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_nShadowPriority": {
+      "Path": 36,
+      "Type": "Int32",
+      "NetworkType": "int32"
+    },
+    "m_nBakedShadowIndex": {
+      "Path": 37,
+      "Type": "Int32",
+      "NetworkType": "int32"
+    },
+    "m_bRenderToCubemaps": {
+      "Path": 38,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_nDirectLight": {
+      "Path": 39,
+      "Type": "Int32",
+      "NetworkType": "int32"
+    },
+    "m_nIndirectLight": {
+      "Path": 40,
+      "Type": "Int32",
+      "NetworkType": "int32"
+    },
+    "m_flFadeMinDist": {
+      "Path": 41,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_flFadeMaxDist": {
+      "Path": 42,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_flShadowFadeMinDist": {
+      "Path": 43,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_flShadowFadeMaxDist": {
+      "Path": 44,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_bEnabled": {
+      "Path": 45,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_bFlicker": {
+      "Path": 46,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_bPrecomputedFieldsValid": {
+      "Path": 47,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_vPrecomputedBoundsMins": {
+      "Path": 48,
+      "Type": "Vector3",
+      "NetworkType": "Vector"
+    },
+    "m_vPrecomputedBoundsMaxs": {
+      "Path": 49,
+      "Type": "Vector3",
+      "NetworkType": "Vector"
+    },
+    "m_vPrecomputedOBBOrigin": {
+      "Path": 50,
+      "Type": "Vector3",
+      "NetworkType": "Vector"
+    },
+    "m_vPrecomputedOBBAngles": {
+      "Path": 51,
+      "Type": "QAngle",
+      "NetworkType": "QAngle"
+    },
+    "m_vPrecomputedOBBExtent": {
+      "Path": 52,
+      "Type": "Vector3",
+      "NetworkType": "Vector"
+    },
+    "m_flPrecomputedMaxRange": {
+      "Path": 53,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_nFogLightingMode": {
+      "Path": 54,
+      "Type": "Int32",
+      "NetworkType": "int32"
+    },
+    "m_flFogContributionStength": {
+      "Path": 55,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_flNearClipPlane": {
+      "Path": 56,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_SkyColor": {
+      "Path": 57,
+      "Type": "Color",
+      "NetworkType": "Color"
+    },
+    "m_flSkyIntensity": {
+      "Path": 58,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_SkyAmbientBounce": {
+      "Path": 59,
+      "Type": "Color",
+      "NetworkType": "Color"
+    },
+    "m_bUseSecondaryColor": {
+      "Path": 60,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_bMixedShadows": {
+      "Path": 61,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_flLightStyleStartTime": {
+      "Path": 62,
+      "Type": "float",
+      "NetworkType": "GameTime_t"
+    },
+    "m_flCapsuleLength": {
+      "Path": 63,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_flMinRoughness": {
+      "Path": 64,
+      "Type": "float",
+      "NetworkType": "float32"
+    }
+  }
+}

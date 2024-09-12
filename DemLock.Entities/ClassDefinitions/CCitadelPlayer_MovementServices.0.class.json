@@ -1,0 +1,73 @@
+{
+  "ClassName": "CCitadelPlayer_MovementServices",
+  "Version": 0,
+  "Fields": {
+    "m_flMaxspeed": {
+      "Path": 0,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_arrForceSubtickMoveWhen": {
+      "Path": 1,
+      "Type": "float[4] ",
+      "NetworkType": "float32[4]"
+    },
+    "m_nToggleButtonDownMask": {
+      "Path": 2,
+      "Type": "UInt64",
+      "NetworkType": "uint64"
+    },
+    "m_flFallVelocity": {
+      "Path": 3,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_bInCrouch": {
+      "Path": 4,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_nCrouchState": {
+      "Path": 5,
+      "Type": "UInt32",
+      "NetworkType": "uint32"
+    },
+    "m_flCrouchTransitionStartTime": {
+      "Path": 6,
+      "Type": "float",
+      "NetworkType": "GameTime_t"
+    },
+    "m_bDucked": {
+      "Path": 7,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_bDucking": {
+      "Path": 8,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_bInDuckJump": {
+      "Path": 9,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_vPositionDeltaVelocity": {
+      "m_vecX": {
+        "Path": 10,
+        "Type": "float",
+        "NetworkType": "CNetworkedQuantizedFloat"
+      },
+      "m_vecY": {
+        "Path": 11,
+        "Type": "float",
+        "NetworkType": "CNetworkedQuantizedFloat"
+      },
+      "m_vecZ": {
+        "Path": 12,
+        "Type": "float",
+        "NetworkType": "CNetworkedQuantizedFloat"
+      }
+    }
+  }
+}

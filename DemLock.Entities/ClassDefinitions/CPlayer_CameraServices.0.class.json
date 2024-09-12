@@ -1,0 +1,75 @@
+{
+  "ClassName": "CPlayer_CameraServices",
+  "Version": 0,
+  "Fields": {
+    "m_vecPunchAngle": {
+      "Path": 0,
+      "Type": "QAngle",
+      "NetworkType": "QAngle"
+    },
+    "m_nPunchAngleJoltTick": {
+      "Path": 1,
+      "Type": "Enum<GameTick_t>",
+      "NetworkType": "GameTick_t"
+    },
+    "m_hColorCorrectionCtrl": {
+      "Path": 2,
+      "Type": "UInt32",
+      "NetworkType": "CHandle< CColorCorrection >"
+    },
+    "m_hViewEntity": {
+      "Path": 3,
+      "Type": "UInt32",
+      "NetworkType": "CHandle< CBaseEntity >"
+    },
+    "m_hTonemapController": {
+      "Path": 4,
+      "Type": "UInt32",
+      "NetworkType": "CHandle< CTonemapController2 >"
+    },
+    "m_audio": {
+      "localSound": {
+        "Path": 5,
+        "Type": "Vector3[8] ",
+        "NetworkType": "Vector[8]"
+      },
+      "soundscapeIndex": {
+        "Path": 6,
+        "Type": "Int32",
+        "NetworkType": "int32"
+      },
+      "localBits": {
+        "Path": 7,
+        "Type": "Byte",
+        "NetworkType": "uint8"
+      },
+      "soundscapeEntityListIndex": {
+        "Path": 8,
+        "Type": "Int32",
+        "NetworkType": "int32"
+      },
+      "soundEventHash": {
+        "Path": 9,
+        "Type": "UInt32",
+        "NetworkType": "uint32"
+      }
+    },
+    "m_PostProcessingVolumes": {
+      "Path": 10,
+      "Type": "List<UInt32>",
+      "NetworkType": "CNetworkUtlVectorBase< CHandle< CPostProcessingVolume > >"
+    },
+    "m_vecPunchAngleVel": {
+      "Path": 11,
+      "Type": "QAngle",
+      "NetworkType": "QAngle"
+    },
+    "m_PlayerFog": {
+      "m_hCtrl": {
+        "Path": 12,
+        "Type": "UInt32",
+        "NetworkType": "CHandle< CFogController >"
+      }
+    }
+  }
+}

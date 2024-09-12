@@ -1,0 +1,121 @@
+{
+  "ClassName": "CCitadelSpectateDirectedCamera",
+  "Version": 0,
+  "Fields": {
+    "m_flAnimTime": {
+      "Path": 0,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_flSimulationTime": {
+      "Path": 1,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_hOwnerEntity": {
+      "Path": 2,
+      "Type": "UInt32",
+      "NetworkType": "CHandle< CBaseEntity >"
+    },
+    "m_flCameraDist": {
+      "Path": 3,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "CBodyComponent": {
+      "Path": 4,
+      "Type": "CBodyComponentPoint",
+      "NetworkType": "CBodyComponent"
+    },
+    "m_pEntity": {
+      "Path": 5,
+      "Type": "CEntityIdentity",
+      "NetworkType": "CEntityIdentity"
+    },
+    "m_bVisibleinPVS": {
+      "Path": 6,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_nPlatformType": {
+      "Path": 7,
+      "Type": "Enum<EntityPlatformTypes_t>",
+      "NetworkType": "EntityPlatformTypes_t"
+    },
+    "m_MoveCollide": {
+      "Path": 8,
+      "Type": "Enum<MoveCollide_t>",
+      "NetworkType": "MoveCollide_t"
+    },
+    "m_MoveType": {
+      "Path": 9,
+      "Type": "Enum<MoveType_t>",
+      "NetworkType": "MoveType_t"
+    },
+    "m_nSubclassID": {
+      "Path": 10,
+      "Type": "UInt32",
+      "NetworkType": "CUtlStringToken"
+    },
+    "m_flCreateTime": {
+      "Path": 11,
+      "Type": "float",
+      "NetworkType": "GameTime_t"
+    },
+    "m_ubInterpolationFrame": {
+      "Path": 12,
+      "Type": "Byte",
+      "NetworkType": "uint8"
+    },
+    "m_iTeamNum": {
+      "Path": 13,
+      "Type": "Byte",
+      "NetworkType": "uint8"
+    },
+    "m_pModifierProp": {
+      "Path": 14,
+      "Type": "CModifierProperty",
+      "NetworkType": "CModifierProperty"
+    },
+    "m_hEffectEntity": {
+      "Path": 15,
+      "Type": "UInt32",
+      "NetworkType": "CHandle< CBaseEntity >"
+    },
+    "m_fEffects": {
+      "Path": 16,
+      "Type": "UInt32",
+      "NetworkType": "uint32"
+    },
+    "m_flElasticity": {
+      "Path": 17,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_bAnimatedEveryTick": {
+      "Path": 18,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_flNavIgnoreUntilTime": {
+      "Path": 19,
+      "Type": "float",
+      "NetworkType": "GameTime_t"
+    },
+    "m_flCameraPitch": {
+      "Path": 20,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_flCameraHeight": {
+      "Path": 21,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_hTarget": {
+      "Path": 22,
+      "Type": "UInt32",
+      "NetworkType": "CHandle< CBaseEntity >"
+    }
+  }
+}

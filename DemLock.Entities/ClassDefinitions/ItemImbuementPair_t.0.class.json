@@ -1,0 +1,16 @@
+{
+  "ClassName": "ItemImbuementPair_t",
+  "Version": 0,
+  "Fields": {
+    "m_SourceItemID": {
+      "Path": 0,
+      "Type": "UInt32",
+      "NetworkType": "CUtlStringToken"
+    },
+    "m_TargetAbilityID": {
+      "Path": 1,
+      "Type": "UInt32",
+      "NetworkType": "CUtlStringToken"
+    }
+  }
+}

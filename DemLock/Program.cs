@@ -31,7 +31,10 @@ class Program
             //    Console.WriteLine($"{player.m_flSimulationTime}==>{player.m_iHealth}/{player.m_iMaxHealth}");
             //}
         };
-        parser.ProcessDemo("C:\\tmp\\DeadlockDemos\\534870CS.dem");
+        string classDefPath = @"E:\Projects\DeadlockToolbox\DemLock\DemLock.Entities\ClassDefinitions";
+        
+        parser.DumpClassDefinitions("C:\\tmp\\DeadlockDemos\\534870CS.dem", classDefPath);
+        //parser.ProcessDemo("C:\\tmp\\DeadlockDemos\\534870CS.dem");
         Console.WriteLine($"Processed demo in {sw.Elapsed.TotalSeconds} seconds");
         // 14011DEMLOCK.dem
         

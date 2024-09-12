@@ -1,0 +1,126 @@
+{
+  "ClassName": "CBeam",
+  "Version": 0,
+  "Fields": {
+    "m_clrRender": {
+      "Path": 0,
+      "Type": "Color",
+      "NetworkType": "Color"
+    },
+    "m_flFrame": {
+      "Path": 1,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "CBodyComponent": {
+      "Path": 2,
+      "Type": "CBodyComponentBaseModelEntity",
+      "NetworkType": "CBodyComponent"
+    },
+    "m_nRenderMode": {
+      "Path": 3,
+      "Type": "Enum<RenderMode_t>",
+      "NetworkType": "RenderMode_t"
+    },
+    "m_nRenderFX": {
+      "Path": 4,
+      "Type": "Enum<RenderFx_t>",
+      "NetworkType": "RenderFx_t"
+    },
+    "m_flFrameRate": {
+      "Path": 5,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_flHDRColorScale": {
+      "Path": 6,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_nNumBeamEnts": {
+      "Path": 7,
+      "Type": "Byte",
+      "NetworkType": "uint8"
+    },
+    "m_hBaseMaterial": {
+      "Path": 8,
+      "Type": "List<Enum<InfoForResourceTypeIMaterial2>>",
+      "NetworkType": "CStrongHandle< InfoForResourceTypeIMaterial2 >"
+    },
+    "m_nHaloIndex": {
+      "Path": 9,
+      "Type": "List<Enum<InfoForResourceTypeIMaterial2>>",
+      "NetworkType": "CStrongHandle< InfoForResourceTypeIMaterial2 >"
+    },
+    "m_nBeamType": {
+      "Path": 10,
+      "Type": "Enum<BeamType_t>",
+      "NetworkType": "BeamType_t"
+    },
+    "m_nBeamFlags": {
+      "Path": 11,
+      "Type": "UInt32",
+      "NetworkType": "uint32"
+    },
+    "m_hAttachEntity": {
+      "Path": 12,
+      "Type": "UInt32",
+      "NetworkType": "CHandle< CBaseEntity >[10]"
+    },
+    "m_nAttachIndex": {
+      "Path": 13,
+      "Type": "Enum<AttachmentHandle_t>[10] ",
+      "NetworkType": "AttachmentHandle_t[10]"
+    },
+    "m_fWidth": {
+      "Path": 14,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_fEndWidth": {
+      "Path": 15,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_fFadeLength": {
+      "Path": 16,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_fHaloScale": {
+      "Path": 17,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_fAmplitude": {
+      "Path": 18,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_fStartFrame": {
+      "Path": 19,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_fSpeed": {
+      "Path": 20,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_nClipStyle": {
+      "Path": 21,
+      "Type": "Enum<BeamClipStyle_t>",
+      "NetworkType": "BeamClipStyle_t"
+    },
+    "m_bTurnedOff": {
+      "Path": 22,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_vecEndPos": {
+      "Path": 23,
+      "Type": "Vector3",
+      "NetworkType": "Vector"
+    }
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "ClassName": "CSun",
+  "Version": 0,
+  "Fields": {
+    "m_clrRender": {
+      "Path": 0,
+      "Type": "Color",
+      "NetworkType": "Color"
+    },
+    "m_vDirection": {
+      "Path": 1,
+      "Type": "Vector3",
+      "NetworkType": "Vector"
+    },
+    "m_clrOverlay": {
+      "Path": 2,
+      "Type": "Color",
+      "NetworkType": "Color"
+    },
+    "m_iszEffectName": {
+      "Path": 3,
+      "Type": "String",
+      "NetworkType": "CUtlSymbolLarge"
+    },
+    "m_iszSSEffectName": {
+      "Path": 4,
+      "Type": "String",
+      "NetworkType": "CUtlSymbolLarge"
+    },
+    "m_bOn": {
+      "Path": 5,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_bmaxColor": {
+      "Path": 6,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_flSize": {
+      "Path": 7,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_flRotation": {
+      "Path": 8,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_flHazeScale": {
+      "Path": 9,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_flAlphaHaze": {
+      "Path": 10,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_flAlphaHdr": {
+      "Path": 11,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_flAlphaScale": {
+      "Path": 12,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_flHDRColorScale": {
+      "Path": 13,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_flFarZScale": {
+      "Path": 14,
+      "Type": "float",
+      "NetworkType": "float32"
+    }
+  }
+}

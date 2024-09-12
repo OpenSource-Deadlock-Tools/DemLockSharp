@@ -1,0 +1,66 @@
+{
+  "ClassName": "CColorCorrection",
+  "Version": 0,
+  "Fields": {
+    "CBodyComponent": {
+      "Path": 0,
+      "Type": "CBodyComponentPoint",
+      "NetworkType": "CBodyComponent"
+    },
+    "m_flFadeInDuration": {
+      "Path": 1,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_flFadeOutDuration": {
+      "Path": 2,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_flMaxWeight": {
+      "Path": 3,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_bEnabled": {
+      "Path": 4,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_bMaster": {
+      "Path": 5,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_bClientSide": {
+      "Path": 6,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_bExclusive": {
+      "Path": 7,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_MinFalloff": {
+      "Path": 8,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_MaxFalloff": {
+      "Path": 9,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_flCurWeight": {
+      "Path": 10,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_netlookupFilename": {
+      "Path": 11,
+      "Type": "String",
+      "NetworkType": "char[512]"
+    }
+  }
+}

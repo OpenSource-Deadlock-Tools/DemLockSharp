@@ -1,0 +1,166 @@
+{
+  "ClassName": "CCitadel_Ability_Cadence_Lullaby",
+  "Version": 0,
+  "Fields": {
+    "m_hOwnerEntity": {
+      "Path": 0,
+      "Type": "UInt32",
+      "NetworkType": "CHandle< CBaseEntity >"
+    },
+    "m_nUpgradeBits": {
+      "Path": 1,
+      "Type": "Int32",
+      "NetworkType": "int32"
+    },
+    "m_flCooldownStart": {
+      "Path": 2,
+      "Type": "float",
+      "NetworkType": "GameTime_t"
+    },
+    "m_flCooldownEnd": {
+      "Path": 3,
+      "Type": "float",
+      "NetworkType": "GameTime_t"
+    },
+    "m_iRemainingCharges": {
+      "Path": 4,
+      "Type": "Int32",
+      "NetworkType": "int32"
+    },
+    "m_flChargeRechargeStart": {
+      "Path": 5,
+      "Type": "float",
+      "NetworkType": "GameTime_t"
+    },
+    "m_flChargeRechargeEnd": {
+      "Path": 6,
+      "Type": "float",
+      "NetworkType": "GameTime_t"
+    },
+    "CBodyComponent": {
+      "Path": 7,
+      "Type": "CBodyComponentPoint",
+      "NetworkType": "CBodyComponent"
+    },
+    "m_pEntity": {
+      "Path": 8,
+      "Type": "CEntityIdentity",
+      "NetworkType": "CEntityIdentity"
+    },
+    "m_bVisibleinPVS": {
+      "Path": 9,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_nPlatformType": {
+      "Path": 10,
+      "Type": "Enum<EntityPlatformTypes_t>",
+      "NetworkType": "EntityPlatformTypes_t"
+    },
+    "m_nSubclassID": {
+      "Path": 11,
+      "Type": "UInt32",
+      "NetworkType": "CUtlStringToken"
+    },
+    "m_flCreateTime": {
+      "Path": 12,
+      "Type": "float",
+      "NetworkType": "GameTime_t"
+    },
+    "m_iTeamNum": {
+      "Path": 13,
+      "Type": "Byte",
+      "NetworkType": "uint8"
+    },
+    "m_pModifierProp": {
+      "Path": 14,
+      "Type": "CModifierProperty",
+      "NetworkType": "CModifierProperty"
+    },
+    "m_hEffectEntity": {
+      "Path": 15,
+      "Type": "UInt32",
+      "NetworkType": "CHandle< CBaseEntity >"
+    },
+    "m_fEffects": {
+      "Path": 16,
+      "Type": "UInt32",
+      "NetworkType": "uint32"
+    },
+    "m_flTimeScale": {
+      "Path": 17,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_bAnimatedEveryTick": {
+      "Path": 18,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_bChanneling": {
+      "Path": 19,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_bInCastDelay": {
+      "Path": 20,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_vecImbuedByAbilitiyIDs": {
+      "Path": 21,
+      "Type": "List<UInt32>",
+      "NetworkType": "CNetworkUtlVectorBase< CUtlStringToken >"
+    },
+    "m_iBucketID": {
+      "Path": 22,
+      "Type": "Int32",
+      "NetworkType": "int32"
+    },
+    "m_bToggleState": {
+      "Path": 23,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_flToggledTime": {
+      "Path": 24,
+      "Type": "float",
+      "NetworkType": "GameTime_t"
+    },
+    "m_flChannelStartTime": {
+      "Path": 25,
+      "Type": "float",
+      "NetworkType": "GameTime_t"
+    },
+    "m_flCastDelayStartTime": {
+      "Path": 26,
+      "Type": "float",
+      "NetworkType": "GameTime_t"
+    },
+    "m_eAbilitySlot": {
+      "Path": 27,
+      "Type": "Enum<EAbilitySlots_t>",
+      "NetworkType": "EAbilitySlots_t"
+    },
+    "m_flMovementControlActiveTime": {
+      "Path": 28,
+      "Type": "float",
+      "NetworkType": "GameTime_t"
+    },
+    "m_nImbuedAbilityID": {
+      "Path": 29,
+      "Type": "UInt32",
+      "NetworkType": "CUtlStringToken"
+    },
+    "m_flSelectedChangedTime": {
+      "Path": 30,
+      "Type": "float",
+      "NetworkType": "GameTime_t"
+    },
+    "m_flAltCastHoldStartTime": {
+      "Path": 31,
+      "Type": "float",
+      "NetworkType": "GameTime_t"
+    }
+  }
+}

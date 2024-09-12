@@ -1,0 +1,266 @@
+{
+  "ClassName": "CEnvVolumetricFogController",
+  "Version": 0,
+  "Fields": {
+    "m_flAnimTime": {
+      "Path": 0,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_flSimulationTime": {
+      "Path": 1,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_hOwnerEntity": {
+      "Path": 2,
+      "Type": "UInt32",
+      "NetworkType": "CHandle< CBaseEntity >"
+    },
+    "CBodyComponent": {
+      "Path": 3,
+      "Type": "CBodyComponentPoint",
+      "NetworkType": "CBodyComponent"
+    },
+    "m_pEntity": {
+      "Path": 4,
+      "Type": "CEntityIdentity",
+      "NetworkType": "CEntityIdentity"
+    },
+    "m_bVisibleinPVS": {
+      "Path": 5,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_nPlatformType": {
+      "Path": 6,
+      "Type": "Enum<EntityPlatformTypes_t>",
+      "NetworkType": "EntityPlatformTypes_t"
+    },
+    "m_MoveCollide": {
+      "Path": 7,
+      "Type": "Enum<MoveCollide_t>",
+      "NetworkType": "MoveCollide_t"
+    },
+    "m_MoveType": {
+      "Path": 8,
+      "Type": "Enum<MoveType_t>",
+      "NetworkType": "MoveType_t"
+    },
+    "m_nSubclassID": {
+      "Path": 9,
+      "Type": "UInt32",
+      "NetworkType": "CUtlStringToken"
+    },
+    "m_flCreateTime": {
+      "Path": 10,
+      "Type": "float",
+      "NetworkType": "GameTime_t"
+    },
+    "m_ubInterpolationFrame": {
+      "Path": 11,
+      "Type": "Byte",
+      "NetworkType": "uint8"
+    },
+    "m_iTeamNum": {
+      "Path": 12,
+      "Type": "Byte",
+      "NetworkType": "uint8"
+    },
+    "m_pModifierProp": {
+      "Path": 13,
+      "Type": "CModifierProperty",
+      "NetworkType": "CModifierProperty"
+    },
+    "m_hEffectEntity": {
+      "Path": 14,
+      "Type": "UInt32",
+      "NetworkType": "CHandle< CBaseEntity >"
+    },
+    "m_fEffects": {
+      "Path": 15,
+      "Type": "UInt32",
+      "NetworkType": "uint32"
+    },
+    "m_flElasticity": {
+      "Path": 16,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_bAnimatedEveryTick": {
+      "Path": 17,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_flNavIgnoreUntilTime": {
+      "Path": 18,
+      "Type": "float",
+      "NetworkType": "GameTime_t"
+    },
+    "m_flScattering": {
+      "Path": 19,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_flAnisotropy": {
+      "Path": 20,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_flFadeSpeed": {
+      "Path": 21,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_flDrawDistance": {
+      "Path": 22,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_flFadeInStart": {
+      "Path": 23,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_flFadeInEnd": {
+      "Path": 24,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_flIndirectStrength": {
+      "Path": 25,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_nVolumeDepth": {
+      "Path": 26,
+      "Type": "Int32",
+      "NetworkType": "int32"
+    },
+    "m_fFirstVolumeSliceThickness": {
+      "Path": 27,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_nIndirectTextureDimX": {
+      "Path": 28,
+      "Type": "Int32",
+      "NetworkType": "int32"
+    },
+    "m_nIndirectTextureDimY": {
+      "Path": 29,
+      "Type": "Int32",
+      "NetworkType": "int32"
+    },
+    "m_nIndirectTextureDimZ": {
+      "Path": 30,
+      "Type": "Int32",
+      "NetworkType": "int32"
+    },
+    "m_vBoxMins": {
+      "Path": 31,
+      "Type": "Vector3",
+      "NetworkType": "Vector"
+    },
+    "m_vBoxMaxs": {
+      "Path": 32,
+      "Type": "Vector3",
+      "NetworkType": "Vector"
+    },
+    "m_bActive": {
+      "Path": 33,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_flStartAnisoTime": {
+      "Path": 34,
+      "Type": "float",
+      "NetworkType": "GameTime_t"
+    },
+    "m_flStartScatterTime": {
+      "Path": 35,
+      "Type": "float",
+      "NetworkType": "GameTime_t"
+    },
+    "m_flStartDrawDistanceTime": {
+      "Path": 36,
+      "Type": "float",
+      "NetworkType": "GameTime_t"
+    },
+    "m_flStartAnisotropy": {
+      "Path": 37,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_flStartScattering": {
+      "Path": 38,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_flStartDrawDistance": {
+      "Path": 39,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_flDefaultAnisotropy": {
+      "Path": 40,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_flDefaultScattering": {
+      "Path": 41,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_flDefaultDrawDistance": {
+      "Path": 42,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_bStartDisabled": {
+      "Path": 43,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_bEnableIndirect": {
+      "Path": 44,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_bIndirectUseLPVs": {
+      "Path": 45,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_bIsMaster": {
+      "Path": 46,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_hFogIndirectTexture": {
+      "Path": 47,
+      "Type": "List<Enum<InfoForResourceTypeCTextureBase>>",
+      "NetworkType": "CStrongHandle< InfoForResourceTypeCTextureBase >"
+    },
+    "m_nForceRefreshCount": {
+      "Path": 48,
+      "Type": "Int32",
+      "NetworkType": "int32"
+    },
+    "m_fNoiseSpeed": {
+      "Path": 49,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_fNoiseStrength": {
+      "Path": 50,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_vNoiseScale": {
+      "Path": 51,
+      "Type": "Vector3",
+      "NetworkType": "Vector"
+    }
+  }
+}

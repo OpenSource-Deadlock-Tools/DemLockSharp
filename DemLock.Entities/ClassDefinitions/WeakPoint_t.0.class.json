@@ -1,0 +1,36 @@
+{
+  "ClassName": "WeakPoint_t",
+  "Version": 0,
+  "Fields": {
+    "m_bRegistered": {
+      "Path": 0,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_hOuter": {
+      "Path": 1,
+      "Type": "UInt32",
+      "NetworkType": "CHandle< CBaseEntity >"
+    },
+    "m_nCritHitGroup": {
+      "Path": 2,
+      "Type": "Enum<HitGroup_t>",
+      "NetworkType": "HitGroup_t"
+    },
+    "m_nBodyGroup": {
+      "Path": 3,
+      "Type": "Int32",
+      "NetworkType": "int32"
+    },
+    "m_bPermanentlyBroken": {
+      "Path": 4,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_nBrokenBodygroupIndex": {
+      "Path": 5,
+      "Type": "Int32",
+      "NetworkType": "int32"
+    }
+  }
+}

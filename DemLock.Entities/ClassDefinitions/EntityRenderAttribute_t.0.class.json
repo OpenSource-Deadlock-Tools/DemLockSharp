@@ -1,0 +1,16 @@
+{
+  "ClassName": "EntityRenderAttribute_t",
+  "Version": 0,
+  "Fields": {
+    "m_ID": {
+      "Path": 0,
+      "Type": "UInt32",
+      "NetworkType": "CUtlStringToken"
+    },
+    "m_Values": {
+      "Path": 1,
+      "Type": "Vector4",
+      "NetworkType": "Vector4D"
+    }
+  }
+}

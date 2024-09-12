@@ -1,0 +1,16 @@
+{
+  "ClassName": "CEconItemAttribute",
+  "Version": 0,
+  "Fields": {
+    "m_iAttributeDefinitionIndex": {
+      "Path": 0,
+      "Type": "Enum<attrib_definition_index_t>",
+      "NetworkType": "attrib_definition_index_t"
+    },
+    "m_iRawValue32": {
+      "Path": 1,
+      "Type": "float",
+      "NetworkType": "float32"
+    }
+  }
+}

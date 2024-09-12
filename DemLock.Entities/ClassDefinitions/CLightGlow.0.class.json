@@ -1,0 +1,56 @@
+{
+  "ClassName": "CLightGlow",
+  "Version": 0,
+  "Fields": {
+    "CBodyComponent": {
+      "Path": 0,
+      "Type": "CBodyComponentBaseModelEntity",
+      "NetworkType": "CBodyComponent"
+    },
+    "m_spawnflags": {
+      "Path": 1,
+      "Type": "UInt32",
+      "NetworkType": "uint32"
+    },
+    "m_clrRender": {
+      "Path": 2,
+      "Type": "Color",
+      "NetworkType": "Color"
+    },
+    "m_nHorizontalSize": {
+      "Path": 3,
+      "Type": "UInt32",
+      "NetworkType": "uint32"
+    },
+    "m_nVerticalSize": {
+      "Path": 4,
+      "Type": "UInt32",
+      "NetworkType": "uint32"
+    },
+    "m_nMinDist": {
+      "Path": 5,
+      "Type": "UInt32",
+      "NetworkType": "uint32"
+    },
+    "m_nMaxDist": {
+      "Path": 6,
+      "Type": "UInt32",
+      "NetworkType": "uint32"
+    },
+    "m_nOuterMaxDist": {
+      "Path": 7,
+      "Type": "UInt32",
+      "NetworkType": "uint32"
+    },
+    "m_flGlowProxySize": {
+      "Path": 8,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_flHDRColorScale": {
+      "Path": 9,
+      "Type": "float",
+      "NetworkType": "float32"
+    }
+  }
+}

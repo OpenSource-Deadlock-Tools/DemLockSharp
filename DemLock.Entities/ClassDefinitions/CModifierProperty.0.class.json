@@ -1,0 +1,31 @@
+{
+  "ClassName": "CModifierProperty",
+  "Version": 0,
+  "Fields": {
+    "m_vecProviders": {
+      "Path": 0,
+      "Type": "List<UInt32>",
+      "NetworkType": "CNetworkUtlVectorBase< CHandle< CBaseEntity > >"
+    },
+    "m_nDisabledGroups": {
+      "Path": 1,
+      "Type": "UInt32",
+      "NetworkType": "uint32"
+    },
+    "m_bvEnabledStateMask": {
+      "Path": 2,
+      "Type": "UInt32[5] ",
+      "NetworkType": "uint32[5]"
+    },
+    "m_bvDisabledStateMask": {
+      "Path": 3,
+      "Type": "UInt32[5] ",
+      "NetworkType": "uint32[5]"
+    },
+    "m_bvEnabledPredictedStateMask": {
+      "Path": 4,
+      "Type": "UInt32[5] ",
+      "NetworkType": "uint32[5]"
+    }
+  }
+}

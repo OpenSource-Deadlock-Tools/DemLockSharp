@@ -1,0 +1,45 @@
+{
+  "ClassName": "CBodyComponentPoint",
+  "Version": 2,
+  "Fields": {
+    "m_sceneNode": {
+      "m_vecOrigin": {
+        "m_cellX": {
+          "Path": 0,
+          "Type": "UInt16",
+          "NetworkType": "uint16"
+        },
+        "m_cellY": {
+          "Path": 1,
+          "Type": "UInt16",
+          "NetworkType": "uint16"
+        },
+        "m_cellZ": {
+          "Path": 2,
+          "Type": "UInt16",
+          "NetworkType": "uint16"
+        },
+        "m_vecX": {
+          "Path": 3,
+          "Type": "float",
+          "NetworkType": "CNetworkedQuantizedFloat"
+        },
+        "m_vecY": {
+          "Path": 4,
+          "Type": "float",
+          "NetworkType": "CNetworkedQuantizedFloat"
+        },
+        "m_vecZ": {
+          "Path": 5,
+          "Type": "float",
+          "NetworkType": "CNetworkedQuantizedFloat"
+        },
+        "m_nOutsideWorld": {
+          "Path": 6,
+          "Type": "UInt16",
+          "NetworkType": "uint16"
+        }
+      }
+    }
+  }
+}

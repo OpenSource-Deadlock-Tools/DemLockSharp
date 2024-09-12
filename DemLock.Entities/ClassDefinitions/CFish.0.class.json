@@ -1,0 +1,41 @@
+{
+  "ClassName": "CFish",
+  "Version": 0,
+  "Fields": {
+    "m_lifeState": {
+      "Path": 0,
+      "Type": "Byte",
+      "NetworkType": "uint8"
+    },
+    "m_x": {
+      "Path": 1,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_y": {
+      "Path": 2,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_z": {
+      "Path": 3,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_angle": {
+      "Path": 4,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_poolOrigin": {
+      "Path": 5,
+      "Type": "Vector3",
+      "NetworkType": "Vector"
+    },
+    "m_waterLevel": {
+      "Path": 6,
+      "Type": "float",
+      "NetworkType": "float32"
+    }
+  }
+}

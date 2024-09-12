@@ -1,0 +1,31 @@
+{
+  "ClassName": "CTeam",
+  "Version": 0,
+  "Fields": {
+    "m_iTeamNum": {
+      "Path": 0,
+      "Type": "Byte",
+      "NetworkType": "uint8"
+    },
+    "m_aPlayers": {
+      "Path": 1,
+      "Type": "List<UInt32>",
+      "NetworkType": "CNetworkUtlVectorBase< CHandle< CBasePlayerController > >"
+    },
+    "m_aPawns": {
+      "Path": 2,
+      "Type": "List<UInt32>",
+      "NetworkType": "CNetworkUtlVectorBase< CHandle< CBasePlayerPawn > >"
+    },
+    "m_iScore": {
+      "Path": 3,
+      "Type": "Int32",
+      "NetworkType": "int32"
+    },
+    "m_szTeamname": {
+      "Path": 4,
+      "Type": "String",
+      "NetworkType": "char[129]"
+    }
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "ClassName": "CEnvWind",
+  "Version": 0,
+  "Fields": {
+    "m_EnvWindShared": {
+      "m_flStartTime": {
+        "Path": 0,
+        "Type": "float",
+        "NetworkType": "GameTime_t"
+      },
+      "m_iWindSeed": {
+        "Path": 1,
+        "Type": "UInt32",
+        "NetworkType": "uint32"
+      },
+      "m_iMinWind": {
+        "Path": 2,
+        "Type": "UInt16",
+        "NetworkType": "uint16"
+      },
+      "m_iMaxWind": {
+        "Path": 3,
+        "Type": "UInt16",
+        "NetworkType": "uint16"
+      },
+      "m_windRadius": {
+        "Path": 4,
+        "Type": "Int32",
+        "NetworkType": "int32"
+      },
+      "m_iMinGust": {
+        "Path": 5,
+        "Type": "UInt16",
+        "NetworkType": "uint16"
+      },
+      "m_iMaxGust": {
+        "Path": 6,
+        "Type": "UInt16",
+        "NetworkType": "uint16"
+      },
+      "m_flMinGustDelay": {
+        "Path": 7,
+        "Type": "float",
+        "NetworkType": "float32"
+      },
+      "m_flMaxGustDelay": {
+        "Path": 8,
+        "Type": "float",
+        "NetworkType": "float32"
+      },
+      "m_flGustDuration": {
+        "Path": 9,
+        "Type": "float",
+        "NetworkType": "float32"
+      },
+      "m_iGustDirChange": {
+        "Path": 10,
+        "Type": "UInt16",
+        "NetworkType": "uint16"
+      },
+      "m_location": {
+        "Path": 11,
+        "Type": "Vector3",
+        "NetworkType": "Vector"
+      },
+      "m_iInitialWindDir": {
+        "Path": 12,
+        "Type": "UInt16",
+        "NetworkType": "uint16"
+      },
+      "m_flInitialWindSpeed": {
+        "Path": 13,
+        "Type": "float",
+        "NetworkType": "float32"
+      }
+    }
+  }
+}

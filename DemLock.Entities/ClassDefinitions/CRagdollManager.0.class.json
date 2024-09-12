@@ -1,0 +1,11 @@
+{
+  "ClassName": "CRagdollManager",
+  "Version": 0,
+  "Fields": {
+    "m_iCurrentMaxRagdollCount": {
+      "Path": 0,
+      "Type": "SByte",
+      "NetworkType": "int8"
+    }
+  }
+}

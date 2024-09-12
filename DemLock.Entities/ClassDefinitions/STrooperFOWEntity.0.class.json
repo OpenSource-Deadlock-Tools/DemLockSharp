@@ -1,0 +1,21 @@
+{
+  "ClassName": "STrooperFOWEntity",
+  "Version": 0,
+  "Fields": {
+    "m_nPositionXY": {
+      "Path": 0,
+      "Type": "UInt16",
+      "NetworkType": "uint16"
+    },
+    "m_nEntIndex": {
+      "Path": 1,
+      "Type": "Enum<CEntityIndex>",
+      "NetworkType": "CEntityIndex"
+    },
+    "m_nTeam": {
+      "Path": 2,
+      "Type": "SByte",
+      "NetworkType": "int8"
+    }
+  }
+}

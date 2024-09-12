@@ -1,0 +1,181 @@
+{
+  "ClassName": "CCitadelGameRules",
+  "Version": 0,
+  "Fields": {
+    "m_hCurrentHeroDrafterRebels": {
+      "Path": 0,
+      "Type": "UInt32",
+      "NetworkType": "CHandle< CBaseEntity >"
+    },
+    "m_hCurrentHeroDrafterCombine": {
+      "Path": 1,
+      "Type": "UInt32",
+      "NetworkType": "CHandle< CBaseEntity >"
+    },
+    "m_nTotalPausedTicks": {
+      "Path": 2,
+      "Type": "Int32",
+      "NetworkType": "int32"
+    },
+    "m_nPauseStartTick": {
+      "Path": 3,
+      "Type": "Int32",
+      "NetworkType": "int32"
+    },
+    "m_bGamePaused": {
+      "Path": 4,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_bFreezePeriod": {
+      "Path": 5,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_fLevelStartTime": {
+      "Path": 6,
+      "Type": "float",
+      "NetworkType": "GameTime_t"
+    },
+    "m_flGameStartTime": {
+      "Path": 7,
+      "Type": "float",
+      "NetworkType": "GameTime_t"
+    },
+    "m_flRoundStartTime": {
+      "Path": 8,
+      "Type": "float",
+      "NetworkType": "GameTime_t"
+    },
+    "m_eGameState": {
+      "Path": 9,
+      "Type": "Enum<EGameState>",
+      "NetworkType": "EGameState"
+    },
+    "m_hTowerAmber": {
+      "Path": 10,
+      "Type": "UInt32",
+      "NetworkType": "CHandle< CBaseEntity >"
+    },
+    "m_hTowerSapphire": {
+      "Path": 11,
+      "Type": "UInt32",
+      "NetworkType": "CHandle< CBaseEntity >"
+    },
+    "m_bEnemyInAmberBase": {
+      "Path": 12,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_bEnemyInSapphireBase": {
+      "Path": 13,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_flCombineZiplineSpeedMultiplier": {
+      "Path": 14,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_flRebelZiplineSpeedMultiplier": {
+      "Path": 15,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_vMinimapMins": {
+      "Path": 16,
+      "Type": "Vector3",
+      "NetworkType": "Vector"
+    },
+    "m_vMinimapMaxs": {
+      "Path": 17,
+      "Type": "Vector3",
+      "NetworkType": "Vector"
+    },
+    "m_bMatchSafeToAbandon": {
+      "Path": 18,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_bNoDeathEnabled": {
+      "Path": 19,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_bFastCooldownsEnabled": {
+      "Path": 20,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_bStaminaCooldownsEnabled": {
+      "Path": 21,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_bInfiniteResourcesEnabled": {
+      "Path": 22,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_bFlexSlotsForcedUnlocked": {
+      "Path": 23,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_eMatchMode": {
+      "Path": 24,
+      "Type": "Enum<ECitadelMatchMode>",
+      "NetworkType": "ECitadelMatchMode"
+    },
+    "m_eGameMode": {
+      "Path": 25,
+      "Type": "Enum<ECitadelGameMode>",
+      "NetworkType": "ECitadelGameMode"
+    },
+    "m_hTrooperMinimap": {
+      "Path": 26,
+      "Type": "UInt32",
+      "NetworkType": "CHandle< CCitadelTrooperMinimap >"
+    },
+    "m_bServerPaused": {
+      "Path": 27,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_iPauseTeam": {
+      "Path": 28,
+      "Type": "Int32",
+      "NetworkType": "int32"
+    },
+    "m_bRequiresReportCardDismissal": {
+      "Path": 29,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_eGGTeam": {
+      "Path": 30,
+      "Type": "Int32",
+      "NetworkType": "int32"
+    },
+    "m_flGGEndsAtTime": {
+      "Path": 31,
+      "Type": "float",
+      "NetworkType": "GameTime_t"
+    },
+    "m_unMatchID": {
+      "Path": 32,
+      "Type": "Enum<MatchID_t>",
+      "NetworkType": "MatchID_t"
+    },
+    "m_nExperimentalGameplayState": {
+      "Path": 33,
+      "Type": "Int32",
+      "NetworkType": "int32"
+    },
+    "m_flHeroDiedTime": {
+      "Path": 34,
+      "Type": "float",
+      "NetworkType": "GameTime_t"
+    }
+  }
+}

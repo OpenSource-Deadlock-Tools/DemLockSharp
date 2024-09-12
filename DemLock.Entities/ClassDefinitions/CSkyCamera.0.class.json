@@ -1,0 +1,255 @@
+{
+  "ClassName": "CSkyCamera",
+  "Version": 0,
+  "Fields": {
+    "m_flAnimTime": {
+      "Path": 0,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_flSimulationTime": {
+      "Path": 1,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_hOwnerEntity": {
+      "Path": 2,
+      "Type": "UInt32",
+      "NetworkType": "CHandle< CBaseEntity >"
+    },
+    "CBodyComponent": {
+      "Path": 3,
+      "Type": "CBodyComponentPoint",
+      "NetworkType": "CBodyComponent"
+    },
+    "m_pEntity": {
+      "Path": 4,
+      "Type": "CEntityIdentity",
+      "NetworkType": "CEntityIdentity"
+    },
+    "m_bVisibleinPVS": {
+      "Path": 5,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_nPlatformType": {
+      "Path": 6,
+      "Type": "Enum<EntityPlatformTypes_t>",
+      "NetworkType": "EntityPlatformTypes_t"
+    },
+    "m_MoveCollide": {
+      "Path": 7,
+      "Type": "Enum<MoveCollide_t>",
+      "NetworkType": "MoveCollide_t"
+    },
+    "m_MoveType": {
+      "Path": 8,
+      "Type": "Enum<MoveType_t>",
+      "NetworkType": "MoveType_t"
+    },
+    "m_nSubclassID": {
+      "Path": 9,
+      "Type": "UInt32",
+      "NetworkType": "CUtlStringToken"
+    },
+    "m_flCreateTime": {
+      "Path": 10,
+      "Type": "float",
+      "NetworkType": "GameTime_t"
+    },
+    "m_ubInterpolationFrame": {
+      "Path": 11,
+      "Type": "Byte",
+      "NetworkType": "uint8"
+    },
+    "m_iTeamNum": {
+      "Path": 12,
+      "Type": "Byte",
+      "NetworkType": "uint8"
+    },
+    "m_pModifierProp": {
+      "Path": 13,
+      "Type": "CModifierProperty",
+      "NetworkType": "CModifierProperty"
+    },
+    "m_hEffectEntity": {
+      "Path": 14,
+      "Type": "UInt32",
+      "NetworkType": "CHandle< CBaseEntity >"
+    },
+    "m_fEffects": {
+      "Path": 15,
+      "Type": "UInt32",
+      "NetworkType": "uint32"
+    },
+    "m_flElasticity": {
+      "Path": 16,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_bAnimatedEveryTick": {
+      "Path": 17,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_flNavIgnoreUntilTime": {
+      "Path": 18,
+      "Type": "float",
+      "NetworkType": "GameTime_t"
+    },
+    "m_skyboxData": {
+      "scale": {
+        "Path": 19,
+        "Type": "Int16",
+        "NetworkType": "int16"
+      },
+      "origin": {
+        "Path": 20,
+        "Type": "Vector3",
+        "NetworkType": "Vector"
+      },
+      "bClip3DSkyBoxNearToWorldFar": {
+        "Path": 21,
+        "Type": "bool",
+        "NetworkType": "bool"
+      },
+      "flClip3DSkyBoxNearToWorldFarOffset": {
+        "Path": 22,
+        "Type": "float",
+        "NetworkType": "float32"
+      },
+      "fog": {
+        "dirPrimary": {
+          "Path": 23,
+          "Type": "Vector3",
+          "NetworkType": "Vector"
+        },
+        "colorPrimary": {
+          "Path": 24,
+          "Type": "Color",
+          "NetworkType": "Color"
+        },
+        "colorSecondary": {
+          "Path": 25,
+          "Type": "Color",
+          "NetworkType": "Color"
+        },
+        "start": {
+          "Path": 26,
+          "Type": "float",
+          "NetworkType": "float32"
+        },
+        "end": {
+          "Path": 27,
+          "Type": "float",
+          "NetworkType": "float32"
+        },
+        "maxdensity": {
+          "Path": 28,
+          "Type": "float",
+          "NetworkType": "float32"
+        },
+        "exponent": {
+          "Path": 29,
+          "Type": "float",
+          "NetworkType": "float32"
+        },
+        "HDRColorScale": {
+          "Path": 30,
+          "Type": "float",
+          "NetworkType": "float32"
+        },
+        "enable": {
+          "Path": 31,
+          "Type": "bool",
+          "NetworkType": "bool"
+        },
+        "blend": {
+          "Path": 32,
+          "Type": "bool",
+          "NetworkType": "bool"
+        },
+        "m_bNoReflectionFog": {
+          "Path": 33,
+          "Type": "bool",
+          "NetworkType": "bool"
+        },
+        "colorPrimaryLerpTo": {
+          "Path": 36,
+          "Type": "Color",
+          "NetworkType": "Color"
+        },
+        "colorSecondaryLerpTo": {
+          "Path": 37,
+          "Type": "Color",
+          "NetworkType": "Color"
+        },
+        "farz": {
+          "Path": 38,
+          "Type": "float",
+          "NetworkType": "float32"
+        },
+        "skyboxFogFactor": {
+          "Path": 39,
+          "Type": "float",
+          "NetworkType": "float32"
+        },
+        "skyboxFogFactorLerpTo": {
+          "Path": 40,
+          "Type": "float",
+          "NetworkType": "float32"
+        },
+        "startLerpTo": {
+          "Path": 41,
+          "Type": "float",
+          "NetworkType": "float32"
+        },
+        "endLerpTo": {
+          "Path": 42,
+          "Type": "float",
+          "NetworkType": "float32"
+        },
+        "maxdensityLerpTo": {
+          "Path": 43,
+          "Type": "float",
+          "NetworkType": "float32"
+        },
+        "lerptime": {
+          "Path": 44,
+          "Type": "float",
+          "NetworkType": "GameTime_t"
+        },
+        "duration": {
+          "Path": 45,
+          "Type": "float",
+          "NetworkType": "float32"
+        },
+        "blendtobackground": {
+          "Path": 46,
+          "Type": "float",
+          "NetworkType": "float32"
+        },
+        "scattering": {
+          "Path": 47,
+          "Type": "float",
+          "NetworkType": "float32"
+        },
+        "locallightscale": {
+          "Path": 48,
+          "Type": "float",
+          "NetworkType": "float32"
+        }
+      },
+      "m_nWorldGroupID": {
+        "Path": 34,
+        "Type": "Enum<WorldGroupId_t>",
+        "NetworkType": "WorldGroupId_t"
+      }
+    },
+    "m_skyboxSlotToken": {
+      "Path": 35,
+      "Type": "UInt32",
+      "NetworkType": "CUtlStringToken"
+    }
+  }
+}

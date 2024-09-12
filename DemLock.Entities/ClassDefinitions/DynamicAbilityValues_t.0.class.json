@@ -1,0 +1,26 @@
+{
+  "ClassName": "DynamicAbilityValues_t",
+  "Version": 0,
+  "Fields": {
+    "m_SourceAbilityID": {
+      "Path": 0,
+      "Type": "UInt32",
+      "NetworkType": "CUtlStringToken"
+    },
+    "m_TargetAbilityID": {
+      "Path": 1,
+      "Type": "UInt32",
+      "NetworkType": "CUtlStringToken"
+    },
+    "m_eValType": {
+      "Path": 2,
+      "Type": "Enum<EModifierValue>",
+      "NetworkType": "EModifierValue"
+    },
+    "m_flValue": {
+      "Path": 3,
+      "Type": "float",
+      "NetworkType": "float32"
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "ClassName": "CCitadelPlayer_ObserverServices",
+  "Version": 0,
+  "Fields": {
+    "m_angTargetCamera": {
+      "Path": 0,
+      "Type": "QAngle",
+      "NetworkType": "QAngle"
+    },
+    "m_vTargetCameraPos": {
+      "Path": 1,
+      "Type": "Vector3",
+      "NetworkType": "Vector"
+    },
+    "m_iObserverMode": {
+      "Path": 2,
+      "Type": "Byte",
+      "NetworkType": "uint8"
+    },
+    "m_hObserverTarget": {
+      "Path": 3,
+      "Type": "UInt32",
+      "NetworkType": "CHandle< CBaseEntity >"
+    },
+    "m_hOverrideObserverTarget": {
+      "Path": 4,
+      "Type": "UInt32",
+      "NetworkType": "CHandle< CBaseEntity >"
+    },
+    "m_iOverrideObserverMode": {
+      "Path": 5,
+      "Type": "Enum<ObserverMode_t>",
+      "NetworkType": "ObserverMode_t"
+    },
+    "m_iSecondsAfterDeathToAllowObserving": {
+      "Path": 6,
+      "Type": "Int32",
+      "NetworkType": "int32"
+    }
+  }
+}

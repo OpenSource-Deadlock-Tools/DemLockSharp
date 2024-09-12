@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,12 @@ namespace DemLock.ClassMappingGenerator;
 [Generator]
 public class IncrementalClassGenerator : IIncrementalGenerator
 {
+    private static readonly DiagnosticDescriptor UnkownGeneratorError = new DiagnosticDescriptor(id: "DEMLOCK_001",
+                                                                                                  title: "Failed to generate due to an unhandled exception",
+                                                                                                  messageFormat: "exception '{0}'.",
+                                                                                                  category: "DemlockClassMappingGenerator",
+                                                                                                  DiagnosticSeverity.Error,
+                                                                                                  isEnabledByDefault: true);
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
         IncrementalValuesProvider<AdditionalText> textFiles =
@@ -22,7 +29,15 @@ public class IncrementalClassGenerator : IIncrementalGenerator
         context.RegisterSourceOutput(namesAndContent, (spc, content) =>
         {
             var def = GenerateClass(content);
-            spc.AddSource($"{def.Item1}.g.cs", def.Item2);
+            try
+            {
+                spc.AddSource($"{def.Item1}.g.cs", def.Item2);
+            }
+            catch (Exception ex)
+            {
+                spc.ReportDiagnostic(Diagnostic.Create(UnkownGeneratorError, Location.None, ex.ToString()));
+            }
+
         });
 
         // Add the marker attribute to the compilation.
@@ -55,6 +70,12 @@ public class IncrementalClassGenerator : IIncrementalGenerator
                 scb.AppendLine($"\t\tcase {v.Value.Path}:");
                 scb.AppendLine($"\t\t\t{v.Key} = ({v.Value.Type})value;");
                 scb.AppendLine($"\t\t\tbreak;");
+                continue;
+            }
+
+            if (v.Value.Children == null && v.Value.Type.StartsWith("List"))
+            {
+                
             }
         }
 

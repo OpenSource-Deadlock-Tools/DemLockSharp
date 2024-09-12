@@ -1,0 +1,128 @@
+{
+  "ClassName": "CFogController",
+  "Version": 0,
+  "Fields": {
+    "m_fog": {
+      "dirPrimary": {
+        "Path": 0,
+        "Type": "Vector3",
+        "NetworkType": "Vector"
+      },
+      "colorPrimary": {
+        "Path": 1,
+        "Type": "Color",
+        "NetworkType": "Color"
+      },
+      "colorSecondary": {
+        "Path": 2,
+        "Type": "Color",
+        "NetworkType": "Color"
+      },
+      "start": {
+        "Path": 3,
+        "Type": "float",
+        "NetworkType": "float32"
+      },
+      "end": {
+        "Path": 4,
+        "Type": "float",
+        "NetworkType": "float32"
+      },
+      "maxdensity": {
+        "Path": 5,
+        "Type": "float",
+        "NetworkType": "float32"
+      },
+      "exponent": {
+        "Path": 6,
+        "Type": "float",
+        "NetworkType": "float32"
+      },
+      "HDRColorScale": {
+        "Path": 7,
+        "Type": "float",
+        "NetworkType": "float32"
+      },
+      "enable": {
+        "Path": 8,
+        "Type": "bool",
+        "NetworkType": "bool"
+      },
+      "blend": {
+        "Path": 9,
+        "Type": "bool",
+        "NetworkType": "bool"
+      },
+      "m_bNoReflectionFog": {
+        "Path": 10,
+        "Type": "bool",
+        "NetworkType": "bool"
+      },
+      "colorPrimaryLerpTo": {
+        "Path": 11,
+        "Type": "Color",
+        "NetworkType": "Color"
+      },
+      "colorSecondaryLerpTo": {
+        "Path": 12,
+        "Type": "Color",
+        "NetworkType": "Color"
+      },
+      "farz": {
+        "Path": 13,
+        "Type": "float",
+        "NetworkType": "float32"
+      },
+      "skyboxFogFactor": {
+        "Path": 14,
+        "Type": "float",
+        "NetworkType": "float32"
+      },
+      "skyboxFogFactorLerpTo": {
+        "Path": 15,
+        "Type": "float",
+        "NetworkType": "float32"
+      },
+      "startLerpTo": {
+        "Path": 16,
+        "Type": "float",
+        "NetworkType": "float32"
+      },
+      "endLerpTo": {
+        "Path": 17,
+        "Type": "float",
+        "NetworkType": "float32"
+      },
+      "maxdensityLerpTo": {
+        "Path": 18,
+        "Type": "float",
+        "NetworkType": "float32"
+      },
+      "lerptime": {
+        "Path": 19,
+        "Type": "float",
+        "NetworkType": "GameTime_t"
+      },
+      "duration": {
+        "Path": 20,
+        "Type": "float",
+        "NetworkType": "float32"
+      },
+      "blendtobackground": {
+        "Path": 21,
+        "Type": "float",
+        "NetworkType": "float32"
+      },
+      "scattering": {
+        "Path": 22,
+        "Type": "float",
+        "NetworkType": "float32"
+      },
+      "locallightscale": {
+        "Path": 23,
+        "Type": "float",
+        "NetworkType": "float32"
+      }
+    }
+  }
+}

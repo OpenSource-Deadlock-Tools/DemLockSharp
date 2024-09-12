@@ -1,0 +1,103 @@
+{
+  "ClassName": "CBasePlayerController",
+  "Version": 0,
+  "Fields": {
+    "m_flSimulationTime": {
+      "Path": 0,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_nTickBase": {
+      "Path": 1,
+      "Type": "UInt32",
+      "NetworkType": "uint32"
+    },
+    "m_fFlags": {
+      "Path": 2,
+      "Type": "UInt32",
+      "NetworkType": "uint32"
+    },
+    "m_pEntity": {
+      "Path": 3,
+      "Type": "CEntityIdentity",
+      "NetworkType": "CEntityIdentity"
+    },
+    "m_flCreateTime": {
+      "Path": 4,
+      "Type": "float",
+      "NetworkType": "GameTime_t"
+    },
+    "m_iTeamNum": {
+      "Path": 5,
+      "Type": "Byte",
+      "NetworkType": "uint8"
+    },
+    "m_hPawn": {
+      "Path": 6,
+      "Type": "UInt32",
+      "NetworkType": "CHandle< CBasePlayerPawn >"
+    },
+    "m_bKnownTeamMismatch": {
+      "Path": 7,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_iConnected": {
+      "Path": 8,
+      "Type": "Enum<PlayerConnectedState>",
+      "NetworkType": "PlayerConnectedState"
+    },
+    "m_iszPlayerName": {
+      "Path": 9,
+      "Type": "String",
+      "NetworkType": "char[128]"
+    },
+    "m_steamID": {
+      "Path": 10,
+      "Type": "UInt64",
+      "NetworkType": "uint64"
+    },
+    "m_iDesiredFOV": {
+      "Path": 11,
+      "Type": "UInt32",
+      "NetworkType": "uint32"
+    },
+    "m_nNextThinkTick": {
+      "Path": 12,
+      "Type": "Enum<GameTick_t>",
+      "NetworkType": "GameTick_t"
+    },
+    "m_vecVelocity": {
+      "m_vecX": {
+        "Path": 13,
+        "Type": "float",
+        "NetworkType": "CNetworkedQuantizedFloat"
+      },
+      "m_vecY": {
+        "Path": 14,
+        "Type": "float",
+        "NetworkType": "CNetworkedQuantizedFloat"
+      },
+      "m_vecZ": {
+        "Path": 15,
+        "Type": "float",
+        "NetworkType": "CNetworkedQuantizedFloat"
+      }
+    },
+    "m_flFriction": {
+      "Path": 16,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_flGravityScale": {
+      "Path": 17,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_flTimeScale": {
+      "Path": 18,
+      "Type": "float",
+      "NetworkType": "float32"
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "ClassName": "CCitadelTrooperMinimap",
+  "Version": 0,
+  "Fields": {
+    "m_timeLastUpdate": {
+      "Path": 0,
+      "Type": "float",
+      "NetworkType": "GameTime_t"
+    },
+    "m_vecFOWEntities": {
+      "Path": 1,
+      "Type": "List<STrooperFOWEntity>",
+      "NetworkType": "CUtlVectorEmbeddedNetworkVar< STrooperFOWEntity >"
+    }
+  }
+}

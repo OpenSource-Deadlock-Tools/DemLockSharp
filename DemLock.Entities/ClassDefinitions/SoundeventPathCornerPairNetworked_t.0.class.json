@@ -1,0 +1,31 @@
+{
+  "ClassName": "SoundeventPathCornerPairNetworked_t",
+  "Version": 0,
+  "Fields": {
+    "vP1": {
+      "Path": 0,
+      "Type": "Vector3",
+      "NetworkType": "Vector"
+    },
+    "vP2": {
+      "Path": 1,
+      "Type": "Vector3",
+      "NetworkType": "Vector"
+    },
+    "flPathLengthSqr": {
+      "Path": 2,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "flP1Pct": {
+      "Path": 3,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "flP2Pct": {
+      "Path": 4,
+      "Type": "float",
+      "NetworkType": "float32"
+    }
+  }
+}

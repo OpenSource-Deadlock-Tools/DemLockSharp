@@ -1,0 +1,16 @@
+{
+  "ClassName": "CEnvDetailController",
+  "Version": 0,
+  "Fields": {
+    "m_flFadeStartDist": {
+      "Path": 0,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_flFadeEndDist": {
+      "Path": 1,
+      "Type": "float",
+      "NetworkType": "float32"
+    }
+  }
+}

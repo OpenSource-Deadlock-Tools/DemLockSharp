@@ -1,0 +1,306 @@
+{
+  "ClassName": "CCitadel_Ability_PrimaryWeapon_Bebop",
+  "Version": 0,
+  "Fields": {
+    "m_hOwnerEntity": {
+      "Path": 0,
+      "Type": "UInt32",
+      "NetworkType": "CHandle< CBaseEntity >"
+    },
+    "m_nUpgradeBits": {
+      "Path": 1,
+      "Type": "Int32",
+      "NetworkType": "int32"
+    },
+    "m_flCooldownStart": {
+      "Path": 2,
+      "Type": "float",
+      "NetworkType": "GameTime_t"
+    },
+    "m_flCooldownEnd": {
+      "Path": 3,
+      "Type": "float",
+      "NetworkType": "GameTime_t"
+    },
+    "m_iRemainingCharges": {
+      "Path": 4,
+      "Type": "Int32",
+      "NetworkType": "int32"
+    },
+    "m_flChargeRechargeStart": {
+      "Path": 5,
+      "Type": "float",
+      "NetworkType": "GameTime_t"
+    },
+    "m_flChargeRechargeEnd": {
+      "Path": 6,
+      "Type": "float",
+      "NetworkType": "GameTime_t"
+    },
+    "m_iClip": {
+      "Path": 7,
+      "Type": "Int32",
+      "NetworkType": "int32"
+    },
+    "m_iBonusClip": {
+      "Path": 8,
+      "Type": "Int32",
+      "NetworkType": "int32"
+    },
+    "CBodyComponent": {
+      "Path": 9,
+      "Type": "CBodyComponentPoint",
+      "NetworkType": "CBodyComponent"
+    },
+    "m_pEntity": {
+      "Path": 10,
+      "Type": "CEntityIdentity",
+      "NetworkType": "CEntityIdentity"
+    },
+    "m_bVisibleinPVS": {
+      "Path": 11,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_nPlatformType": {
+      "Path": 12,
+      "Type": "Enum<EntityPlatformTypes_t>",
+      "NetworkType": "EntityPlatformTypes_t"
+    },
+    "m_nSubclassID": {
+      "Path": 13,
+      "Type": "UInt32",
+      "NetworkType": "CUtlStringToken"
+    },
+    "m_flCreateTime": {
+      "Path": 14,
+      "Type": "float",
+      "NetworkType": "GameTime_t"
+    },
+    "m_iTeamNum": {
+      "Path": 15,
+      "Type": "Byte",
+      "NetworkType": "uint8"
+    },
+    "m_pModifierProp": {
+      "Path": 16,
+      "Type": "CModifierProperty",
+      "NetworkType": "CModifierProperty"
+    },
+    "m_hEffectEntity": {
+      "Path": 17,
+      "Type": "UInt32",
+      "NetworkType": "CHandle< CBaseEntity >"
+    },
+    "m_fEffects": {
+      "Path": 18,
+      "Type": "UInt32",
+      "NetworkType": "uint32"
+    },
+    "m_flTimeScale": {
+      "Path": 19,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_bAnimatedEveryTick": {
+      "Path": 20,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_bChanneling": {
+      "Path": 21,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_bInCastDelay": {
+      "Path": 22,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_vecImbuedByAbilitiyIDs": {
+      "Path": 23,
+      "Type": "List<UInt32>",
+      "NetworkType": "CNetworkUtlVectorBase< CUtlStringToken >"
+    },
+    "m_iBucketID": {
+      "Path": 24,
+      "Type": "Int32",
+      "NetworkType": "int32"
+    },
+    "m_bToggleState": {
+      "Path": 25,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_flToggledTime": {
+      "Path": 26,
+      "Type": "float",
+      "NetworkType": "GameTime_t"
+    },
+    "m_flChannelStartTime": {
+      "Path": 27,
+      "Type": "float",
+      "NetworkType": "GameTime_t"
+    },
+    "m_flCastDelayStartTime": {
+      "Path": 28,
+      "Type": "float",
+      "NetworkType": "GameTime_t"
+    },
+    "m_eAbilitySlot": {
+      "Path": 29,
+      "Type": "Enum<EAbilitySlots_t>",
+      "NetworkType": "EAbilitySlots_t"
+    },
+    "m_flMovementControlActiveTime": {
+      "Path": 30,
+      "Type": "float",
+      "NetworkType": "GameTime_t"
+    },
+    "m_nImbuedAbilityID": {
+      "Path": 31,
+      "Type": "UInt32",
+      "NetworkType": "CUtlStringToken"
+    },
+    "m_flStartWindUpTime": {
+      "Path": 32,
+      "Type": "float",
+      "NetworkType": "GameTime_t"
+    },
+    "m_flStartFiringTime": {
+      "Path": 33,
+      "Type": "float",
+      "NetworkType": "GameTime_t"
+    },
+    "m_bFiring": {
+      "Path": 34,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_flNextPrimaryAttack": {
+      "Path": 35,
+      "Type": "float",
+      "NetworkType": "GameTime_t"
+    },
+    "m_flSpreadPenalty": {
+      "Path": 36,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_flZoomTime": {
+      "Path": 37,
+      "Type": "float",
+      "NetworkType": "GameTime_t"
+    },
+    "m_flZoomOutTime": {
+      "Path": 38,
+      "Type": "float",
+      "NetworkType": "GameTime_t"
+    },
+    "m_bIsZoomed": {
+      "Path": 39,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_flLastAttackTime": {
+      "Path": 40,
+      "Type": "float",
+      "NetworkType": "GameTime_t"
+    },
+    "m_flNextAttackDelayStartTime": {
+      "Path": 41,
+      "Type": "float",
+      "NetworkType": "GameTime_t"
+    },
+    "m_flNextAttackDelayEndTime": {
+      "Path": 42,
+      "Type": "float",
+      "NetworkType": "GameTime_t"
+    },
+    "m_flAttackDelayPauseTotalTime": {
+      "Path": 43,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_flAttackDelayPauseEndTime": {
+      "Path": 44,
+      "Type": "float",
+      "NetworkType": "GameTime_t"
+    },
+    "m_eNextAttackDelayReason": {
+      "Path": 45,
+      "Type": "Enum<ENextAttackDelayReason_t>",
+      "NetworkType": "ENextAttackDelayReason_t"
+    },
+    "m_bInputPressedWhileSelected": {
+      "Path": 46,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_eActiveFireMode": {
+      "Path": 47,
+      "Type": "Enum<EFireMode_t>",
+      "NetworkType": "EFireMode_t"
+    },
+    "m_flSelectedChangedTime": {
+      "Path": 48,
+      "Type": "float",
+      "NetworkType": "GameTime_t"
+    },
+    "m_flAltCastHoldStartTime": {
+      "Path": 49,
+      "Type": "float",
+      "NetworkType": "GameTime_t"
+    },
+    "m_nBurstShotsRemaining": {
+      "Path": 50,
+      "Type": "Byte",
+      "NetworkType": "uint8"
+    },
+    "m_nShotNumber": {
+      "Path": 51,
+      "Type": "UInt32",
+      "NetworkType": "uint32"
+    },
+    "m_bInReload": {
+      "Path": 52,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_bSingleShotReloadFirstBullet": {
+      "Path": 53,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_flReloadAvailableTime": {
+      "Path": 54,
+      "Type": "float",
+      "NetworkType": "GameTime_t"
+    },
+    "m_bCanActiveReload": {
+      "Path": 55,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_iSpreadIndex": {
+      "Path": 56,
+      "Type": "SByte",
+      "NetworkType": "int8"
+    },
+    "m_nShotRecoilIndex": {
+      "Path": 57,
+      "Type": "Int16",
+      "NetworkType": "int16"
+    },
+    "m_flNextShotRecoilRecoveryTime": {
+      "Path": 58,
+      "Type": "float",
+      "NetworkType": "GameTime_t"
+    },
+    "m_reloadQueuedStartTime": {
+      "Path": 59,
+      "Type": "float",
+      "NetworkType": "GameTime_t"
+    }
+  }
+}

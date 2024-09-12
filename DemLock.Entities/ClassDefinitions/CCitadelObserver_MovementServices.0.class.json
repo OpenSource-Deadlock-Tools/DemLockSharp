@@ -1,0 +1,21 @@
+{
+  "ClassName": "CCitadelObserver_MovementServices",
+  "Version": 0,
+  "Fields": {
+    "m_flMaxspeed": {
+      "Path": 0,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_arrForceSubtickMoveWhen": {
+      "Path": 1,
+      "Type": "float[4] ",
+      "NetworkType": "float32[4]"
+    },
+    "m_nToggleButtonDownMask": {
+      "Path": 2,
+      "Type": "UInt64",
+      "NetworkType": "uint64"
+    }
+  }
+}

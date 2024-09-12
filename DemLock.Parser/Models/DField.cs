@@ -27,14 +27,6 @@ public class DField
     public string SerializerName { get; set; }
     public int SerializerVersion { get; set; }
 
-    private static int tmp = 0;
-
-    public string MappingRule()
-    {
-        if (FieldType.GenericType != null)
-            return "Class";
-         return $"Value";       
-    }
     public string PropertyType()
     {
         if (FieldType.Name == "CHandle")
@@ -55,9 +47,9 @@ public class DField
         {
             var childSerializer = _context.GetSerializerByClassName(FieldType.GenericType.Name);
             if (childSerializer == null)
-                return $"List<{MapTypeName(FieldType.GenericType.Name)}>";
+                return $"List::{MapTypeName(FieldType.GenericType.Name)}";
 
-            return $"List<{childSerializer.Name}>";
+            return $"List::{childSerializer.Name}";
         }
         // Generics will come with the serializer set to the serializer for their generic type
         // This will need to be packed and sen to the generic at some point to get generics working fully

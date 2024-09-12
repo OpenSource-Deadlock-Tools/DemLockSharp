@@ -155,11 +155,7 @@ public class DemoParserContext
 
     public void DumpClassDefinitions(string outputDirectory)
     {
-        foreach (var v in _serializers.Where(x => new List<string>()
-                 {
-                     "CCitadelPlayerPawn", "CEntityIdentity", "CCitadelAbilityComponent",
-                     "ViewAngleServerChange_t", "ViewAngleServerChange_t", "FullSellPriceAbilityUpgrades_t","CBodyComponentBaseAnimGraph"
-                 }.Contains(x.Name)))
+        foreach (var v in _serializers.GroupBy(x=>x.Name).Select(grp=>grp.OrderByDescending(x=>x.Version).FirstOrDefault()))
         {
             string outputPath = Path.Combine(outputDirectory, $"{v.Name}.{v.Version}.class.json");
 
@@ -176,7 +172,6 @@ public class DemoParserContext
             for (int i = 0; i < v.Fields.Length; i++)
             {
                 var field = v.Fields[i];
-                List<string> fieldPath = new();
                 if (!string.IsNullOrWhiteSpace(field.SendNode) && field.SendNode.Trim().Length > 0)
                 {
                     foreach (var path in field.SendNode.Split('.'))
@@ -184,9 +179,7 @@ public class DemoParserContext
                         context.Enqueue(path);
                     }
                 }
-
                 context.Enqueue(field.Name ?? "");
-
                 JsonObject current = fieldObj;
                 while (context.Count > 0)
                 {
@@ -197,7 +190,8 @@ public class DemoParserContext
                 }
 
                 current["Path"] = i;
-                current["Type"] = $"{field.PropertyType()}";
+                if(field.FieldType.Count > 0)
+                    current["Type"] = $"Array::{field.FieldType.Count}::{field.PropertyType()}";
                 current["NetworkType"] = $"{field.FieldType.ToString()}";
             }
 

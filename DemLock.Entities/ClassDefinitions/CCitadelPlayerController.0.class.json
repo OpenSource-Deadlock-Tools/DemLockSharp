@@ -1,0 +1,435 @@
+{
+  "ClassName": "CCitadelPlayerController",
+  "Version": 0,
+  "Fields": {
+    "m_flSimulationTime": {
+      "Path": 0,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_nTickBase": {
+      "Path": 1,
+      "Type": "UInt32",
+      "NetworkType": "uint32"
+    },
+    "m_fFlags": {
+      "Path": 2,
+      "Type": "UInt32",
+      "NetworkType": "uint32"
+    },
+    "m_pEntity": {
+      "Path": 3,
+      "Type": "CEntityIdentity",
+      "NetworkType": "CEntityIdentity"
+    },
+    "m_flCreateTime": {
+      "Path": 4,
+      "Type": "float",
+      "NetworkType": "GameTime_t"
+    },
+    "m_iTeamNum": {
+      "Path": 5,
+      "Type": "Byte",
+      "NetworkType": "uint8"
+    },
+    "m_hPawn": {
+      "Path": 6,
+      "Type": "UInt32",
+      "NetworkType": "CHandle< CBasePlayerPawn >"
+    },
+    "m_bKnownTeamMismatch": {
+      "Path": 7,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_iConnected": {
+      "Path": 8,
+      "Type": "Enum<PlayerConnectedState>",
+      "NetworkType": "PlayerConnectedState"
+    },
+    "m_iszPlayerName": {
+      "Path": 9,
+      "Type": "String",
+      "NetworkType": "char[128]"
+    },
+    "m_steamID": {
+      "Path": 10,
+      "Type": "UInt64",
+      "NetworkType": "uint64"
+    },
+    "m_iDesiredFOV": {
+      "Path": 11,
+      "Type": "UInt32",
+      "NetworkType": "uint32"
+    },
+    "m_ePlayState": {
+      "Path": 12,
+      "Type": "Enum<EPlayerPlayState>",
+      "NetworkType": "EPlayerPlayState"
+    },
+    "m_iGuidedBotMatchLastHits": {
+      "Path": 13,
+      "Type": "Int32",
+      "NetworkType": "int32"
+    },
+    "m_iGuidedBotMatchOrbsSecured": {
+      "Path": 14,
+      "Type": "Int32",
+      "NetworkType": "int32"
+    },
+    "m_iGuidedBotMatchOrbsDenied": {
+      "Path": 15,
+      "Type": "Int32",
+      "NetworkType": "int32"
+    },
+    "m_iGuidedBotMatchDamageToGuardians": {
+      "Path": 16,
+      "Type": "Int32",
+      "NetworkType": "int32"
+    },
+    "m_iGuidedBotMatchDamageToPlayers": {
+      "Path": 17,
+      "Type": "Int32",
+      "NetworkType": "int32"
+    },
+    "m_iGuidedBotMatchDamageTaken": {
+      "Path": 18,
+      "Type": "Int32",
+      "NetworkType": "int32"
+    },
+    "m_iGuidedBotMatchNetWorth": {
+      "Path": 19,
+      "Type": "Int32",
+      "NetworkType": "int32"
+    },
+    "m_iGuidedBotMatchModsPurchased": {
+      "Path": 20,
+      "Type": "Int32",
+      "NetworkType": "int32"
+    },
+    "m_iGuidedBotMatchAbilityUpgrades": {
+      "Path": 21,
+      "Type": "Int32",
+      "NetworkType": "int32"
+    },
+    "m_flGuideBotMatchLastTaskNagVO": {
+      "Path": 22,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_flGuideBotLastTimeTaskCompleted": {
+      "Path": 23,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_eGuidedBotMatchObjective": {
+      "Path": 24,
+      "Type": "Enum<EGuidedBotMatchObjective>",
+      "NetworkType": "EGuidedBotMatchObjective"
+    },
+    "m_nAssignedLane": {
+      "Path": 25,
+      "Type": "SByte",
+      "NetworkType": "int8"
+    },
+    "m_nOriginalLaneAssignment": {
+      "Path": 26,
+      "Type": "SByte",
+      "NetworkType": "int8"
+    },
+    "m_bSwapCastModeAbility1": {
+      "Path": 27,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_bSwapCastModeAbility2": {
+      "Path": 28,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_bSwapCastModeAbility3": {
+      "Path": 29,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_bSwapCastModeAbility4": {
+      "Path": 30,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_bIsKingPanda": {
+      "Path": 31,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_bBotDisconnectTakeover": {
+      "Path": 32,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_bInTeamChat": {
+      "Path": 33,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_bInPartyChat": {
+      "Path": 34,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_hHeroPawn": {
+      "Path": 35,
+      "Type": "UInt32",
+      "NetworkType": "CHandle< CCitadelPlayerPawn >"
+    },
+    "m_PlayerDataGlobal": {
+      "m_iLevel": {
+        "Path": 36,
+        "Type": "Int32",
+        "NetworkType": "int32"
+      },
+      "m_iMaxAmmo": {
+        "Path": 37,
+        "Type": "Int32",
+        "NetworkType": "int32"
+      },
+      "m_iHealthMax": {
+        "Path": 38,
+        "Type": "Int32",
+        "NetworkType": "int32"
+      },
+      "m_flHealthRegen": {
+        "Path": 39,
+        "Type": "float",
+        "NetworkType": "float32"
+      },
+      "m_flRespawnTime": {
+        "Path": 40,
+        "Type": "float",
+        "NetworkType": "GameTime_t"
+      },
+      "m_nHeroID": {
+        "Path": 41,
+        "Type": "Enum<HeroID_t>",
+        "NetworkType": "HeroID_t"
+      },
+      "m_iGoldNetWorth": {
+        "Path": 42,
+        "Type": "Int32",
+        "NetworkType": "int32"
+      },
+      "m_iAPNetWorth": {
+        "Path": 43,
+        "Type": "Int32",
+        "NetworkType": "int32"
+      },
+      "m_iCreepGold": {
+        "Path": 44,
+        "Type": "Int32",
+        "NetworkType": "int32"
+      },
+      "m_iCreepGoldSoloBonus": {
+        "Path": 45,
+        "Type": "Int32",
+        "NetworkType": "int32"
+      },
+      "m_iCreepGoldKill": {
+        "Path": 46,
+        "Type": "Int32",
+        "NetworkType": "int32"
+      },
+      "m_iCreepGoldAirOrb": {
+        "Path": 47,
+        "Type": "Int32",
+        "NetworkType": "int32"
+      },
+      "m_iCreepGoldGroundOrb": {
+        "Path": 48,
+        "Type": "Int32",
+        "NetworkType": "int32"
+      },
+      "m_iCreepGoldDeny": {
+        "Path": 49,
+        "Type": "Int32",
+        "NetworkType": "int32"
+      },
+      "m_iCreepGoldNeutral": {
+        "Path": 50,
+        "Type": "Int32",
+        "NetworkType": "int32"
+      },
+      "m_iFarmBaseline": {
+        "Path": 51,
+        "Type": "Int32",
+        "NetworkType": "int32"
+      },
+      "m_iHealth": {
+        "Path": 52,
+        "Type": "Int32",
+        "NetworkType": "int32"
+      },
+      "m_iPlayerKills": {
+        "Path": 53,
+        "Type": "Int32",
+        "NetworkType": "int32"
+      },
+      "m_iPlayerAssists": {
+        "Path": 54,
+        "Type": "Int32",
+        "NetworkType": "int32"
+      },
+      "m_iDeaths": {
+        "Path": 55,
+        "Type": "Int32",
+        "NetworkType": "int32"
+      },
+      "m_iDenies": {
+        "Path": 56,
+        "Type": "Int32",
+        "NetworkType": "int32"
+      },
+      "m_iLastHits": {
+        "Path": 57,
+        "Type": "Int32",
+        "NetworkType": "int32"
+      },
+      "m_bAlive": {
+        "Path": 58,
+        "Type": "bool",
+        "NetworkType": "bool"
+      },
+      "m_nHeroDraftPosition": {
+        "Path": 59,
+        "Type": "Int32",
+        "NetworkType": "int32"
+      },
+      "m_bUltimateTrained": {
+        "Path": 60,
+        "Type": "bool",
+        "NetworkType": "bool"
+      },
+      "m_flUltimateCooldownStart": {
+        "Path": 61,
+        "Type": "float",
+        "NetworkType": "GameTime_t"
+      },
+      "m_flUltimateCooldownEnd": {
+        "Path": 62,
+        "Type": "float",
+        "NetworkType": "GameTime_t"
+      },
+      "m_bHasRejuvenator": {
+        "Path": 63,
+        "Type": "bool",
+        "NetworkType": "bool"
+      },
+      "m_bHasRebirth": {
+        "Path": 64,
+        "Type": "bool",
+        "NetworkType": "bool"
+      },
+      "m_iHeroDamage": {
+        "Path": 65,
+        "Type": "Int32",
+        "NetworkType": "int32"
+      },
+      "m_iHeroHealing": {
+        "Path": 66,
+        "Type": "Int32",
+        "NetworkType": "int32"
+      },
+      "m_iObjectiveDamage": {
+        "Path": 67,
+        "Type": "Int32",
+        "NetworkType": "int32"
+      },
+      "m_vecBonusCounterAbilities": {
+        "Path": 68,
+        "Type": "List<UInt32>",
+        "NetworkType": "CNetworkUtlVectorBase< CUtlStringToken >"
+      },
+      "m_vecImbuements": {
+        "Path": 69,
+        "Type": "List<ItemImbuementPair_t>",
+        "NetworkType": "CUtlVectorEmbeddedNetworkVar< ItemImbuementPair_t >"
+      },
+      "m_vecDynamicAbilityValues": {
+        "Path": 70,
+        "Type": "List<DynamicAbilityValues_t>",
+        "NetworkType": "CUtlVectorEmbeddedNetworkVar< DynamicAbilityValues_t >"
+      },
+      "m_vecStatViewerModifierValues": {
+        "Path": 71,
+        "Type": "List<StatViewerModifierValues_t>",
+        "NetworkType": "CUtlVectorEmbeddedNetworkVar< StatViewerModifierValues_t >"
+      },
+      "m_nHeroAbilityUpgradeBits": {
+        "Path": 73,
+        "Type": "Int32[4] ",
+        "NetworkType": "int32[4]"
+      },
+      "m_vecUpgrades": {
+        "Path": 74,
+        "Type": "List<UInt32>",
+        "NetworkType": "CNetworkUtlVectorBase< CUtlStringToken >"
+      },
+      "m_vecBonusCounterValues": {
+        "Path": 75,
+        "Type": "List<Int32>",
+        "NetworkType": "CNetworkUtlVectorBase< int32 >"
+      },
+      "m_tHeldItem": {
+        "Path": 76,
+        "Type": "UInt32",
+        "NetworkType": "CUtlStringToken"
+      }
+    },
+    "m_unLobbyPlayerSlot": {
+      "Path": 72,
+      "Type": "Enum<CitadelLobbyPlayerSlot_t>",
+      "NetworkType": "CitadelLobbyPlayerSlot_t"
+    },
+    "m_nNextThinkTick": {
+      "Path": 77,
+      "Type": "Enum<GameTick_t>",
+      "NetworkType": "GameTick_t"
+    },
+    "m_vecVelocity": {
+      "m_vecX": {
+        "Path": 78,
+        "Type": "float",
+        "NetworkType": "CNetworkedQuantizedFloat"
+      },
+      "m_vecY": {
+        "Path": 79,
+        "Type": "float",
+        "NetworkType": "CNetworkedQuantizedFloat"
+      },
+      "m_vecZ": {
+        "Path": 80,
+        "Type": "float",
+        "NetworkType": "CNetworkedQuantizedFloat"
+      }
+    },
+    "m_flFriction": {
+      "Path": 81,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_flGravityScale": {
+      "Path": 82,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_flTimeScale": {
+      "Path": 83,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_nDeathReplayAvailable": {
+      "Path": 84,
+      "Type": "SByte",
+      "NetworkType": "int8"
+    }
+  }
+}

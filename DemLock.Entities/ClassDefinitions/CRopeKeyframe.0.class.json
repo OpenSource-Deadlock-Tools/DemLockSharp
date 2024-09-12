@@ -1,0 +1,91 @@
+{
+  "ClassName": "CRopeKeyframe",
+  "Version": 0,
+  "Fields": {
+    "CBodyComponent": {
+      "Path": 0,
+      "Type": "CBodyComponentBaseModelEntity",
+      "NetworkType": "CBodyComponent"
+    },
+    "m_RopeFlags": {
+      "Path": 1,
+      "Type": "UInt16",
+      "NetworkType": "uint16"
+    },
+    "m_Slack": {
+      "Path": 2,
+      "Type": "Int16",
+      "NetworkType": "int16"
+    },
+    "m_Width": {
+      "Path": 3,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_TextureScale": {
+      "Path": 4,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_nSegments": {
+      "Path": 5,
+      "Type": "Byte",
+      "NetworkType": "uint8"
+    },
+    "m_bConstrainBetweenEndpoints": {
+      "Path": 6,
+      "Type": "bool",
+      "NetworkType": "bool"
+    },
+    "m_iRopeMaterialModelIndex": {
+      "Path": 7,
+      "Type": "List<Enum<InfoForResourceTypeIMaterial2>>",
+      "NetworkType": "CStrongHandle< InfoForResourceTypeIMaterial2 >"
+    },
+    "m_Subdiv": {
+      "Path": 8,
+      "Type": "Byte",
+      "NetworkType": "uint8"
+    },
+    "m_nChangeCount": {
+      "Path": 9,
+      "Type": "Byte",
+      "NetworkType": "uint8"
+    },
+    "m_RopeLength": {
+      "Path": 10,
+      "Type": "Int16",
+      "NetworkType": "int16"
+    },
+    "m_fLockedPoints": {
+      "Path": 11,
+      "Type": "Byte",
+      "NetworkType": "uint8"
+    },
+    "m_flScrollSpeed": {
+      "Path": 12,
+      "Type": "float",
+      "NetworkType": "float32"
+    },
+    "m_hStartPoint": {
+      "Path": 13,
+      "Type": "UInt32",
+      "NetworkType": "CHandle< CBaseEntity >"
+    },
+    "m_hEndPoint": {
+      "Path": 14,
+      "Type": "UInt32",
+      "NetworkType": "CHandle< CBaseEntity >"
+    },
+    "m_iStartAttachment": {
+      "Path": 15,
+      "Type": "Enum<AttachmentHandle_t>",
+      "NetworkType": "AttachmentHandle_t"
+    },
+    "m_iEndAttachment": {
+      "Path": 16,
+      "Type": "Enum<AttachmentHandle_t>",
+      "NetworkType": "AttachmentHandle_t"
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "ClassName": "CCitadelGameRulesProxy",
+  "Version": 0,
+  "Fields": {
+    "m_pGameRules": {
+      "Path": 0,
+      "Type": "CCitadelGameRules",
+      "NetworkType": "CCitadelGamerules"
+    }
+  }
+}

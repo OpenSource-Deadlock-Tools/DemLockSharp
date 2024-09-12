@@ -1,0 +1,21 @@
+{
+  "ClassName": "StatViewerModifierValues_t",
+  "Version": 0,
+  "Fields": {
+    "m_SourceModifierID": {
+      "Path": 0,
+      "Type": "UInt32",
+      "NetworkType": "CUtlStringToken"
+    },
+    "m_eValType": {
+      "Path": 1,
+      "Type": "Enum<EModifierValue>",
+      "NetworkType": "EModifierValue"
+    },
+    "m_flValue": {
+      "Path": 2,
+      "Type": "float",
+      "NetworkType": "float32"
+    }
+  }
+}
