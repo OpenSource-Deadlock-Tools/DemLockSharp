@@ -2,6 +2,7 @@
 using DemLock.Entities;
 using DemLock.Entities.Generated;
 using DemLock.Parser;
+using Newtonsoft.Json;
 
 namespace DemLock;
 
@@ -24,6 +25,11 @@ class Program
         config.LogReadFrames = false;
         
         DemoParser parser = new DemoParser(config);
+        parser.Events.OnCCitadelUserMsg_PostMatchDetails += (sender, e) =>
+        {
+            Console.WriteLine(JsonConvert.SerializeObject(e, Formatting.Indented));
+        };
+        
         parser.Events.OnEntityUpdated += (sender, eventArgs) =>
         {
             //if (eventArgs.Entity is CCitadelPlayerPawn player)

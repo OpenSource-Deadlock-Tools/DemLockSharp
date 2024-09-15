@@ -124,6 +124,7 @@ public class MessageHandler
             case MessageTypes.k_EUserMsg_QuickResponse:
                 break;
             case MessageTypes.k_EUserMsg_PostMatchDetails:
+                ProcessPostMatchDetails(data);
                 break;
             case MessageTypes.k_EUserMsg_ChatEvent:
                 break;
@@ -355,6 +356,15 @@ public class MessageHandler
         _context.MaxPlayers = serverInfo.MaxClients;
         _context.TickInterval = serverInfo.TickInterval;
     }
+
+    
+    private void ProcessPostMatchDetails(byte[] data)
+    {
+        CCitadelUserMsg_PostMatchDetails matchDetails = CCitadelUserMsg_PostMatchDetails.Parser.ParseFrom(data);
+        _events.RaisOnCCitadelUserMsg_PostMatchDetails(this, matchDetails);
+    }
+        
+        
 }
 
 public enum PacketUpdateTypes

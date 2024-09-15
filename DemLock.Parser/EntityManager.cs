@@ -69,7 +69,7 @@ public class EntityManager
         _entities[index] = new Dictionary<ulong, EntityFieldData>();
         if (serverClass.ClassName == "CCitadelPlayerPawn")
         {
-            _mappedEntities[index] = new CCitadelPlayerPawn();
+            //_mappedEntities[index] = new CCitadelPlayerPawn();
         }
 
         _metaData[index] = new EntityMetaData()

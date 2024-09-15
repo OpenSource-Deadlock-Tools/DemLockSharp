@@ -19,6 +19,12 @@ public class DemoEventSystem
         OnChatMessage?.Invoke(this, e);
     }
 
+    public event EventHandler<CCitadelUserMsg_PostMatchDetails> OnCCitadelUserMsg_PostMatchDetails;
+
+    internal void RaisOnCCitadelUserMsg_PostMatchDetails(object sender, CCitadelUserMsg_PostMatchDetails e)
+    {
+        OnCCitadelUserMsg_PostMatchDetails?.Invoke(this, e);
+    }
     public event EventHandler<OnFileHeaderEventArgs> OnFileHeader;
 
     internal void RaiseOnFileHeader(uint tick, CDemoFileHeader header) =>
