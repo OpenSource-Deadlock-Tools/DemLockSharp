@@ -201,7 +201,7 @@ public class MessageHandler
                 }
                 var entity = _context.EntityManager.UpdateAtIndex(entityIndex, ref eventData);
                 
-                _events.Raise_OnEntityUpdated(_context.CurrentTick,entity, "CREATE");
+                //_events.Raise_OnEntityUpdated(_context.CurrentTick,entity, "CREATE");
             }
 
             if (updateType == PacketUpdateTypes.LeavePvs)
@@ -215,7 +215,7 @@ public class MessageHandler
             if (updateType == PacketUpdateTypes.DeltaEnt)
             {
                 var entity = _context.EntityManager.UpdateAtIndex(entityIndex, ref eventData);
-                _events.Raise_OnEntityUpdated(_context.CurrentTick, entity, "UPDATE");
+                //_events.Raise_OnEntityUpdated(_context.CurrentTick, entity, "UPDATE");
             }
         }
     }

@@ -1,20 +1,18 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>netstandard2.0</TargetFramework>
-        <IsPackable>false</IsPackable>
+        <TargetFramework>net8.0</TargetFramework>
         <Nullable>enable</Nullable>
         <LangVersion>latest</LangVersion>
-
-        <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
-        <IsRoslynComponent>true</IsRoslynComponent>
-
         <RootNamespace>DemLock.ClassMappingGenerator</RootNamespace>
+        <OutputType>Exe</OutputType>
+        <ImplicitUsings>true</ImplicitUsings>
         <PackageId>DemLock.ClassMappingGenerator</PackageId>
 
     </PropertyGroup>
     
     <ItemGroup>
+        <PackageReference Include="Handlebars.Net" Version="2.1.6" />
         <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.4">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -22,6 +20,10 @@
         <PackageReference Include="Newtonsoft.Json" Version="13.0.1" GeneratePathProperty="true" PrivateAssets="all" />
         <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.3.0"/>
         <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.3.0"/>
+    </ItemGroup>
+    
+    <ItemGroup>
+      <Folder Include="Properties\" />
     </ItemGroup>
     
     <PropertyGroup>

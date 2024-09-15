@@ -1,6 +1,5 @@
 ﻿using System.Diagnostics;
 using DemLock.Entities;
-using DemLock.Entities.Generated;
 using DemLock.Parser;
 
 namespace DemLock;

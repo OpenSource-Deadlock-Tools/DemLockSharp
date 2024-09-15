@@ -48,6 +48,7 @@ public class IncrementalClassGenerator : IIncrementalGenerator
 
     public (string, string) GenerateClass(string text)
     {
+        return ("", "");
         var classDef = JsonConvert.DeserializeObject<ClassDefinition>(text.ToString());
 
         StringBuilder sb = new StringBuilder();

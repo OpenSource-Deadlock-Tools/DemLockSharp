@@ -1,5 +1,4 @@
 ﻿using DemLock.Entities;
-using DemLock.Entities.Generated;
 using DemLock.Parser.Models;
 using DemLock.Utils;
 
@@ -49,12 +48,12 @@ public class EntityManager
 
     private Dictionary<ulong, string> _witness;
     private Dictionary<int, FieldDecoder> _fieldDecoders;
-    private Dictionary<int, BaseEntity> _mappedEntities;
+    //private Dictionary<int, BaseEntity> _mappedEntities;
 
     public EntityManager(DemoParserContext context)
     {
         _witness = new();
-        _mappedEntities = new();
+        //_mappedEntities = new();
         _context = context;
         _metaData = new();
         _fieldDecoders = new Dictionary<int, FieldDecoder>();
@@ -83,7 +82,7 @@ public class EntityManager
         _entities[index] = null!;
         _deserializerMap[index] = null!;
         _metaData[index] = null!;
-        _mappedEntities[index] = null!;
+        //_mappedEntities[index] = null!;
     }
 
     public void UpdateAtIndex(int index, byte[] entityData)
@@ -92,7 +91,7 @@ public class EntityManager
         UpdateAtIndex(index, ref bb);
     }
 
-    public BaseEntity UpdateAtIndex(int index, ref BitBuffer entityData)
+    public object UpdateAtIndex(int index, ref BitBuffer entityData)
     {
         List<EntityFieldData> entityDataList = new();
         var metaData = _metaData[index];
@@ -117,12 +116,12 @@ public class EntityManager
 
         fieldPaths = fieldPaths[..fpi];
 
-        BaseEntity targetEntity = null;
+        //BaseEntity targetEntity = null;
 
-        if (_mappedEntities.ContainsKey(index))
-        {
-            targetEntity = _mappedEntities[index];
-        }
+        //if (_mappedEntities.ContainsKey(index))
+        //{
+        //    targetEntity = _mappedEntities[index];
+        //}
 
         for (var idx = 0; idx < fieldPaths.Length; idx++)
         {
@@ -134,7 +133,7 @@ public class EntityManager
             var deserializer = _deserializerMap[index];
             FieldDecoder decoder = deserializer.GetFieldDecoder(pathSpan);
             var value = decoder.ReadValue(ref entityData);
-            targetEntity?.UpdateProperty(pathSpan, value);
+            //targetEntity?.UpdateProperty(pathSpan, value);
 
 
             continue;
@@ -158,6 +157,6 @@ public class EntityManager
             }
         }
 
-        return targetEntity;
+        return null;
     }
 }

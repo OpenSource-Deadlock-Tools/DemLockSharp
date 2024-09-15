@@ -1,6 +1,5 @@
 ﻿using System.Text.Json.Nodes;
 using DemLock.Entities;
-using DemLock.Entities.Generated;
 using DemLock.Parser.Events;
 
 namespace DemLock.Parser;
@@ -26,12 +25,12 @@ public class DemoEventSystem
 
     public event EventHandler<OnEntityUpdatedEventArgs> OnEntityUpdated;
 
-    internal void Raise_OnEntityUpdated(uint tick, BaseEntity entity, string updateType) => OnEntityUpdated?.Invoke(this, new OnEntityUpdatedEventArgs()
-    {
-        Tick = tick,
-        Entity = entity,
-        UpdateType = updateType,
-    });
+    //internal void Raise_OnEntityUpdated(uint tick, BaseEntity entity, string updateType) => OnEntityUpdated?.Invoke(this, new OnEntityUpdatedEventArgs()
+    //{
+    //    Tick = tick,
+    //    Entity = entity,
+    //    UpdateType = updateType,
+    //});
 
     internal DemoEventSystem()
     {
