@@ -30,7 +30,6 @@ public class DemoParserContext
     public int MaxPlayers { get; set; }
     public float TickInterval { get; set; }
     public uint CurrentTick { get; set; }
-    public DemoEventSystem Events { get; set; }
 
     private List<DClass> _classes;
     private List<DFieldType> _fieldTypes;

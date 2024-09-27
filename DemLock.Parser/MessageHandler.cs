@@ -1,6 +1,8 @@
 ﻿using System.Text.Json.Nodes;
+using DemLock.Parser.Events;
 using DemLock.Parser.Models;
 using DemLock.Utils;
+using Newtonsoft.Json;
 using Snappier;
 
 namespace DemLock.Parser;
@@ -11,12 +13,19 @@ namespace DemLock.Parser;
 public class MessageHandler
 {
     private readonly DemoParserContext _context;
-    private readonly DemoEventSystem _events;
+    private readonly GameEvents _gameEvents;
+    private readonly NetMessages _netMessages;
+    private readonly ServiceMessages _serviceMessages;
+    private readonly UserMessages _userMessages;
 
-    public MessageHandler(DemoEventSystem events, DemoParserContext context)
+    public MessageHandler( DemoParserContext context, GameEvents gameEvents,
+        NetMessages netMessages, UserMessages userMessages, ServiceMessages serviceMessages)
     {
-        _events = events;
+        _serviceMessages = serviceMessages;
+        _userMessages = userMessages;
         _context = context;
+        _gameEvents = gameEvents;
+        _netMessages = netMessages;
     }
 
     /// <summary>
@@ -24,224 +33,141 @@ public class MessageHandler
     /// that need to be processed
     /// </summary>
     /// <param name="bytes"></param>
-    public void ProcessMessage(MessageTypes type, byte[] data)
+    internal void ProcessMessage(MessageTypes type, byte[] data)
     {
-        if (_context.Config.IgnoredMessages.Contains(type)) return;
-        if (_context.Config.LogMessageReads)
-            if (Enum.IsDefined(typeof(MessageTypes), type))
-                Console.WriteLine($"\t{type}({(int)type}) [{data.Length}]");
+        if (!Enum.IsDefined(typeof(MessageTypes), type))
+            Console.WriteLine($"\t({(int)type}) [{data.Length}]");
 
         switch (type)
         {
             case MessageTypes.net_Tick:
-                break;
             case MessageTypes.net_SetConVar:
-                break;
             case MessageTypes.net_SignonState:
-                break;
             case MessageTypes.net_SpawnGroup_Load:
-                break;
             case MessageTypes.net_SpawnGroup_SetCreationTick:
+                _netMessages.HandleNetMessage(type, data);
                 break;
+            
             case MessageTypes.svc_ServerInfo:
-                ProcessServerInfo(data);
-                break;
             case MessageTypes.svc_ClassInfo:
-                break;
             case MessageTypes.svc_CreateStringTable:
-                ProcessCreateStringTable(data);
-                break;
             case MessageTypes.svc_UpdateStringTable:
-                ProcessUpdateStringTable(data);
-                break;
             case MessageTypes.svc_VoiceInit:
-                break;
             case MessageTypes.svc_ClearAllStringTables:
-                break;
             case MessageTypes.svc_PacketEntities:
-                ProcessPacketEntities(data);
-                break;
             case MessageTypes.svc_HLTVStatus:
+                _serviceMessages.HandleServiceMessage(type, data);
                 break;
-            case MessageTypes.UM_ParticleManager:
-                break;
+            
+            case MessageTypes.UM_ParticleManager :
             case MessageTypes.UM_PlayResponseConditional:
                 break;
+            
             case MessageTypes.GE_Source1LegacyGameEventList:
-                break;
             case MessageTypes.GE_Source1LegacyGameEvent:
-                break;
             case MessageTypes.GE_SosStartSoundEvent:
-                break;
             case MessageTypes.GE_SosStopSoundEvent:
-                break;
             case MessageTypes.GE_SosSetSoundEventParams:
-                break;
             case MessageTypes.GE_SosStopSoundEventHash:
-                break;
             case MessageTypes.GE_FireBullets:
-                break;
             case MessageTypes.GE_PlayerAnimEvent:
-                break;
             case MessageTypes.GE_ParticleSystemManager:
-                break;
             case MessageTypes.GE_ScreenTextPretty:
-                break;
             case MessageTypes.GE_ServerRequestedTracer:
-                break;
             case MessageTypes.GE_BulletImpact:
-                break;
             case MessageTypes.GE_EnableSatVolumesEvent:
-                break;
             case MessageTypes.GE_PlaceSatVolumeEvent:
-                break;
             case MessageTypes.GE_DisableSatVolumesEvent:
-                break;
             case MessageTypes.GE_RemoveSatVolumeEvent:
+                _gameEvents.HandleGameEventMessage(type, data);
                 break;
+            
             case MessageTypes.k_EUserMsg_Damage:
-                break;
             case MessageTypes.k_EUserMsg_MapPing:
-                break;
             case MessageTypes.k_EUserMsg_TeamRewards:
-                break;
             case MessageTypes.k_EUserMsg_AbilityFailed:
-                break;
             case MessageTypes.k_EUserMsg_TriggerDamageFlash:
-                break;
             case MessageTypes.k_EUserMsg_AbilitiesChanged:
-                break;
             case MessageTypes.k_EUserMsg_RecentDamageSummary:
-                break;
             case MessageTypes.k_EUserMsg_SpectatorTeamChanged:
-                break;
             case MessageTypes.k_EUserMsg_ChatWheel:
-                break;
             case MessageTypes.k_EUserMsg_GoldHistory:
-                break;
             case MessageTypes.k_EUserMsg_ChatMsg:
-                break;
             case MessageTypes.k_EUserMsg_QuickResponse:
-                break;
             case MessageTypes.k_EUserMsg_PostMatchDetails:
-                ProcessPostMatchDetails(data);
-                break;
             case MessageTypes.k_EUserMsg_ChatEvent:
-                break;
             case MessageTypes.k_EUserMsg_AbilityInterrupted:
-                break;
             case MessageTypes.k_EUserMsg_HeroKilled:
-                break;
             case MessageTypes.k_EUserMsg_ReturnIdol:
-                break;
             case MessageTypes.k_EUserMsg_SetClientCameraAngles:
-                break;
             case MessageTypes.k_EUserMsg_MapLine:
-                break;
             case MessageTypes.k_EUserMsg_BulletHit:
-                break;
             case MessageTypes.k_EUserMsg_ObjectiveMask:
-                break;
             case MessageTypes.k_EUserMsg_ModifierApplied:
-                break;
             case MessageTypes.k_EUserMsg_CameraController:
-                break;
             case MessageTypes.k_EUserMsg_AuraModifierApplied:
-                break;
             case MessageTypes.k_EUserMsg_ObstructedShotFired:
-                break;
             case MessageTypes.k_EUserMsg_AbilityLateFailure:
-                break;
             case MessageTypes.k_EUserMsg_AbilityPing:
-                break;
             case MessageTypes.k_EUserMsg_PostProcessingAnim:
-                break;
             case MessageTypes.k_EUserMsg_DeathReplayData:
-                break;
             case MessageTypes.k_EUserMsg_PlayerLifetimeStatInfo:
-                break;
             case MessageTypes.k_EUserMsg_ForceShopClosed:
-                break;
             case MessageTypes.k_EUserMsg_StaminaDrained:
-                break;
             case MessageTypes.k_EUserMsg_AbilityNotify:
-                break;
             case MessageTypes.k_EUserMsg_GetDamageStatsResponse:
-                break;
             case MessageTypes.k_EUserMsg_ParticipantStartSoundEvent:
-                break;
             case MessageTypes.k_EUserMsg_ParticipantStopSoundEvent:
-                break;
             case MessageTypes.k_EUserMsg_ParticipantStopSoundEventHash:
-                break;
             case MessageTypes.k_EUserMsg_ParticipantSetSoundEventParams:
-                break;
             case MessageTypes.k_EUserMsg_ParticipantSetLibraryStackFields:
-                break;
             case MessageTypes.k_EUserMsg_CurrencyChanged:
-                break;
             case MessageTypes.k_EUserMsg_GameOver:
-                break;
             case MessageTypes.k_EUserMsg_BossKilled:
+                _userMessages.HandleUserMessage(type, data);
                 break;
+            
             case MessageTypes.k_EEntityMsg_BreakablePropSpawnDebris:
                 break;
+            
             case MessageTypes.TE_EffectDispatchId:
-                break;
             case MessageTypes.TE_ArmorRicochetId:
-                break;
             case MessageTypes.TE_BeamEntPointId:
-                break;
             case MessageTypes.TE_BeamEntsId:
-                break;
             case MessageTypes.TE_BeamPointsId:
-                break;
             case MessageTypes.TE_BeamRingId:
-                break;
             case MessageTypes.TE_BSPDecalId:
-                break;
             case MessageTypes.TE_BubblesId:
-                break;
             case MessageTypes.TE_BubbleTrailId:
-                break;
             case MessageTypes.TE_DecalId:
-                break;
             case MessageTypes.TE_WorldDecalId:
-                break;
             case MessageTypes.TE_EnergySplashId:
-                break;
             case MessageTypes.TE_FizzId:
-                break;
             case MessageTypes.TE_ShatterSurfaceId:
-                break;
             case MessageTypes.TE_GlowSpriteId:
-                break;
             case MessageTypes.TE_ImpactId:
-                break;
             case MessageTypes.TE_MuzzleFlashId:
-                break;
             case MessageTypes.TE_BloodStreamId:
-                break;
             case MessageTypes.TE_ExplosionId:
-                break;
             case MessageTypes.TE_DustId:
-                break;
             case MessageTypes.TE_LargeFunnelId:
-                break;
             case MessageTypes.TE_SparksId:
-                break;
             case MessageTypes.TE_PhysicsPropId:
-                break;
             case MessageTypes.TE_PlayerDecalId:
-                break;
             case MessageTypes.TE_ProjectedDecalId:
-                break;
             case MessageTypes.TE_SmokeId:
                 break;
             default:
                 Console.WriteLine($"\tUnhandled Message Type [{type}::{data.Length}]");
                 break;
         }
+    }
+
+    private void ProcessFireBullets(byte[] data)
+    {
+        var fireBulletsEvent = CMsgFireBullets.Parser.ParseFrom(data);
+
+        Console.WriteLine(JsonConvert.SerializeObject(fireBulletsEvent, Formatting.Indented));
     }
 
     private void ProcessCreateStringTable(byte[] data)
@@ -288,6 +214,7 @@ public class MessageHandler
             if (i == 2)
             {
             }
+
             entityIndex += 1 + (int)eventData.ReadUBitVar();
 
             var flags = DeltaHeaderFlags.FHDR_ZERO;
@@ -327,9 +254,8 @@ public class MessageHandler
                 {
                     _context.EntityManager.UpdateAtIndex(entityIndex, baseline);
                 }
-                var entity = _context.EntityManager.UpdateAtIndex(entityIndex, ref eventData);
 
-                _events.Raise_OnEntityUpdated(_context.CurrentTick, entity, "CREATED");
+                var entity = _context.EntityManager.UpdateAtIndex(entityIndex, ref eventData);
             }
 
             if (updateType == PacketUpdateTypes.LeavePvs)
@@ -339,11 +265,10 @@ public class MessageHandler
                     _context.EntityManager.DeleteEntity(entityIndex);
                 }
             }
-            
+
             if (updateType == PacketUpdateTypes.DeltaEnt)
             {
                 var entity = _context.EntityManager.UpdateAtIndex(entityIndex, ref eventData);
-                _events.Raise_OnEntityUpdated(_context.CurrentTick, entity, "UPDATE");
             }
         }
     }
@@ -357,14 +282,11 @@ public class MessageHandler
         _context.TickInterval = serverInfo.TickInterval;
     }
 
-    
+
     private void ProcessPostMatchDetails(byte[] data)
     {
         CCitadelUserMsg_PostMatchDetails matchDetails = CCitadelUserMsg_PostMatchDetails.Parser.ParseFrom(data);
-        _events.RaisOnCCitadelUserMsg_PostMatchDetails(this, matchDetails);
     }
-        
-        
 }
 
 public enum PacketUpdateTypes

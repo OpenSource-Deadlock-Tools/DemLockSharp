@@ -1,4 +1,6 @@
-﻿using DemLock.Parser.Models;
+﻿using DemLock.Parser.Events;
+using DemLock.Parser.Models;
+using DemLock.Utils;
 
 namespace DemLock.Parser;
 
@@ -8,30 +10,72 @@ namespace DemLock.Parser;
 /// </summary>
 public class DemoParser
 {
-    public DemoEventSystem Events { get; }
+    public NetMessages NetMessages { get; init; }
+    public GameEvents GameEvents { get; init; }
+    public UserMessages UserMessages { get; init; }
+    public ServiceMessages ServiceMessages { get; init; }
+    public PacketMessages PacketMessages { get; init; }
+    public DemoFrames DemoFrames { get; init; }
+
     private FrameHandler _frameHandler;
     private MessageHandler _messageHandler;
     private DemoParserContext _context;
     private DemoParserConfig _config;
 
-    public DemoParser()
-    {
-        _config = new DemoParserConfig();
-        Events = new DemoEventSystem();
-        _context = new DemoParserContext(_config);
-        _context.Events = Events;
-        _messageHandler = new MessageHandler(Events, _context);
-        _frameHandler = new FrameHandler(Events, _messageHandler, _context);
-    }
-
     public DemoParser(DemoParserConfig config)
     {
         _config = config;
-        Events = new DemoEventSystem();
+        GameEvents = new GameEvents();
+        ServiceMessages = new ServiceMessages();
+        UserMessages = new UserMessages();
+        NetMessages = new NetMessages();
+        DemoFrames = new DemoFrames();
+        PacketMessages = new PacketMessages();
+
         _context = new DemoParserContext(_config);
-        _context.Events = Events;
-        _messageHandler = new MessageHandler(Events, _context);
-        _frameHandler = new FrameHandler(Events, _messageHandler, _context);
+        _messageHandler = new MessageHandler( _context, GameEvents, NetMessages, UserMessages, ServiceMessages);
+        _frameHandler = new FrameHandler( _messageHandler, _context);
+
+        DemoFrames.OnPacket += packet =>
+        {
+            BitStream bs = new BitStream(packet.Data.ToByteArray());
+            while (bs.BitsRemaining > 8)
+            {
+                var msgtype = (MessageTypes)bs.ReadUBit();
+                var msgSize = bs.ReadVarUInt32();
+                byte[] msgData = bs.ReadBytes(msgSize);
+                PacketMessages.ProcessMessage(msgtype, msgData);
+            }
+        };
+
+        DemoFrames.OnSignonPacket += packet =>
+        {
+            BitStream bs = new BitStream(packet.Data.ToByteArray());
+            while (bs.BitsRemaining > 8)
+            {
+                var msgtype = (MessageTypes)bs.ReadUBit();
+                var msgSize = bs.ReadVarUInt32();
+                byte[] msgData = bs.ReadBytes(msgSize);
+                PacketMessages.ProcessMessage(msgtype, msgData);
+            }
+        };
+
+        DemoFrames.OnFullPacket += packet =>
+        {
+            BitStream bs = new BitStream(packet.Packet.Data.ToByteArray());
+            while (bs.BitsRemaining > 8)
+            {
+                var msgtype = (MessageTypes)bs.ReadUBit();
+                var msgSize = bs.ReadVarUInt32();
+                byte[] msgData = bs.ReadBytes(msgSize);
+                PacketMessages.ProcessMessage(msgtype, msgData);
+            }
+        };
+
+        PacketMessages.OnNetMessage += NetMessages.HandleNetMessage;
+        PacketMessages.OnGameEvent += GameEvents.HandleGameEventMessage;
+        PacketMessages.OnServiceMessage += ServiceMessages.HandleServiceMessage;
+        PacketMessages.OnUserMessage += UserMessages.HandleUserMessage;
     }
 
     /// <summary>
@@ -44,16 +88,15 @@ public class DemoParser
         // Make sure we clear our context to start fresh
         _context.ClearContext();
         using DemoStream demo = DemoStream.FromFilePath(fileName);
-        DemoFrame frame;
+        FrameData frameData;
         int i = 0;
         do
         {
-            frame = demo.ReadFrame();
-            _context.CurrentTick = frame.Tick;
-            if (_config.LogReadFrames) Console.WriteLine($"[{i}::{frame.Tick}] {frame.Command}({(int)frame.Command})");
-            _frameHandler.HandleFrame(frame);
+            frameData = demo.ReadFrame();
+            _context.CurrentTick = frameData.Tick;
+            DemoFrames.ProcessFrame(frameData);
             i++;
-        } while (frame.Command != DemoFrameCommand.DEM_Stop);
+        } while (frameData.Command != DemoFrameCommand.DEM_Stop);
     }
 
     public void DumpClassDefinitions(string fileName, string outputDirectory)
@@ -61,18 +104,20 @@ public class DemoParser
         // Make sure we clear our context to start fresh
         _context.ClearContext();
         using DemoStream demo = DemoStream.FromFilePath(fileName);
-        DemoFrame frame;
+        FrameData frameData;
         int i = 0;
         do
         {
-            frame = demo.ReadFrame();
-            _context.CurrentTick = frame.Tick;
-            if (frame.Command == DemoFrameCommand.DEM_SendTables || frame.Command == DemoFrameCommand.DEM_ClassInfo)
+            frameData = demo.ReadFrame();
+            _context.CurrentTick = frameData.Tick;
+            if (frameData.Command == DemoFrameCommand.DEM_SendTables ||
+                frameData.Command == DemoFrameCommand.DEM_ClassInfo)
             {
-                _frameHandler.HandleFrame(frame);
+                _frameHandler.HandleFrame(frameData);
             }
+
             i++;
-        } while (frame.Command != DemoFrameCommand.DEM_Stop);
+        } while (frameData.Command != DemoFrameCommand.DEM_Stop);
 
         if (!Directory.Exists(outputDirectory))
         {

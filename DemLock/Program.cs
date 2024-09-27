@@ -1,6 +1,5 @@
 ﻿using System.Diagnostics;
 using DemLock.Entities;
-using DemLock.Entities.Generated;
 using DemLock.Parser;
 using Newtonsoft.Json;
 
@@ -25,19 +24,32 @@ class Program
         config.LogReadFrames = false;
         
         DemoParser parser = new DemoParser(config);
-        parser.Events.OnCCitadelUserMsg_PostMatchDetails += (sender, e) =>
+
+        Dictionary<int, int> eventIdCounts = new Dictionary<int, int>();
+
+        parser.GameEvents.OnSource1LegacyGameEvent += (e) =>
         {
-            Console.WriteLine(JsonConvert.SerializeObject(e, Formatting.Indented));
+            if(!eventIdCounts.TryAdd(e.Eventid, 1)) eventIdCounts[e.Eventid]++;
         };
         
-        parser.Events.OnEntityUpdated += (sender, eventArgs) =>
+        Dictionary<int, string> eventNames = new Dictionary<int, string>(); 
+        parser.GameEvents.OnSource1LegacyGameEventList += (e) =>
         {
-            //if (eventArgs.Entity is CCitadelPlayerPawn player)
-            //{
-            //    Console.WriteLine($"{player.m_flSimulationTime}==>{player.m_iHealth}/{player.m_iMaxHealth}");
-            //}
+            foreach (var v in e.Descriptors)
+            {
+                eventNames[v.Eventid] = v.Name;
+            }
         };
+        
+        
+        
         parser.ProcessDemo("C:\\tmp\\DeadlockDemos\\534870CS.dem");
+
+        foreach (var ev in eventIdCounts)
+        {
+            Console.WriteLine($"{eventNames[ev.Key]} :: {ev.Value}");
+            
+        }
         Console.WriteLine($"Processed demo in {sw.Elapsed.TotalSeconds} seconds");
         // 14011DEMLOCK.dem
         

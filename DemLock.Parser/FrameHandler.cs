@@ -9,41 +9,39 @@ namespace DemLock.Parser;
 /// </summary>
 public class FrameHandler
 {
-    private readonly DemoEventSystem _events;
     private readonly MessageHandler _messageHandler;
     private readonly DemoParserContext _context;
 
-    public FrameHandler(DemoEventSystem eventSystem, MessageHandler messageHandler, DemoParserContext context)
+    public FrameHandler(MessageHandler messageHandler, DemoParserContext context)
     {
         _context = context;
-        _events = eventSystem;
         _messageHandler = messageHandler;
     }
 
-    public void HandleFrame(DemoFrame frame)
+    public void HandleFrame(FrameData frameData)
     {
-        if(_context.Config.IgnoredFrames.Contains(frame.Command)) return;
+        if(_context.Config.IgnoredFrames.Contains(frameData.Command)) return;
         
-        switch (frame.Command)
+        switch (frameData.Command)
         {
             case DemoFrameCommand.DEM_Stop: return;
             case DemoFrameCommand.DEM_FileHeader:
-                HandleFileHeader(frame);
+                HandleFileHeader(frameData);
                 break;
             case DemoFrameCommand.DEM_ClassInfo:
-                HandleClassInfo(frame);
+                HandleClassInfo(frameData);
                 break;
             case DemoFrameCommand.DEM_SendTables:
-                HandleSendTables(frame);
+                HandleSendTables(frameData);
                 break;
             case DemoFrameCommand.DEM_Packet:
-                HandlePacket(frame);
+                HandlePacket(frameData);
                 break;
             case DemoFrameCommand.DEM_SignonPacket:
-                HandleSignonPacket(frame);
+                HandleSignonPacket(frameData);
                 break;
             case DemoFrameCommand.DEM_FullPacket:
-                HandleFullPacket(frame);
+                HandleFullPacket(frameData);
                 break;
         }
     }
@@ -53,10 +51,10 @@ public class FrameHandler
     /// Handle a Full packet frame being received, this could likely be merged with handle packet,
     /// but for clarity wanted to keep them explicit
     /// </summary>
-    /// <param name="frame">The frame which contains the data to process</param>
-    private void HandleFullPacket(DemoFrame frame)
+    /// <param name="frameData">The frame which contains the data to process</param>
+    private void HandleFullPacket(FrameData frameData)
     {
-        var packet = CDemoFullPacket.Parser.ParseFrom(frame.Data);
+        var packet = CDemoFullPacket.Parser.ParseFrom(frameData.Data);
         BitStream bs = new BitStream(packet.Packet.Data.ToByteArray());
         while (bs.BitsRemaining > 8)
         {
@@ -70,10 +68,10 @@ public class FrameHandler
     /// Handle a signon packet frame ebing received, this could likely be merged with handle packet,
     /// but for clarity wanted to keep them explicit
     /// </summary>
-    /// <param name="frame">The frame which contains the data to process</param>
-    private void HandleSignonPacket(DemoFrame frame)
+    /// <param name="frameData">The frame which contains the data to process</param>
+    private void HandleSignonPacket(FrameData frameData)
     {
-        var packet = CDemoPacket.Parser.ParseFrom(frame.Data);
+        var packet = CDemoPacket.Parser.ParseFrom(frameData.Data);
         BitStream bs = new BitStream(packet.Data.ToByteArray());
         while (bs.BitsRemaining > 8)
         {
@@ -84,15 +82,14 @@ public class FrameHandler
         }
     }
     
-    private void HandleFileHeader(DemoFrame frame)
+    private void HandleFileHeader(FrameData frameData)
     {
-        var fileHeader = CDemoFileHeader.Parser.ParseFrom(frame.Data);
-        _events.RaiseOnFileHeader(frame.Tick, fileHeader);
+        var fileHeader = CDemoFileHeader.Parser.ParseFrom(frameData.Data);
     }
 
-    private void HandlePacket(DemoFrame frame)
+    private void HandlePacket(FrameData frameData)
     {
-        var packet = CDemoPacket.Parser.ParseFrom(frame.Data);
+        var packet = CDemoPacket.Parser.ParseFrom(frameData.Data);
         BitStream bs = new BitStream(packet.Data.ToByteArray());
         while (bs.BitsRemaining > 8)
         {
@@ -106,10 +103,10 @@ public class FrameHandler
     /// <summary>
     /// Handle the class info message frame and update the corresponding tables
     /// </summary>
-    /// <param name="frame"></param>
-    private void HandleClassInfo(DemoFrame frame)
+    /// <param name="frameData"></param>
+    private void HandleClassInfo(FrameData frameData)
     {
-        CDemoClassInfo demClassInfo = CDemoClassInfo.Parser.ParseFrom(frame.Data);
+        CDemoClassInfo demClassInfo = CDemoClassInfo.Parser.ParseFrom(frameData.Data);
 
         foreach (var v in demClassInfo.Classes)
         {
@@ -121,9 +118,9 @@ public class FrameHandler
         }
     }
 
-    private void HandleSendTables(DemoFrame frame)
+    private void HandleSendTables(FrameData frameData)
     {
-        CDemoSendTables sendTable = CDemoSendTables.Parser.ParseFrom(frame.Data);
+        CDemoSendTables sendTable = CDemoSendTables.Parser.ParseFrom(frameData.Data);
 
         BitBuffer bs = new BitBuffer(sendTable.Data.ToByteArray());
         

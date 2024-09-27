@@ -39,9 +39,9 @@ namespace DemLock.Parser
                 : Encoding.ASCII.GetString(stampBytes);
         }
 
-        public DemoFrame ReadFrame()
+        public FrameData ReadFrame()
         {
-            var frame = new DemoFrame();
+            var frame = new FrameData();
             uint rawCmd = _stream.ReadVarUInt32();
             frame.Command = (DemoFrameCommand)(rawCmd & ~64);
             frame.Tick = _stream.ReadVarUInt32();

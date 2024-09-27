@@ -14,6 +14,7 @@ public enum MessageTypes
     net_SignonState = 7,
     net_SpawnGroup_Load = 8,
     net_SpawnGroup_SetCreationTick = 11,
+    
     svc_ServerInfo = 40,
     svc_ClassInfo = 42,
     svc_CreateStringTable = 44,
@@ -22,8 +23,10 @@ public enum MessageTypes
     svc_ClearAllStringTables = 51,
     svc_PacketEntities = 55,
     svc_HLTVStatus = 62,
-    UM_ParticleManager = 145,
-    UM_PlayResponseConditional = 166,
+
+	UM_ParticleManager = 145,
+	UM_PlayResponseConditional = 166,
+
     GE_Source1LegacyGameEventList = 205,
     GE_Source1LegacyGameEvent = 207,
     GE_SosStartSoundEvent = 208,
@@ -40,6 +43,7 @@ public enum MessageTypes
     GE_PlaceSatVolumeEvent = 463,
     GE_DisableSatVolumesEvent = 464,
     GE_RemoveSatVolumeEvent = 465,
+    
     k_EUserMsg_Damage = 300,
     k_EUserMsg_MapPing = 303,
     k_EUserMsg_TeamRewards = 304,
@@ -82,7 +86,8 @@ public enum MessageTypes
     k_EUserMsg_CurrencyChanged = 345,
     k_EUserMsg_GameOver = 346,
     k_EUserMsg_BossKilled = 347,
-	  k_EEntityMsg_BreakablePropSpawnDebris = 500,
+	k_EEntityMsg_BreakablePropSpawnDebris = 500,
+	
     TE_EffectDispatchId = 400,
     TE_ArmorRicochetId = 401,
     TE_BeamEntPointId = 402,
